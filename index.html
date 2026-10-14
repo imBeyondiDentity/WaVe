@@ -1,0 +1,1588 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WaVe</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230e0d0c'/><g fill='none' stroke='%23ff6a1a' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'><path d='M14 54q9-28 18 0t18 0 18 0 18 0'/></g></svg>">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAPUElEQVR4nOydeXAUVRrA+5ieSSYzCSQkYAI5CQHkFJZDWQUWCIpS3Cugi7siuuIeslsUW1SBx7oe664lyyq1iogHhygIayGISEIhLIdG7iMhkBBykIMQMtNzdfe+mF1Ayct80/1mkqa+35+pSTKv+9ff+973jrbEOh0cgrSEhUMQCigHQgXlQKigHAgVlAOhgnIgVFAOhArKgVBBORAqKAdCBeVAqKAcCBWUA6GCciBUUA6ECsqBUEE5ECooB0IF5UCooBwIFZQDoYJyIFRQDoQKyoFQQTkQKigHQgXlQKigHAgVlAOhgnIgVFAOhArKgVBBORAqKAdCBeVAqKAcCBWUA6GCciBUUA6ECsqBUEE5ECooB0IF5UCooBwIFZQDoYJyIFRQDoQKyoFQQTkQKigHQgXlQKigHAgVlAOhgnIgVFAOhArKgVBBORAqKAdCBeVAqKAcCBWUA6GCciBUUA6ECsqBUBFtNivXFiTbuR6xgqxoHoUzKZlOPt0hNPg0v8bdkkQ0cjglbnaWNC1N6tVRcEhC8w9rPOqROuXDs/6Pzwe4dk+XaO6xHGtuitQ3Xrz2w7JGdX+1srrIm1+pcrcQfKzTwYWfGAv3wiDbzExrlIWnfYZY8uZJ36vHfFy7JDWGf2GwbWJqa4G2uEF5/jvPxhLTBsMfEoluhVzWz3NjxqRIFoFv5WN2C3/PbZZBnYStFwL+dvYEDkkUt46LGZAQJNB2tAmT0qx2kcurJFGQ50xO2CPHXUnihyPtHW0hXKkzV5SpO92lrvbSk5OucNmwqNbN/hG7KgIP57uv+jlTE1457kwSt4y1S0LIz1CVrI7c6ip3t70fj2RLrw+L5kKnoFYZt83lM3MSInBhI8PJrx+lxwxC52jh0zF2u8i1LWOTLa8NjeJ0MTBBfHuEHqvaD+HKOeJt/Be5MUnR+uXrFCUMShA/Ot9m48TeHYTNY+xWUX/q0LODaBW0/Eqz5qfhkmP9aHv/eKMPfoZT4DRuT1UbXFwStLaPjyGCcsa4s7Nl36VASaMpKyFh6VYeypLu6cKmgvLHvtacuDD2fTSeGxSV6mDzf1fcFR0rcWaE/XXvEs2/OFhnP30zZIxAem4xsqPCoYkiqXRxjEi2Cy8OYnZBIgn7bmXNKHtOHMtMkiSnfkXbeylCnYtN4D4bFxNnZeljvwTRjJ0L48iRmyKy6lBuZGE/W1JUhKLH031srDqUGyHjYcFsVTHGV+GZgdD4KQe0VWe8wA+TIcPiAZGYICTFuqd6QROEcpf6WSm02E+S619kmSz1YCnHlDSxd0dohzL5S/fv93sXHZSBn38k25bhCPuj93Rvq9MKuiYVbnX8F67Z+Z71Z6F+/Km/jTMVzHIOEjPXjorpAOuqF38jbyxpmoM9VKP2ixd6wHKUhCh+S2kYZ24To/h37o6GlMk1TXswTz56uan8ue1iYFKaJQEw6HVIfGNAPVBtmqIps8gxO1NKh3XVe6v8y09cn3V4cq98SQZdr+kZ1t4dwhg8FvWzRsHGRStO+a5VX8gc4WN7oPFvwe3WGPOsr2IWOd67BzS7Rp65aV/Jtd7rebtHaZqsvz8V1B+TQUSYggcJG2TMLPDBm0C+7aw8+cZJk0pZi7dygxOD33a7Raj1qgdrzBE82EQOMkhpqmYCWFXoO33lx5dmbXHgcB1opDo5TUoMz7Dl0R5W4LzrcwXexpv8/MsRb4MPNFJ9spdpMg82cjzeExR+rvq1ZwtaHqEs2O/hAJD7N7cH+5yfdCaPwv7sqXpldVELM/H1Pu6Fw6AmdI0Rxndt6xlFGAzkSHfwP0sGXdl/nvDVU1L7QzXKznLQ8ofHe9qYF0ynpFmAc4RLC6gGvHXaX+0B9ReP57TNut1QYSDHU71BcdKnaG+eaq2w8fpxUNmDZDbT0hkndU/AIl9Rg7KtjNr9KRr3jxOgYe3oZJK8m6AiZlQOh6VpoRTkkyQa17d66fIr1WOXQZnH/N4su+2+HQVILkl4Ldj61pWnfVdhSwzmmyHzMCrH9AzJbgn+EKiatgwQGP52FNRt948X+7Ab087NAclNBilri4N0fCRRfec0KHjMzJIs7T52GJVjRgbomdteFoCsCd1UotTAuu0ZGWy6bXKHpqWD/hRJKRRAUHjjlI8M14N+zCnxE7q194qHITmS7fydnaF9CuRj5KKuLoQ+eRwLclMspHAZ9GPkfq+CfTFS8/iqAlSJ+XnmLS3HjHTQHaqS1c/LoJWr92AakcHFXUkMBoQzYHfoy/JAlQydcF9dCGrChG7WDoxGLQPihWXDbDty7RUPOgqnObbn2h9gEZYMyTGrO+gbvF8Uwj6l841afqSePKfETUoD3Z/3CkPYZbC5NFDnBXWOpKbHGWZejpQ/wTEn2zYkyWKXBPLYDEuyfDDS/snoaKexP69fjts78DlxoNvzbmFo+zeAMk1JtxrM6Samgr5/rUfdWhZazX4NLP4BM7ZWGJsi/nVIy2vcx6RI60bZjSwi0S8HGadAPra/KnAhxO1JW0r9LsCWN5LTkYyBM8B0WCq64Zw/EOIarrXFIL9JxtbVbkjwZwa0toBmRGfL/F76o4d+OcalgP7rxtKQt315Vf7zMlDBw0jPkmjjRiWDfv3TkpCn+o7Va8UNoCYAn7EWGX2b2CfYEn8jYyL9cnSPBf3uJ7r2zm8uASl1b1fJobftU2DZ9CVZ3VetZ/nqJlgTpqXrl2M64HeHJVp0r33XKUcnGweZ4ThwKVDt0bOq9ovygAwI5VaRv0/vkzEVlgxuKtG5QgAYb8ijn+nUcxdIvvUAoAk8zzsiLAcphDcC6sQbS3RuJfYo3NYLoIs7VVfCn2Lnh3YGWbXpvM4mHLmsXnABC3p6mkDyLSegQlPv08rdnD50ykGe6g3ngudcJJXj9LIBdlfGd5PiQq8WTIFN3ZW7dPYpzaw5Cxx26SnYTIY1YV+V/rVR+nOOl4/4Wh/Nv3TYUwNdXt4COy4GgJNY94fes4D7FEOHKASdi2mGVARCXf4YJZJWwwYEBpqgX44KWZu7R6bNI6w87X3lqAE1vg9Om0pAT96szNBCR4aTH9gJ5JORyEc4d1U7ClvhFmoTJqVZogFFHo+ibS5pi8hB2Fmu5G53H679Qfvrvepv9soLDngVzei04wbYkzeiiyXTGcL/mtcDdCfIWLSgzuhiT2DnOCsrtOA3pzsobPy71O810AKjFbr91crdW125KeKAeFFWtCN1ah67Ewd2V6mVbrWLPbjBc7KtS7+FBqqZmaAru67YUNhohmRmz90RfKNXQpQ4KdXyKWztdLZTAM53Gox8bNaQbr+ovHzUt+yEP4/1WRQbYU/ew+DlEaRi3RF2sML6cwzkICOFfZdAf+eRbGjP8kvYctfLXm1HuaHb0QanG4TExzA5EqIEYFo6pzvoHnxbEzjPaN/zx+dA8WDkbWK3mOCCk+rSw7AmkIxNNdaC9i7HN7XqyXqQ/r/uFfyS9YwTRsD2eX9QxCBsNEMikBewTIhUq+YDmkD6xFjYtkLjTWjvchDeOgUas5B56uGJQQoGC/uCVm66A9qaYmZyXPVzH52D9iytr/AgUizoAwobh+sU8lxxxjCBHOQ+uWGzon9o9cKRoA0sHL1f5JeZ5k5vwxaWktHpk60Gj4mplqxYUMVsxSlDdYRmTCAHuU/ACDm2qzQgntqiJQNskN2OhDdOMriyN/JdnXqoGpR5PNHTRgse5KsvGQiKfA0+DZjotI4J5OCaVu1C79ZLP2l53NgrTpgBKzTtrmSWit7Iv2DBI87KL+rXsgEPZUndYWHj3TM+JuefmkMOUmrcXQl6FIYnWVrcbPjKEOipMsAUJ1TI7C5w7eDcHGvaTcMWm8AtvQMUNkjNesVpNk0whxxc04YiaPB49qbThUbfJt4NG6QUXlG2XGAQkG+GPMrLj4PumSTwS29qwlO9rImw8szG84GLjE5+No0cX1UoB2Hdds8O4uL+13sQu8gtGw49SfilI4yzjRshD3QtbFfO1Azpvq7XbU538AthpwKpmvYiuyaYRg7CM+AC+cJ+UUMS/9e0V4dEdYsBNZMUVML6zhdXgPv7cWgTlg+3Jf0/fLzz02jgqTIfFfsLG5gd/tFmb2rSQalLG54kpsPWTU1Ls1xwqQv7WWeAJzx/t8/D8Mq2CJl7InNmMYBFOnaLMD1DKmxQVo6IvqMTdApsdr67nl3KFKGX8bBicCdh571h+cJkbpnMIHLhZ16ORNtMYJDVhd7f/odlt2imyME1zWNpWU7+9o6MDz8hGf7MPHeFzH4EezOk5kFqWYlRjDv0Kz5tVp7sZlq7M1PO0czCg946L+Pg//YZ/7e14e1QrkGmWebtkRWVsYiLDsk1XsZ/02SRg/t+7XG5S53IYiNhM+VudVaeO5IvDqvyaE6JH5rEbCN1XkVg8Tfsx1nmixxc0/KqwK5yZsOKJ76WXRF/L+WfD3tLGtn4KAc00gQuDJhSDsKv9sgXXQwu7uvHvG3yshwS/2bucssBBh3BvK/lMGVLZpWjzqtN+tINPN2RxrYy/5KCMFa9Wud4vTpntww56aUVni/whO9UZ/PlHNeo9WoHqpUHMyXgXOuPOHZZmbzTHYjEAIXK2asq+Qajk3XmTxvO+RcdCqPcJpaDcMGllbm1Cd1CvrhVspq7zX2lHbzac3+12j1W0DE4P1AdmLlLDmsabW45CEcvq0UNypgUixV8EkVBrTJxh7tSbtOgcQOflfrJdyfFXx4cAsmvzPzhEdvhwGQVUhqZTmHdqGjIG6KWH/cuKfAY31PDnJFdxJU/jQ76ykFPQFt0yLOqMBJB7xaRg2vada49kGqZl2NtcU9Ho19dV+x/85S/qCGCBY0QcVi4WVnSYzlSj5aOTKp0q+8W+lae8V0CncfJgFtHjmv0iBWGJorZsULPOKHep51pUE/Wq/mVgcaIFzN0MyxR7NuRz44VM2MFUqM7fUU9cVndFfEh9y0oB8IK87wZBok4KAdCBeVAqKAcCBWUA6GCciBUUA6ECsqBUEE5ECooB0IF5UCooBwIFZQDoYJyIFRQDoQKyoFQQTkQKigHQgXlQKigHAgVlAOhgnIgVFAOhArKgVBBORAqKAdCBeVAqKAcCBWUA6GCciBUUA6ECsqBUEE5ECooB0IF5UCooBwIFZQDoYJyIFRQDoQKyoFQQTkQKigHQgXlQKigHAgVlAOhgnIgVFAOhArKgVBBORAqKAdC5b8AAAD//0vDW2AAAAAGSURBVAMAA974dKjNAioAAAAASUVORK5CYII=">
+<meta name="theme-color" content="#0e0d0c">
+<meta name="description" content="Rules-engine prompt compiler for Wan 2.5, 2.7 and 3.0. RU/EN. Runs in your browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e0d0c;--card:#151412;--card2:#1b1917;--line:#2a2724;--text:#ece7e1;--mute:#8d867e;
+  --acc:#ff6a1a;--acc-d:#c9500f;--ok:#6fcf97;--warn:#f2c94c;--err:#eb5757;--info:#7aa2f7;
+  --serif:'Playfair Display',Georgia,'Times New Roman',serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 var(--mono);-webkit-font-smoothing:antialiased;padding-bottom:0}
+.wrap{max-width:1200px;margin:0 auto;padding:0 16px;position:relative}
+header{padding:56px 0 20px;text-align:center}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin:0 0 14px}
+h1{font:700 clamp(36px,7vw,68px)/1.05 var(--serif);margin:0 0 30px;letter-spacing:-.01em}
+.sub{max-width:720px;color:var(--mute);margin:0 0 26px;font-size:13.5px}
+.lang{position:absolute;top:18px;right:16px;z-index:20;display:flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px}
+.lang button{all:unset;cursor:pointer;font-size:11px;letter-spacing:.1em;padding:5px 12px;border-radius:999px;color:var(--mute)}
+.lang button[aria-pressed=true]{background:var(--acc);color:#120a04;font-weight:700}
+.bar{justify-content:center;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.seg button{all:unset;cursor:pointer;padding:9px 18px;font-size:13px;color:var(--mute);transition:.15s}
+.seg button:hover{color:var(--text)}
+.seg button[aria-pressed=true]{background:var(--acc);color:#120a04;font-weight:700}
+.lbl{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-right:10px}
+.tabs{display:flex;gap:4px;overflow-x:auto;max-width:100%}
+.tabs button{all:unset;cursor:pointer;padding:8px 14px;font-size:12.5px;color:var(--mute);border-bottom:2px solid transparent;white-space:nowrap}
+.tabs button:hover{color:var(--text)}
+.tabs button[aria-pressed=true]{color:var(--acc);border-bottom-color:var(--acc)}
+.grid{display:grid;grid-template-columns:1fr;gap:18px;padding:22px 0}
+@media(min-width:980px){.grid{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:22px}.sticky{position:sticky;top:14px;align-self:start;max-height:calc(100vh - 28px);overflow:auto}}
+.col{display:flex;flex-direction:column;gap:18px;min-width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card h2{font:600 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin:0 0 14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+label{display:block;font-size:11.5px;color:var(--mute);margin:12px 0 5px}
+label:first-of-type{margin-top:0}
+textarea,input[type=text],input[type=number],select{-webkit-appearance:none;appearance:none;border-radius:9px;width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:10px 12px;font:13px/1.5 var(--mono);outline:none;transition:border-color .15s}
+textarea{resize:vertical;min-height:110px}
+textarea:focus,input:focus,select:focus{border-color:var(--acc)}
+.sel{position:relative;display:block;min-width:0}
+.sel .face{display:block;background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%238d867e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 12px center/10px 6px;border:1px solid var(--line);border-radius:9px;padding:10px 34px 10px 12px;font:13px/1.5 var(--mono);color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:44px;transition:border-color .15s}
+.sel:focus-within .face{border-color:var(--acc)}
+.sel select{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;margin:0;padding:0;border:0;cursor:pointer;font-size:16px;-webkit-appearance:none;appearance:none;background:transparent}
+@media(max-width:700px){.sel .face{font-size:16px}}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.row3{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.dur{display:grid;grid-template-columns:1fr 78px;gap:12px;align-items:center}
+input[type=range]{width:100%;accent-color:var(--acc)}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card2);color:var(--text);border-radius:999px;padding:5px 11px;font-size:11.5px;text-decoration:none}
+button.chip{cursor:pointer;font-family:var(--mono)}
+button.chip:hover,a.chip:hover{border-color:var(--acc);color:var(--acc)}
+.chip b{color:var(--acc);font-weight:600}
+.chip.dim{color:var(--mute)}
+.btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 15px;border-radius:9px;background:var(--acc);color:#120a04;font:700 12.5px var(--mono);transition:.15s}
+.btn:hover{background:#ff8340}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);font-weight:500}
+.btn.ghost:hover{border-color:var(--acc);color:var(--acc)}
+.btn.sm{padding:6px 11px;font-size:11.5px}
+.btn:focus-visible,.seg button:focus-visible,.tabs button:focus-visible,.lang button:focus-visible,.chip:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chk{display:flex;gap:9px;align-items:flex-start;margin:10px 0 0;color:var(--text);font-size:12.5px;cursor:pointer}
+.chk input{margin-top:3px;accent-color:var(--acc)}
+.ref{display:grid;grid-template-columns:70px minmax(130px,1.1fr) minmax(0,1.3fr) 32px;gap:8px;align-items:center;margin-bottom:8px}
+.ref .tok{font-size:11.5px;color:var(--acc)}
+.ref .x{all:unset;cursor:pointer;color:var(--mute);text-align:center;font-size:18px;line-height:1}
+.ref .x:hover{color:var(--err)}
+@media(max-width:560px){.ref{grid-template-columns:62px 1fr 28px}.ref input{grid-column:1/-1;grid-row:2}.row{grid-template-columns:1fr}}
+.hint{font-size:11.5px;color:var(--mute);margin:8px 0 0}
+pre.out{margin:0;white-space:pre-wrap;word-break:break-word;font:12.5px/1.65 var(--mono);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px;max-height:560px;overflow:auto;user-select:text}
+.stats{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:var(--mute);margin:10px 0 6px;flex-wrap:wrap}
+.meter{height:4px;background:var(--line);border-radius:4px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--acc);transition:width .2s}
+.meter.over i{background:var(--err)}
+.tl{display:flex;gap:3px;height:54px;margin-bottom:14px}
+.tl div{background:linear-gradient(180deg,rgba(255,106,26,.28),rgba(255,106,26,.12));border:1px solid rgba(255,106,26,.45);border-radius:7px;padding:5px 7px;min-width:0;overflow:hidden;font-size:10.5px;line-height:1.3}
+.tl b{display:block;color:var(--acc)}
+.tl span{color:var(--mute);white-space:nowrap;text-overflow:ellipsis;overflow:hidden;display:block}
+.shot{border-top:1px solid var(--line);padding:10px 0;font-size:12.5px}
+.shot .t{color:var(--acc);margin-right:8px}
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:12.5px}
+.list li:first-child{border-top:0}
+.dot{flex:none;width:8px;height:8px;border-radius:50%;margin-top:7px;background:var(--info)}
+.dot.err{background:var(--err)}.dot.warn{background:var(--warn)}.dot.tip{background:var(--info)}.dot.info{background:var(--mute)}
+.score{font:700 12px var(--mono);padding:3px 10px;border-radius:999px;border:1px solid var(--line)}
+.score.hi{color:var(--ok);border-color:var(--ok)}.score.mid{color:var(--warn);border-color:var(--warn)}.score.lo{color:var(--err);border-color:var(--err)}
+.empty{color:var(--mute);font-size:13px;padding:22px 4px;text-align:center}
+.hist{display:grid;gap:10px}
+.hist .it{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:8px}
+.hist .meta{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--mute);align-items:center}
+.badge{border:1px solid var(--acc);color:var(--acc);border-radius:6px;padding:1px 7px;font-size:10.5px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);background:var(--acc);color:#120a04;font-weight:700;font-size:12.5px;padding:9px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;z-index:30}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.foot{color:var(--mute);font-size:11.5px;padding:10px 0 30px;max-width:760px}
+[hidden]{display:none!important}
+::selection{background:var(--acc);color:#120a04}
+
+select::-ms-expand{display:none}
+input[type=number]{-moz-appearance:textfield}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+@media(max-width:700px){textarea,input[type=text],input[type=number],select{font-size:16px}}
+
+.end .chip{color:var(--acc);font-size:13px;padding:9px 18px}
+@media(max-width:700px){header{padding-top:76px}}
+.end{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding:22px 0 calc(34px + env(safe-area-inset-bottom,0px));color:var(--mute);font-size:12px}
+.end .brand{text-align:center;white-space:nowrap}
+.end .brand i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--acc);margin-right:8px;vertical-align:middle;font-style:normal}
+.end .brand i.right{margin-right:0;margin-left:8px}
+.end .chip{flex:none}
+.bar>div:first-child{display:flex;flex-direction:column;align-items:center;gap:9px}
+.bar .lbl{margin:0}
+.bar{flex-direction:column;gap:16px}
+
+.vtag{position:absolute;top:18px;left:16px;z-index:20;display:flex;align-items:center;height:36px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:0 14px;font-size:11px;letter-spacing:.1em;color:var(--mute);user-select:none}
+
+
+@media(max-width:560px){#outTabs button{padding:8px 7px;font-size:12px}}
+
+#outTabs button{letter-spacing:.04em}
+
+/* size scale: actions 40px, chips and small buttons 34px, footer chips 40px */
+.btn{min-height:40px}
+.btn.sm{min-height:34px}
+.chip{min-height:34px;padding:0 14px;font-size:12px}
+.end .chip{min-height:40px;padding:0 18px;font-size:13px}
+.tile{all:unset;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;gap:3px;min-height:58px;padding:9px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card2);min-width:0}
+.tile i{font-style:normal;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.tile b{font-size:13px;font-weight:600;color:var(--acc);line-height:1.3;overflow-wrap:anywhere}
+.tile.dim b{color:var(--mute);font-weight:500}
+button.tile{cursor:pointer;border-color:var(--acc);font-family:var(--mono)}
+button.tile:hover{background:#1f1814}
+button.tile:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+#examples .chip{width:100%;justify-content:center;text-align:center;white-space:normal;line-height:1.25;min-height:34px;padding-left:8px;padding-right:8px}
+.ref{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding:12px;border:1px solid var(--line);border-radius:14px;margin-bottom:10px;align-items:stretch}
+.ref .rh{display:flex;align-items:center;justify-content:space-between}
+.ref .x{width:28px;height:28px;display:flex;align-items:center;justify-content:center}
+.ref .sel,.ref input{width:100%}
+@media(max-width:560px){.ref{grid-template-columns:minmax(0,1fr)}.ref input{grid-column:auto;grid-row:auto}}
+.row3:has(#lens){grid-template-columns:repeat(2,minmax(0,1fr))}
+.row3:has(#lens)>div{min-width:0}
+
+/* WaVe: every chip group is even and equal-sized */
+.seg{display:inline-grid;grid-auto-flow:column;grid-auto-columns:1fr}
+.seg button{box-sizing:border-box;width:100%;min-width:92px;text-align:center}
+#modeTabs,#outTabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;width:100%;overflow:visible}
+#modeTabs{max-width:520px}
+#modeTabs button,#outTabs button{text-align:center;padding:8px 4px}
+@media(max-width:560px){#modeTabs button{font-size:12px;padding:8px 2px}}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;gap:8px}
+#examples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;gap:8px}
+.end .chip{flex:0 0 104px;width:104px;box-sizing:border-box;justify-content:center;padding:0}
+.addrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.addrow .btn{width:100%;min-width:0;padding-left:6px;padding-right:6px;box-sizing:border-box;border-radius:999px;white-space:nowrap}
+button.btn[disabled]{opacity:.35;cursor:not-allowed}
+button.btn.ghost[disabled]:hover{border-color:var(--line);color:var(--text)}
+.acts.g6,.acts.g4,.acts.g2{display:grid;gap:8px}
+.acts.g6{grid-template-columns:repeat(3,minmax(0,1fr))}
+.acts.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.acts.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.acts.g6 .btn,.acts.g4 .btn,.acts.g2 .btn{min-width:0;padding:0 6px;text-align:center;box-sizing:border-box}
+.acts.g6 .btn{white-space:nowrap}
+.acts.g4 .btn{white-space:normal;line-height:1.2}
+@media(max-width:560px){.addrow,.acts.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.hist .acts.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.hist .acts.g4 .btn{white-space:nowrap}
+table.mt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11.5px;line-height:1.45}
+.mt th,.mt td{padding:9px 5px;border-top:1px solid var(--line);vertical-align:top;overflow-wrap:anywhere}
+.mt thead th{border-top:0;color:var(--mute);font-weight:600;text-align:center;letter-spacing:.06em;font-size:11px}
+.mt thead th.cur{color:var(--acc)}
+.mt tbody th{width:22%;text-align:left;color:var(--mute);font-weight:500;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.mt td{text-align:center}
+.mt td.cur{background:rgba(255,106,26,.08);color:var(--text)}
+
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="vtag" title="WaVe">v1.0.0</div>
+<div class="lang" role="group" aria-label="Language">
+  <button type="button" data-l="en" aria-pressed="true">EN</button>
+  <button type="button" data-l="ru" aria-pressed="false">RU</button>
+</div>
+  <header>
+    <p class="kicker" data-t="kicker"></p>
+    <h1 id="title">WaVe</h1>
+    <div class="bar">
+      <div><span class="lbl" data-t="ver"></span>
+        <span class="seg" id="verSeg" role="group"><button type="button" data-v="2.5" aria-pressed="false">Wan 2.5</button><button type="button" data-v="2.7" aria-pressed="true">Wan 2.7</button><button type="button" data-v="3.0" aria-pressed="false">Wan 3.0</button></span>
+      </div>
+      <nav class="tabs" id="modeTabs">
+        <button type="button" data-m="compile" aria-pressed="true" data-t="tab_compile"></button>
+        <button type="button" data-m="improve" aria-pressed="false" data-t="tab_improve"></button>
+        <button type="button" data-m="history" aria-pressed="false" data-t="tab_hist"></button>
+        <button type="button" data-m="models" aria-pressed="false" data-t="tab_models"></button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- COMPILE -->
+  <section id="pane-compile" class="grid">
+    <div class="col">
+      <div class="card">
+        <h2><span data-t="c_brief"></span></h2>
+        <label for="desc" data-t="f_desc"></label>
+        <textarea id="desc" data-tp="ph_desc" spellcheck="false"></textarea>
+        <label data-t="ex"></label>
+        <div class="chips" id="examples"></div>
+        <div class="row" style="margin-top:14px">
+          <div><label for="durNum" data-t="f_dur"></label>
+            <div class="dur"><input type="range" id="dur" min="2" max="15" step="1" value="10"><input type="number" id="durNum" min="2" max="15" value="10"></div></div>
+          <div><label for="ratio" data-t="f_ratio"></label><select id="ratio"></select></div>
+        </div>
+        <div class="row" style="margin-top:2px">
+          <div><label for="res" data-t="f_res"></label><select id="res"></select></div>
+          <div><label for="arch" data-t="f_arch"></label><select id="arch"></select></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><span data-t="c_look"></span></h2>
+        <div class="row3">
+          <div><label for="detail" data-t="f_detail"></label><select id="detail"><option value="lean" data-t="d_lean"></option><option value="std" data-t="d_std" selected></option><option value="rich" data-t="d_rich"></option></select></div>
+          <div><label for="cons" data-t="f_cons"></label><select id="cons"><option value="1" data-t="k1"></option><option value="2" data-t="k2" selected></option><option value="3" data-t="k3"></option></select></div>
+          <div><label for="body" data-t="f_body"></label><select id="body"></select></div>
+          <div><label for="light" data-t="f_light"></label><select id="light"></select></div>
+          <div><label for="move" data-t="f_move"></label><select id="move"></select></div>
+          <div><label for="color" data-t="f_color"></label><select id="color"></select></div>
+          <div><label for="pace" data-t="f_pace"></label><select id="pace"></select></div>
+          <div><label for="lens" data-t="f_lens"></label><select id="lens"></select></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><span data-t="c_refs"></span><span class="hint" id="refCount" style="margin:0"></span></h2>
+        <div id="refs"></div>
+        <div class="addrow" id="addRow">
+          <button type="button" class="btn ghost sm" data-add="image" data-t="add_img"></button>
+          <button type="button" class="btn ghost sm" data-add="video" data-t="add_vid"></button>
+          <button type="button" class="btn ghost sm" data-add="audio" data-t="add_aud"></button>
+          <button type="button" class="btn ghost sm" data-add="doc" data-t="add_doc"></button>
+        </div>
+        <p class="hint" id="refsHint"></p>
+      </div>
+
+      <div class="card">
+        <h2><span data-t="c_audio"></span></h2>
+        <div class="row">
+          <div><label for="music" data-t="f_music"></label><input type="text" id="music" data-tp="ph_music"></div>
+          <div><label for="sfx" data-t="f_sfx"></label><input type="text" id="sfx" data-tp="ph_sfx"></div>
+        </div>
+        <label for="dialogue" data-t="f_dlg"></label>
+        <textarea id="dialogue" style="min-height:64px" data-tp="ph_dlg"></textarea>
+        <label for="dlang" data-t="f_dlang"></label>
+        <select id="dlang"><option value="auto" data-t="dl_auto"></option><option value="en">English</option><option value="zh">Mandarin Chinese</option><option value="ru">Russian</option><option value="es">Spanish</option><option value="de">German</option><option value="fr">French</option><option value="ja">Japanese</option></select>
+        <label class="chk"><input type="checkbox" id="audioOn" checked><span data-t="o_audio"></span></label>
+        <label class="chk"><input type="checkbox" id="nosubs" checked><span data-t="o_nosubs"></span></label>
+        <label class="chk"><input type="checkbox" id="nobgm"><span data-t="o_nobgm"></span></label>
+      </div>
+
+      <div class="card">
+        <h2><span data-t="c_opts"></span></h2>
+        <label class="chk" id="timesWrap"><input type="checkbox" id="times" checked><span data-t="o_times"></span></label>
+        <label class="chk" id="contWrap"><input type="checkbox" id="cont" checked><span data-t="o_cont"></span></label>
+        <label for="neg" data-t="f_neg"></label>
+        <input type="text" id="neg" data-tp="ph_neg">
+      </div>
+    </div>
+
+    <div class="col sticky">
+      <div class="card">
+        <h2><span data-t="c_und"></span></h2>
+        <div class="tiles" id="understood"></div>
+      </div>
+
+      <div class="card">
+        <h2><nav class="tabs" id="outTabs" style="margin:-6px 0 -8px">
+          <button type="button" data-o="prompt" aria-pressed="true" data-t="o_prompt"></button>
+          <button type="button" data-o="neg" aria-pressed="false" data-t="o_neg"></button>
+          <button type="button" data-o="tl" aria-pressed="false" data-t="o_tl"></button>
+          <button type="button" data-o="llm" aria-pressed="false" data-t="o_llm"></button></nav></h2>
+        <div id="o-prompt"><pre class="out" id="outPrompt"></pre>
+          <div class="stats"><span id="stats"></span><span id="limit"></span></div><div class="meter" id="meter"><i></i></div></div>
+        <div id="o-neg" hidden><p class="hint" style="margin:0 0 10px" data-t="neg_hint"></p><pre class="out" id="outNeg"></pre>
+          <div class="stats"><span id="negStats"></span><span id="negLimit"></span></div><div class="meter" id="negMeter"><i></i></div></div>
+        <div id="o-tl" hidden><div class="tl" id="tlBar"></div><div id="tlList"></div></div>
+        <div id="o-llm" hidden><p class="hint" style="margin:0 0 10px" data-t="llm_hint"></p><pre class="out" id="outLlm"></pre></div>
+        <div class="acts g6">
+          <button type="button" class="btn" id="bCopy" data-t="btn_copy"></button>
+          <button type="button" class="btn ghost" id="bTxt" data-t="btn_txt"></button>
+          <button type="button" class="btn ghost" id="bJson" data-t="btn_json"></button>
+          <button type="button" class="btn ghost" id="bLink" data-t="btn_link"></button>
+          <button type="button" class="btn ghost" id="bSave" data-t="btn_save"></button>
+          <button type="button" class="btn ghost" id="bReset" data-t="btn_reset"></button>
+        </div>
+        <p class="hint" data-t="acts_hint"></p>
+      </div>
+
+      <div class="card">
+        <h2><span data-t="c_audit"></span><span class="score" id="score"></span></h2>
+        <ul class="list" id="issues"></ul>
+      </div>
+      <div class="card" id="notesCard">
+        <h2><span data-t="c_notes"></span></h2>
+        <ul class="list" id="notes"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPROVE -->
+  <section id="pane-improve" class="grid" hidden>
+    <div class="col">
+      <div class="card">
+        <h2><span data-t="imp_h"></span></h2>
+        <textarea id="impText" style="min-height:280px" data-tp="ph_imp" spellcheck="false"></textarea>
+        <label for="impDur" data-t="imp_dur"></label>
+        <input type="number" id="impDur" min="0" max="30" style="max-width:120px">
+        <div class="acts g4">
+          <button type="button" class="btn ghost" id="impStrip" data-t="imp_strip"></button>
+          <button type="button" class="btn ghost" id="impPaste" data-t="imp_paste"></button>
+          <button type="button" class="btn ghost" id="impClear" data-t="imp_clear"></button>
+          <button type="button" class="btn" id="impCopy" data-t="btn_copy"></button>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card"><h2><span data-t="c_audit"></span><span class="score" id="impScore"></span></h2><ul class="list" id="impIssues"></ul></div>
+      <div class="card"><h2><span data-t="imp_llm"></span></h2><pre class="out" id="impMeta"></pre>
+        <div class="acts g2"><button type="button" class="btn ghost" id="impMetaTxt" data-t="btn_txt"></button><button type="button" class="btn" id="impMetaCopy" data-t="btn_copy"></button></div></div>
+    </div>
+  </section>
+
+  <!-- HISTORY -->
+  <section id="pane-history" hidden style="padding:22px 0">
+    <div class="acts" style="margin:0 0 16px">
+      <label class="chk" style="margin:0"><input type="checkbox" id="favOnly"><span data-t="h_only_fav"></span></label>
+      <button type="button" class="btn ghost sm" id="histClear" data-t="h_clear"></button>
+    </div>
+    <div class="hist" id="hist"></div>
+  </section>
+
+  <!-- MODELS -->
+  <section id="pane-models" hidden style="padding:22px 0">
+    <div class="card">
+      <h2><span data-t="m_h"></span></h2>
+      <table class="mt" id="modelTbl"></table>
+      <p class="hint" data-t="m_note"></p>
+    </div>
+  </section>
+
+  <p class="foot" data-t="foot"></p>
+  <footer class="end">
+    <a class="chip" id="backLink" href="https://github.com/imBeyondiDentity/Wave" target="_blank" rel="noopener" data-t="back"></a>
+    <span class="brand"><i></i>WaVe<i class="right"></i></span>
+    <a class="chip" id="mailLink" href="mailto:imbeyondidentity@gmail.com" data-t="write"></a>
+  </footer>
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ===== RULES BASE: roles, archetypes, light, camera, slop ===== */
+
+// Camera bodies and look blocks (anti-"plastic" vocabulary from the expensive-look reference)
+const BODY = {
+  arri:  'Shot on ARRI Alexa 35 with Cooke S4 lenses, 32mm T2.0',
+  red:   'Shot on RED V-Raptor with Sigma Cine Prime 40mm T1.5',
+  sony:  'Shot on Sony Venice 2 with Zeiss Supreme Prime 50mm T1.5',
+  ana:   'Shot on ARRI Alexa 35 with anamorphic lenses, 2.39:1 look, oval bokeh and horizontal flares',
+  phone: 'Shot on a modern smartphone, natural handheld framing',
+  none:  ''
+};
+const LENS = {
+  wide:  '24mm wide-angle lens, expansive perspective, subtle edge distortion',
+  std:   '35mm lens, natural field of view, neutral perspective',
+  tele:  '85mm portrait lens, compressed background, creamy bokeh',
+  macro: '100mm macro lens, razor-thin focus plane, extreme close detail',
+  ana:   'anamorphic lens, oval bokeh, horizontal flares'
+};
+const PACE = {
+  calm:   { div: 5,   p: 'slow, unhurried pacing with long held shots' },
+  steady: { div: 3.5, p: 'measured, even pacing' },
+  fast:   { div: 2,   p: 'rapid pacing with quick cuts' }
+};
+const BLOCK = {
+  film:  'Kodak Vision3 500T grain, cinematic halation on highlights, Kodak 2383 print emulation',
+  depth: 'shallow depth of field, subject in tack-sharp focus, three distinct depth planes, volumetric haze',
+  micro: 'visible skin pores, backlit hair strands, floating dust motes, tactile surface imperfections'
+};
+const COLOR = {
+  teal:    'ARRI Log-C colour science, subtle teal shadows with warm orange midtones, lifted blacks',
+  neutral: 'naturalistic colour rendition, desaturated highlights, open shadow detail',
+  warm:    'warm amber practicals against cool window light, Kodak 2383 print LUT',
+  noir:    'desaturated warm amber grade, deep blacks, high contrast',
+  neon:    'saturated magenta and cyan neon against crushed blacks, controlled highlights',
+  natural: 'natural colour rendition, rich greens, cool highlights, fine grain',
+  clean:   'neutral premium colour grade, controlled specular highlights',
+  anime:   'limited painterly palette, soft gradients in the sky, clean line art'
+};
+
+// Physical light stacks (time of day -> weather -> genre)
+const LIGHT = {
+  dawn:          'pre-dawn exterior, sun at 3° elevation, 2800K warm orange-red glow, diffused skylight fill, ultra-long soft shadows pointing west, low contrast, ground-level haze',
+  morningGolden: 'morning golden hour, sun at 15° elevation, 3500K warm side key, long hard-edged shadows 4x object height, 12000K blue skylight fill, warm ground bounce',
+  noon:          'high noon, sun at 88° overhead, 6000K neutral white light, short hard shadows directly below subjects, deep shadow pools under eyes and chin',
+  overcast:      'overcast sky acting as a 180° softbox, 7200K cool grey ambient, no directional shadows, 1:3 lighting ratio, muted saturation',
+  eveningGolden: 'evening golden hour, sun at 10° above the western horizon, 3000K amber backlight, rim light on the subject, shadows 4x subject height stretching east with blue-purple skylight fill',
+  blueHour:      'blue hour, sun 5° below the horizon, 10000K deep blue ambient skylight, near-shadowless, warm 2700K practicals as accents, strong blue-orange split',
+  night:         'night exterior, sodium streetlights at 2100K amber with hard shadows under each lamp, deep shadow between the light pools, reflections on wet ground',
+  studio:        'studio, black environment, 5600K large softbox key at 45° horizontal and 40° elevation, 4:1 key-to-fill, rim light at 135° at 60% intensity, shadows falling to pure black',
+  intDay:        'interior daytime, large window at camera-left as a 6500K soft key, warm 2800K practical lamps at 10% intensity, soft wide shadows, warm wall bounce',
+  intNight:      'interior night, single 2700K floor lamp as key, hard shadows radiating from the lamp, 6500K television flicker as cool fill at 30°, mixed warm and cool zones, crushed blacks',
+  rain:          'heavy rain: wet surfaces with 65% specular reflectivity mirroring every light source, backlit silver rain streaks, splash crowns and puddle rings',
+  fog:           'dense fog: 25 m visibility, volumetric light beams, 6500K grey-white scatter, distant objects dissolving into haze, halos around lamps',
+  snow:          'snow: 85% albedo ground bounce, 7500K overcast key, near-zero shadow depth, soft blue shadows, snowfall as white bokeh',
+  heat:          'extreme heat: bleached 6000K overhead light, thermal shimmer above the ground, heat-haze distortion in the background, blown specular highlights on metal and glass',
+  noir:          'film noir lighting: single bare 3000K tungsten key at 75° camera-right and 50° above eye line, 16:1 key-to-fill, venetian-blind shadow bars, hard zero-penumbra edges',
+  cyber:         'cyberpunk night: magenta neon camera-right and cyan neon camera-left, wet asphalt doubling every neon source, harsh 4500K overhead LED, deep true-black zones',
+  horror:        'horror lighting: single flickering 3800K fluorescent with a green shift, source low at 30 cm creating upward shadows on faces, 1.5 stops underexposed, deep black corners',
+  romantic:      'romantic lighting: large 3500K softbox key at 30° above and 30° camera-left, 2:1 key-to-fill, 2900K backlight creating a warm hair rim, 2200K string-light bokeh, slight atmospheric haze',
+  documentary:   'natural available light only: mixed 2800K tungsten practicals and 6000K window light, no artificial fill, authentic uncontrolled shadow depth',
+  commercial:    'premium commercial lighting: large octabox key at 5600K, near-shadowless 1:1.3 key-to-fill, dual rim lights at 120° and 240°, clean thin rim highlight defining the silhouette, seamless background'
+};
+const LIGHT_NAMES = {
+  dawn: ['Dawn', 'Рассвет'], morningGolden: ['Morning golden hour', 'Утренний золотой час'], noon: ['High noon', 'Полдень'],
+  overcast: ['Overcast', 'Пасмурно'], eveningGolden: ['Evening golden hour', 'Закат'], blueHour: ['Blue hour', 'Синий час'],
+  night: ['Night exterior', 'Ночь, улица'], studio: ['Studio', 'Студия'], intDay: ['Interior, day', 'Интерьер, день'],
+  intNight: ['Interior, night', 'Интерьер, ночь'], noir: ['Film noir', 'Нуар'], cyber: ['Cyberpunk neon', 'Киберпанк, неон'],
+  horror: ['Horror', 'Хоррор'], romantic: ['Romantic', 'Романтика'], documentary: ['Documentary', 'Документальный'],
+  commercial: ['Premium commercial', 'Рекламный']
+};
+const WEATHER_NAMES = { rain: ['Rain', 'Дождь'], fog: ['Fog', 'Туман'], snow: ['Snow', 'Снег'], heat: ['Heat', 'Жара'] };
+// Camera moves: phrase + detection keywords (RU/EN) + display name
+const MOVES = {
+  orbit:    { p: 'slow orbit around the subject, eye level',   n: ['Orbit', 'Облёт'],        kw: ['облет', 'облёт', 'вокруг', 'орбит', 'orbit', 'moves around', 'круговой', 'arc shot'] },
+  dollyin:  { p: 'slow dolly in',                              n: ['Dolly in', 'Наезд'],     kw: ['наезд', 'приближ', 'dolly in', 'push in', 'push-in', 'pushes in', 'pushing in', 'dollies in', 'zoom in', 'наплыв'] },
+  dollyout: { p: 'slow dolly out',                             n: ['Dolly out', 'Отъезд'],   kw: ['отъезд', 'отдал', 'dolly out', 'pull back', 'pull-back', 'pulls back', 'pulling back', 'pulls out', 'dollies out'] },
+  pan:      { p: 'slow pan',                                   n: ['Pan', 'Панорама'],       kw: ['панорам', 'pan right', 'pan left', 'pan across'] },
+  tilt:     { p: 'slow tilt up',                               n: ['Tilt', 'Тилт'],          kw: ['tilt', 'наклон камер'] },
+  crane:    { p: 'crane shot rising',                          n: ['Crane', 'Кран'],         kw: ['кран', 'crane', 'подъем камер', 'подъём камер'] },
+  handheld: { p: 'subtle handheld',                            n: ['Handheld', 'Ручная'],    kw: ['ручная', 'handheld', 'с рук', 'трясущ'] },
+  tracking: { p: 'smooth tracking shot following the subject', n: ['Tracking', 'Слежение'], kw: ['слежен', 'tracking', 'следует за', 'follow', 'сопровожд'] },
+  whip:     { p: 'whip pan',                                   n: ['Whip pan', 'Свайп'],     kw: ['whip', 'свайп', 'резкий поворот камер'] },
+  static:   { p: 'locked tripod, no camera movement',          n: ['Static', 'Статика'],     kw: ['статичн', 'locked', 'штатив', 'tripod', 'неподвижная камера'] },
+  aerial:   { p: 'aerial drone shot gliding forward',          n: ['Aerial', 'Дрон'],        kw: ['дрон', 'drone', 'aerial', 'птичьего полёта', 'птичьего полета'] },
+  pov:      { p: 'first-person POV, subtle handheld',          n: ['POV', 'От первого лица'], kw: ['от первого лица', 'pov', 'first-person'] }
+};
+// Archetypes (scene types). kw: word-start stems, RU + EN.
+const ARCH = [
+  { id: 'action', n: ['Action / epic', 'Экшен / эпик'], ratio: '16:9', body: 'arri', color: 'teal', light: 'eveningGolden',
+    kw: ['погон', 'взрыв', 'драк', 'бой', 'перестрел', 'экшн', 'экшен', 'битв', 'стрельб', 'схватк', 'chase', 'explosion', 'fight', 'battle', 'action', 'gunfight', 'crash', 'авари'],
+    look: ['body', 'film', 'depth', 'color', 'micro'],
+    sizes: ['Wide establishing shot', 'Medium shot', 'Extreme close-up', 'Wide shot'],
+    moves: ['unstabilised handheld push-in', 'tracking shot with subtle handheld', 'whip pan', 'crane pull-back'],
+    style: 'Hollywood epic, photorealistic, 35mm film look, heavy grain, motion blur, slightly desaturated.',
+    neg: ['vignette', 'dark corners'],
+    tip: ['Action works best with one clear hit per shot; keep the slow-motion beat to one shot.', 'В экшене один чёткий удар на шот; slow-motion оставляй на один шот.'] },
+  { id: 'product', n: ['Product / ad', 'Продукт / реклама'], ratio: '9:16', body: 'sony', color: 'clean', light: 'commercial',
+    kw: ['товар', 'продукт', 'реклам', 'флакон', 'духи', 'парфюм', 'бутылк', 'кроссовк', 'часы', 'смартфон', 'телефон', 'упаковк', 'банк', 'напиток', 'косметик', 'крем', 'помад', 'product', 'advert', 'commercial', 'perfume', 'sneaker', 'watch', 'bottle', 'packshot', 'unboxing'],
+    look: ['body', 'depth', 'color'],
+    sizes: ['Macro close-up', 'Medium product shot', 'Hero close-up'],
+    moves: ['slow dolly in', 'slow orbit 90 degrees', 'locked tripod'],
+    style: 'premium commercial, clean surfaces, no clutter.',
+    neg: ['texture crawl', 'jitter', 'distorted logo', 'altered text'],
+    tip: ['Attach a product photo as a reference (2.7 / 3.0) or as the first frame (2.5): it locks shape and logo.', 'Прикрепи фото продукта как референс (2.7 / 3.0) или первый кадр (2.5): так фиксируются форма и логотип.'] },
+  { id: 'ugc', n: ['UGC / realism', 'UGC / реализм'], ratio: '9:16', body: 'phone', color: 'neutral', light: 'intDay',
+    kw: ['ugc', 'отзыв', 'влог', 'селфи', 'говорит в камеру', 'talking head', 'review', 'vlog', 'selfie', 'tutorial', 'обзор', 'распаков', 'рассказывает'],
+    look: ['body', 'micro', 'color'],
+    sizes: ['Medium selfie-style shot', 'Medium close-up', 'Close-up'],
+    moves: ['subtle handheld', 'subtle handheld', 'subtle handheld'],
+    style: 'grounded UGC realism, natural skin texture, soft film grain, slightly imperfect framing.',
+    neg: ['beauty filter', 'over-smoothed skin'],
+    tip: ['For talking head keep the line short and name the speaker; in 2.7 / 3.0 add a voice reference for a steady voice.', 'Для talking head держи реплику короткой и назови говорящего; в 2.7 / 3.0 добавь референс голоса для стабильного голоса.'] },
+  { id: 'anime', n: ['Anime', 'Аниме'], ratio: '16:9', body: 'none', color: 'anime', light: 'eveningGolden',
+    kw: ['аниме', 'anime', 'манга', 'manga', 'ghibli', 'гибли', 'shonen', 'синкай', 'shinkai'],
+    look: ['color'],
+    sizes: ['Wide establishing shot', 'Medium shot', 'Close-up on the face'],
+    moves: ['slow pan', 'slow dolly in', 'subtle push-in'],
+    style: 'anime feature-film look, clean line art, cel shading, painted backgrounds, expressive eyes.',
+    neg: ['3D render', 'photorealistic', 'inconsistent character design'],
+    tip: ['Name the sub-style (shonen, Shinkai-like, 90s cel): it moves the result more than adjectives.', 'Назови подстиль (сёнэн, в духе Синкая, 90s cel): он влияет сильнее прилагательных.'] },
+  { id: 'musicvideo', n: ['Music video / TikTok', 'Клип / TikTok'], ratio: '9:16', body: 'red', color: 'neon', light: 'studio',
+    kw: ['клип', 'tiktok', 'тикток', 'танец', 'танцует', 'dance', 'music video', 'reels', 'ритм', 'beat', 'трек', 'под музыку', 'shorts', 'тренд'],
+    look: ['body', 'color', 'depth'],
+    sizes: ['Wide dynamic shot', 'Medium shot on the beat', 'Close-up on the beat', 'Wide finale shot'],
+    moves: ['fast tracking shot', 'whip pan', 'slow push-in', 'slow orbit 90 degrees'],
+    style: 'high-energy music-video aesthetic, strong contrast, clean silhouettes, cuts timed to the beat.',
+    neg: ['ghosting', 'different performer'],
+    tip: ['Add the track as the soundtrack (2.5 / 2.7): motion and lip movement follow it. In 3.0 use the music reference.', 'Добавь трек как саундтрек (2.5 / 2.7): движение и губы подстроятся под него. В 3.0 используй референс музыки.'] },
+  { id: 'drama', n: ['Drama / cinematic', 'Драма / кино'], ratio: '16:9', body: 'sony', color: 'neutral', light: 'intDay',
+    kw: ['драма', 'разговор', 'диалог', 'встреча', 'расстав', 'слёз', 'слез', 'плач', 'письмо', 'conversation', 'drama', 'emotional', 'portrait', 'портрет', 'монолог', 'эмоци'],
+    look: ['body', 'micro', 'depth', 'color', 'film'],
+    sizes: ['Wide establishing shot', 'Medium shot', 'Close-up on the face', 'Medium close-up'],
+    moves: ['locked tripod', 'slow dolly in', 'slow dolly in', 'slow dolly out'],
+    style: 'restrained cinematic drama, naturalistic performance, subtle micro-expressions.',
+    neg: [],
+    tip: ['Give the character one concrete micro-expression per shot (a swallowed breath, a glance away).', 'Дай персонажу по одной конкретной микромимике на шот (сглотнул, отвёл взгляд).'] },
+  { id: 'horror', n: ['Horror', 'Хоррор'], ratio: '16:9', body: 'arri', color: 'noir', light: 'horror',
+    kw: ['хоррор', 'ужас', 'страшн', 'призрак', 'монстр', 'крип', 'демон', 'зловещ', 'horror', 'ghost', 'scary', 'creepy'],
+    look: ['body', 'film', 'depth', 'micro'],
+    sizes: ['Wide static shot', 'Medium shot', 'Slow close-up', 'Wide shot'],
+    moves: ['locked tripod', 'very slow dolly in', 'slow tilt up', 'locked tripod'],
+    style: 'slow-burn horror, oppressive silence, restrained reveals, underexposed.',
+    neg: ['cheap CGI look'],
+    tip: ['Horror needs space: keep the monster out of frame until the last shot.', 'Хоррору нужен воздух: держи монстра за кадром до последнего шота.'] },
+  { id: 'noir', n: ['Film noir', 'Нуар'], ratio: '16:9', body: 'arri', color: 'noir', light: 'noir',
+    kw: ['нуар', 'noir', 'детектив', 'detective', 'сыщик', 'жалюзи', 'blinds'],
+    look: ['body', 'film', 'color'],
+    sizes: ['Wide establishing shot', 'Medium shot', 'Close-up'],
+    moves: ['slow dolly in', 'locked tripod', 'slow tilt up'],
+    style: 'classic film noir, hard shadows, cigarette-smoke haze, restrained performances.',
+    neg: [],
+    tip: ['One hard key light is the whole look: do not add fill words.', 'Весь нуар — один жёсткий ключ; не добавляй слов про заполняющий свет.'] },
+  { id: 'cyberpunk', n: ['Cyberpunk / sci-fi', 'Киберпанк / sci-fi'], ratio: '16:9', body: 'ana', color: 'neon', light: 'cyber',
+    kw: ['киберпанк', 'cyberpunk', 'неон', 'neon', 'будущ', 'futur', 'sci-fi', 'андроид', 'android', 'робот', 'robot', 'hologram', 'голограм'],
+    look: ['body', 'depth', 'color', 'film'],
+    sizes: ['Wide establishing shot', 'Medium tracking shot', 'Close-up'],
+    moves: ['slow crane down', 'smooth tracking shot', 'slow dolly in'],
+    style: 'neo-noir cyberpunk, wet streets, neon signage, atmospheric haze, anamorphic flares.',
+    neg: ['readable neon text', 'garbled signs'],
+    tip: ['Wet ground doubles every neon source: say it once, in the light block.', 'Мокрый асфальт удваивает каждый неон: достаточно сказать это один раз в блоке света.'] },
+  { id: 'nature', n: ['Nature / landscape', 'Природа / пейзаж'], ratio: '16:9', body: 'red', color: 'natural', light: 'morningGolden',
+    kw: ['пейзаж', 'природ', 'горы', 'горн', 'горах', 'океан', 'море', 'лес', 'водопад', 'landscape', 'nature', 'mountain', 'ocean', 'forest', 'waterfall', 'облак'],
+    look: ['body', 'depth', 'color'],
+    sizes: ['Wide establishing shot', 'Wide landscape shot', 'Medium detail shot'],
+    moves: ['aerial drone glide forward', 'slow pan', 'slow dolly in'],
+    style: 'natural-history cinematography, grand scale, real atmospheric depth, no people unless asked.',
+    neg: ['text', 'warped horizon'],
+    tip: ['Landscapes need no references; use text-to-video and spend words on light and depth.', 'Пейзажу не нужны референсы; text-to-video, слова трать на свет и глубину.'] },
+  { id: 'fantasy', n: ['Fantasy / epic', 'Фэнтези / эпик'], ratio: '16:9', body: 'ana', color: 'teal', light: 'blueHour',
+    kw: ['фэнтези', 'фентези', 'дракон', 'волшеб', 'меч', 'рыцар', 'эльф', 'колдун', 'чародей', 'fantasy', 'dragon', 'wizard', 'magic', 'sword', 'knight', 'castle', 'замок'],
+    look: ['body', 'film', 'depth', 'micro', 'color'],
+    sizes: ['Wide establishing shot', 'Medium hero shot', 'Close-up', 'Wide epic shot'],
+    moves: ['slow crane up', 'slow orbit around the hero', 'slow dolly in', 'crane pull-back'],
+    style: 'high-fantasy epic, practical-looking costumes and props, volumetric atmosphere, grand scale.',
+    neg: [],
+    tip: ['Fantasy needs physical anchors: real fabric, metal, dust. Magic reads better against them.', 'Фэнтези держится на физических якорях: ткань, металл, пыль. На их фоне магия читается лучше.'] },
+  { id: 'romance', n: ['Romance', 'Романтика'], ratio: '16:9', body: 'sony', color: 'warm', light: 'romantic',
+    kw: ['романт', 'любов', 'свидани', 'поцелу', 'влюбл', 'свадьб', 'romantic', 'love', 'kiss', 'wedding'],
+    look: ['body', 'micro', 'depth', 'color'],
+    sizes: ['Wide shot', 'Medium shot', 'Close two-shot', 'Close-up'],
+    moves: ['slow dolly in', 'slow orbit 90 degrees', 'locked tripod', 'slow dolly in'],
+    style: 'intimate romantic cinema, soft focus falloff, warm natural skin tones.',
+    neg: [],
+    tip: ['Touch and eye line carry romance: write one small physical gesture per shot.', 'Романтику несут касания и взгляд: по одному маленькому жесту на шот.'] },
+  { id: 'documentary', n: ['Documentary', 'Документальный'], ratio: '16:9', body: 'sony', color: 'neutral', light: 'documentary',
+    kw: ['документ', 'репортаж', 'хроника', 'интервью', 'новост', 'documentary', 'interview', 'street interview', 'news'],
+    look: ['body', 'micro', 'color'],
+    sizes: ['Wide observational shot', 'Medium shot', 'Close-up'],
+    moves: ['handheld', 'handheld', 'subtle handheld'],
+    style: 'observational documentary realism, available light, authentic imperfections.',
+    neg: [],
+    tip: ['Handheld on a close-up face can swim: keep the identity constraint on.', 'Ручная камера на крупном лице может «плыть»: оставь constraint на идентичность.'] }
+];
+const ARCH_DEFAULT = Object.assign({}, ARCH.find(a => a.id === 'drama'), { id: 'generic', n: ['Cinematic (default)', 'Кино (по умолчанию)'] });
+// Detection dictionaries (word-start stems)
+const TOD_KW = {
+  dawn: ['рассвет', 'предрассвет', 'восход', 'dawn', 'sunrise'],
+  morningGolden: ['утр', 'morning'],
+  noon: ['полдень', 'полдн', 'noon', 'midday'],
+  overcast: ['пасмурн', 'облачн', 'серое небо', 'overcast', 'cloudy'],
+  eveningGolden: ['закат', 'золотой час', 'вечер', 'golden hour', 'sunset', 'evening'],
+  blueHour: ['сумерк', 'синий час', 'blue hour', 'dusk', 'twilight'],
+  night: ['ночь', 'ночн', 'night', 'midnight'],
+  studio: ['студи', 'фотосесс', 'studio']
+};
+const INTERIOR_KW = ['комнат', 'кухн', 'квартир', 'офис', 'интерьер', 'спальн', 'кафе', 'ресторан', 'бар ', 'room', 'kitchen', 'interior', 'indoor', 'apartment', 'office', 'cafe', 'bedroom'];
+const WEATHER_KW = {
+  rain: ['дожд', 'ливень', 'гроз', 'rain', 'storm'],
+  fog: ['туман', 'fog', 'mist'],
+  snow: ['снег', 'метель', 'snow', 'blizzard'],
+  heat: ['жара', 'зной', 'пустын', 'heat', 'desert']
+};
+const RATIO_KW = [
+  ['9:16', ['вертикал', 'reels', 'tiktok', 'тикток', 'shorts', '9:16', 'vertical']],
+  ['21:9', ['широкоформат', 'анаморф', '21:9', 'anamorphic', 'widescreen']],
+  ['1:1', ['квадрат', '1:1', 'square']],
+  ['16:9', ['горизонтал', '16:9', 'landscape format', 'youtube']]
+];
+const SEQ_SPLIT = /\n+|(?<=[.!?…])\s+|;\s+|\s*(?:→|->|=>)\s*|,?\s+(?:потом|затем|после этого|а затем|далее|then|after that|afterwards|finally|в финале|в конце)\s+/iu;
+
+// Anti-slop list (lowercase) and replacements shown in the checker
+const SLOP = ['4k', '8k', 'ultra hd', 'ultra-hd', 'masterpiece', 'best quality', 'high quality', 'hyper-realistic', 'hyperrealistic',
+  'stunning', 'amazing', 'gorgeous', 'beautiful', 'perfect skin', 'flawless', 'vibrant colors', 'vibrant colours',
+  'sharp and clear', 'professional camera', 'award-winning', 'trending on artstation', 'unreal engine',
+  'dramatic lighting', 'moody lighting', 'cinematic lighting', 'шедевр', 'потрясающ', 'красивый', 'красивая', 'красивое'];
+
+/* ===== WAN RULES: limits, reference roles, negative prompt, meta-prompts ===== */
+
+// Hard facts per version (Alibaba Cloud Model Studio API reference + provider guides, Oct 2026).
+// chars = prompt cap; negChars = negative-prompt cap; words = per-segment soft cap used by the checker.
+const R5 = ['16:9', '9:16', '1:1', '4:3', '3:4'];
+const LIM = {
+  '2.5': { min: 5, max: 10, step: 5, res: ['480p', '720p', '1080p'], ratios: R5, chars: 1500, negChars: 500, maxShots: 2, minShot: 5, div: 5, fixedDiv: true,
+           kinds: { image: 1, video: 0, audio: 1, doc: 0 }, total: 2, visual: 1, words: 120 },
+  '2.7': { min: 2, max: 15, step: 1, res: ['720p', '1080p'], ratios: R5, chars: 5000, negChars: 500, maxShots: 5, minShot: 2, div: 3, fixedDiv: false,
+           kinds: { image: 5, video: 3, audio: 1, doc: 0 }, total: 6, visual: 5, words: 110 },
+  '3.0': { min: 2, max: 30, step: 1, res: ['480p', '720p', '1080p'], ratios: R5, chars: 5000, negChars: 500, maxShots: 5, minShot: 3, div: 6, fixedDiv: false,
+           kinds: { image: 20, video: 20, audio: 20, doc: 20 }, total: 20, visual: 20, words: 160 }
+};
+const V_ALL = ['2.5', '2.7', '3.0'], V_NEW = ['2.7', '3.0'];
+
+// Reference roles. Each returns one complete sentence for the named file ("Image 1", "Video 1"...).
+const ROLES = {
+  first:     { kind: 'image', v: V_ALL, l: ['First frame', 'Первый кадр'],
+    f: (r, n) => `${r} is the first frame${n}: keep its subject, composition and texture; the text describes only what moves.` },
+  last:      { kind: 'image', v: V_NEW, l: ['Last frame', 'Последний кадр'],
+    f: (r, n) => `${r} is the last frame${n}: the motion must transition into it.` },
+  character: { kind: 'image', v: V_NEW, l: ['Character', 'Персонаж'],
+    f: (r, n) => `${r} is the character${n}: keep the face, hairstyle and outfit consistent in every frame.` },
+  product:   { kind: 'image', v: V_NEW, l: ['Product', 'Продукт'],
+    f: (r, n) => `${r} is the product${n}: keep its exact shape, colour, proportions and logo placement.` },
+  scene:     { kind: 'image', v: V_NEW, l: ['Location', 'Локация'],
+    f: (r, n) => `${r} is the location${n}: keep its layout, architecture and key props.` },
+  prop:      { kind: 'image', v: V_NEW, l: ['Prop / object', 'Предмет'],
+    f: (r, n) => `${r} is a prop${n}: keep its exact shape and material.` },
+  style:     { kind: 'image', v: V_NEW, l: ['Style only', 'Только стиль'],
+    f: (r, n) => `${r} is a visual style reference only${n}: take its palette, texture and lighting mood, not its subject.` },
+  vchar:     { kind: 'video', v: V_NEW, l: ['Character (with voice)', 'Персонаж (с голосом)'],
+    f: (r, n) => `${r} is the character reference${n}: keep the same appearance, and the same voice if it has one.` },
+  vmotion:   { kind: 'video', v: V_NEW, l: ['Motion / camera only', 'Только движение/камера'],
+    f: (r, n) => `${r} is a motion and camera reference only${n}: copy the movement, do not inherit its actor, clothing or background.` },
+  vedit:     { kind: 'video', v: V_NEW, l: ['Source clip to edit', 'Клип для правки'],
+    f: (r, n) => `${r} is the source clip to edit${n}: keep everything unchanged except the requested change.` },
+  vextend:   { kind: 'video', v: V_NEW, l: ['Continue this clip', 'Продолжить клип'],
+    f: (r, n) => `${r}: continue from its final frame${n}, keeping the same subject, setting, lighting and motion direction.` },
+  drive:     { kind: 'audio', v: ['2.5', '2.7'], l: ['Soundtrack / driving audio', 'Саундтрек / ведущее аудио'],
+    f: (r, n) => `${r} is the soundtrack${n}: the motion and lip movement follow it.` },
+  voice:     { kind: 'audio', v: V_NEW, l: ['Voice', 'Голос'],
+    f: (r, n) => `${r} is the voice reference${n}: match its timbre and pacing for the character's speech.` },
+  music:     { kind: 'audio', v: ['3.0'], l: ['Music', 'Музыка'],
+    f: (r, n) => `${r} is the background music${n}: let the pacing follow its rhythm.` },
+  doc:       { kind: 'doc', v: ['3.0'], l: ['Source brief', 'Исходный документ'],
+    f: (r, n) => `${r} is the source brief${n}: take the story, key facts and structure from it and show them as the video.` }
+};
+const KIND_TOK = { image: 'Image', video: 'Video', audio: 'Audio', doc: 'Document' };
+const DEF_ROLE = { image: { '2.5': 'first', '2.7': 'character', '3.0': 'character' }, video: { '2.7': 'vmotion', '3.0': 'vmotion' }, audio: { '2.5': 'drive', '2.7': 'voice', '3.0': 'voice' }, doc: { '3.0': 'doc' } };
+const defRole = (kind, ver) => (DEF_ROLE[kind] || {})[ver] || null;
+const roleOk = (id, ver) => { const r = ROLES[id]; return !!r && r.v.includes(ver) && LIM[ver].kinds[r.kind] > 0; };
+// roles that put the clip into Wan 2.7 reference-to-video mode (10 s cap)
+const R2V_ROLES = ['character', 'product', 'scene', 'prop', 'style', 'vchar', 'vmotion', 'voice'];
+
+// Negative prompt: a separate field in every Wan API (max 500 characters); positive wording stays in the prompt.
+const NEG = {
+  1: ['blurry', 'low quality', 'watermark', 'subtitles'],
+  2: ['blurry', 'low quality', 'watermark', 'subtitles', 'distorted anatomy', 'extra limbs', 'deformed hands', 'morphing', 'flicker'],
+  3: ['blurry', 'low quality', 'watermark', 'subtitles', 'distorted anatomy', 'extra limbs', 'deformed hands', 'morphing', 'flicker',
+      'overexposed', 'JPEG artefacts', 'jittery camera', 'static frame', 'cluttered background', 'fused fingers', 'text overlay', 'logo']
+};
+
+// Rules embedded into the meta-prompt (LLM tab)
+const META_COMMON = `You are an expert Wan prompt engineer. Turn the brief below into ONE production-ready prompt for Alibaba's Wan video model.
+Core rules:
+1. Write natural, flowing English (Wan also reads Chinese). No tag soup, no keyword lists.
+2. Formula: subject and scene first, then the motion, then aesthetic control: light source and quality, shot size, camera angle, lens, camera movement, composition, colour tone.
+3. One main action per about 5 seconds of video. Describe motion with verbs; slow, coherent motion is the most stable.
+4. One camera movement per shot, two at most; never three axes at once.
+5. Describe light physically (source, direction, quality, colour temperature), never "dramatic" or "moody".
+6. Be concrete: real camera, lens and film names, micro-detail. Banned filler: 4K, 8K, masterpiece, best quality, stunning, beautiful, hyper-realistic.
+7. Audio is generated from text: describe ambient sound, music and effects in words. Dialogue syntax: The character says: "..." Keep lines short (about 10 words per 5 s), name the speaker, and note that Chinese and English voices are the strongest.
+8. Duration, aspect ratio and resolution are generator settings, never prompt text. Exclusions go in a separate negative prompt (max 500 characters, comma-separated), not in the prompt.
+9. Every reference file is named by upload order (Image 1, Video 1, Audio 1) and gets an explicit role in its own sentence.
+10. Write the prompt in English; keep spoken dialogue in its own language.`;
+const META_V = {
+  '2.5': `Target: Wan 2.5.
+- Length 5 or 10 s, 480p/720p/1080p, ratios 16:9, 9:16, 1:1, 4:3, 3:4. Prompt cap 1,500 characters. Native audio; optional audio file 3-30 s.
+- One continuous shot only: no scene cuts, no timestamps. One action per 5 s; the second action in a 10 s clip starts with "Then".
+- Formula: scene + subject action + camera movement + audio. Image-to-video: describe only the motion, the image already shows the scene.`,
+  '2.7': `Target: Wan 2.7.
+- Length 2-15 s (reference-to-video max 10 s), 720p/1080p, ratios 16:9, 9:16, 1:1, 4:3, 3:4. Prompt cap 5,000 characters. Audio is generated; optional audio file 2-30 s.
+- Multi-shot is requested in the prompt: start with "Multi-shot video, N shots." and write "Shot 1 [0-3s]: ...", "Shot 2 [3-7s]: ..." consecutively, whole seconds, 2 s or more each, five shots at most.
+- First/last frame: describe only the transition. Video continuation cannot be combined with a first frame or driving audio. References by upload order, up to 5 images/videos.`,
+  '3.0': `Target: Wan 3.0.
+- Length 2-30 s, 480p/720p/1080p. Built for ONE long continuous take: no cuts, no shot lists. Write it as an arc: beginning, turn, end, and say how the frame changes over time; length without a turn produces a slow clip.
+- Omni-reference: up to 20 files (images, video, audio, documents). Label every reference in the prompt, not just upload it. A document reference is the source brief to be shown as the video.
+- Audio: name the sound bed and place the key sound beat so sound and picture line up. For text in frame use clean, simple cards (a lower-third title).`
+};
+
+/* ===== ENGINE: decode intent -> timings -> prompt -> audit -> meta-prompt ===== */
+
+const _reCache = {};
+function stemRe(s) {
+  if (!_reCache[s]) _reCache[s] = new RegExp('(?<![\\p{L}\\p{N}])' + s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'iu');
+  return _reCache[s];
+}
+const hitCount = (text, list) => list.reduce((n, s) => n + (stemRe(s).test(text) ? 1 : 0), 0);
+const firstIdx = (text, list) => { let best = -1; for (const s of list) { const m = stemRe(s).exec(text); if (m && (best < 0 || m.index < best)) best = m.index; } return best; };
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+const lowFirst = s => s ? s.charAt(0).toLowerCase() + s.slice(1) : s;
+const dot = s => /[.!?…]$/.test(s) ? s : s + '.';
+const words = s => (s.match(/[\p{L}\p{N}'-]+/gu) || []).length;
+const pick = (arr, i, n) => !arr.length ? '' : (n <= 1 ? arr[0] : arr[Math.round(i * (arr.length - 1) / (n - 1))]);
+
+// Largest-remainder allocation of `total` whole seconds across weights, each at least `min`
+function allocate(weights, total, min) {
+  const n = weights.length, rest = total - min * n;
+  if (rest < 0) return null;
+  const sum = weights.reduce((a, b) => a + b, 0) || n;
+  const raw = weights.map(w => rest * w / sum);
+  const fl = raw.map(Math.floor);
+  let left = rest - fl.reduce((a, b) => a + b, 0);
+  raw.map((r, i) => [r - Math.floor(r), i]).sort((a, b) => b[0] - a[0]).slice(0, left).forEach(([, i]) => fl[i]++);
+  return fl.map(f => f + min);
+}
+
+function parseRatio(str) {
+  const m = /^\s*(\d+(?:\.\d+)?)\s*[:/xх]\s*(\d+(?:\.\d+)?)\s*$/.exec(str || '');
+  if (!m) return null;
+  const w = +m[1], h = +m[2];
+  return h > 0 && w > 0 ? { w, h, v: w / h, s: `${m[1]}:${m[2]}` } : null;
+}
+
+/* ---------- 1. Decode the brief ---------- */
+function decode(text) {
+  const I = { beats: [], moves: [], weather: null, tod: null, interior: false, ratio: null, dur: null, arch: null, scores: [], conf: 0, lang: 'en', userTimes: false };
+  const cyr = (text.match(/[а-яё]/gi) || []).length, lat = (text.match(/[a-z]/gi) || []).length;
+  I.lang = cyr > lat ? 'ru' : 'en';
+
+  // duration hint (ignore the "5s" tail of a timestamp range)
+  const dm = /(?<![\d.]\s?[-–—]\s?)(?<![\d.])(\d{1,2})\s*(?:сек\p{L}*|с(?![\p{L}])|s(?![\p{L}])|sec\p{L}*|second\p{L}*)/iu.exec(text);
+  if (dm) I.dur = +dm[1];
+
+  // scene type
+  I.scores = ARCH.map(a => ({ a, s: hitCount(text, a.kw) })).sort((x, y) => y.s - x.s);
+  const total = I.scores.reduce((n, x) => n + x.s, 0);
+  if (I.scores[0].s > 0) { I.arch = I.scores[0].a; I.conf = Math.round(100 * I.scores[0].s / total); }
+
+  for (const [k, kws] of Object.entries(TOD_KW)) if (!I.tod && hitCount(text, kws)) I.tod = k;
+  I.interior = hitCount(text, INTERIOR_KW) > 0;
+  for (const [k, kws] of Object.entries(WEATHER_KW)) if (!I.weather && hitCount(text, kws)) I.weather = k;
+  for (const [r, kws] of RATIO_KW) if (!I.ratio && hitCount(text, kws)) I.ratio = r;
+
+  I.moves = Object.entries(MOVES).map(([k, m]) => [k, firstIdx(text, m.kw)]).filter(x => x[1] >= 0).sort((a, b) => a[1] - b[1]).map(x => x[0]);
+
+  // dialogue: mask quotes, split, then hand the lines back to the beat they belong to
+  const quotes = [];
+  let work = text.replace(/[«“"„]([^«»“”"„\n]{2,240})[»”"“]/g, (m, q) => { quotes.push(q.trim()); return ` ⟦${quotes.length - 1}⟧. `; });
+  work = work.replace(/^\s*(\d+)[.)]\s+/gm, '');
+  const tsRe = /^(\d+(?:\.\d+)?)\s*[-–—]\s*(\d+(?:\.\d+)?)\s*(?:s|sec|с)?\s*[:.)\-–]\s*/iu;
+  const shotRe = /^(?:shot|шот|кадр|сцена|scene)\s*\d+\s*[:.)\-–]\s*/iu;
+  let pending = [];
+  for (let part of work.split(SEQ_SPLIT)) {
+    if (!part) continue;
+    part = part.replace(/^[\s.,;:!?…–—-]+/u, '').replace(/^(?:потом|затем|после этого|а затем|далее|then|after that|afterwards|finally|в финале|в конце)[,:]?\s+/iu, '').trim();
+    let t0 = null, t1 = null;
+    const tm = tsRe.exec(part);
+    if (tm) { t0 = +tm[1]; t1 = +tm[2]; part = part.slice(tm[0].length); }
+    part = part.replace(shotRe, '');
+    const lines = [];
+    part = part.replace(/⟦(\d+)⟧/g, (m, i) => { lines.push(quotes[+i]); return ''; }).replace(/[\s:–—,.-]+$/u, '').trim();
+    if (lines.length) part = part.replace(/[,;:\s]*(?:and\s+)?(?:says?|said|whispers?|shouts?|asks?|replies|answers?|говорит|сказал[аи]?|произносит|шепчет|кричит|спрашивает|отвечает)[,:\s]*$/iu, '').trim();
+    if (part.length < 3) {
+      if (lines.length) (I.beats.length ? I.beats[I.beats.length - 1].lines : pending).push(...lines);
+      continue;
+    }
+    I.beats.push({ text: dot(cap(part)), lines: pending.concat(lines), t0, t1 });
+    pending = [];
+  }
+  I.userTimes = I.beats.length >= 2 && I.beats.every(b => b.t0 !== null) && I.beats.every((b, i) => i === 0 ? b.t0 === 0 : b.t0 === I.beats[i - 1].t1);
+  I.quotes = quotes;
+  return I;
+}
+
+function snapDur(ver, v) {
+  const L = LIM[ver];
+  v = Math.round(+v) || L.min;
+  if (L.step > 1) return v <= (L.min + L.max) / 2 ? L.min : L.max;
+  return clamp(v, L.min, L.max);
+}
+const an = s => /^[aeiou]/i.test(s) ? 'an ' + s : 'a ' + s;
+const uniq = arr => { const seen = new Set(); return arr.filter(x => { const k = x.toLowerCase(); if (seen.has(k)) return false; seen.add(k); return true; }); };
+const UNIT = { '2.5': [['beat', 'beats'], ['действие', 'действия', 'действий']], '2.7': [['shot', 'shots'], ['шот', 'шота', 'шотов']], '3.0': [['phase', 'phases'], ['фаза', 'фазы', 'фаз']] };
+const PHASES = { 2: ['Beginning', 'End'], 3: ['Beginning', 'Turn', 'End'], 4: ['Beginning', 'Development', 'Turn', 'End'], 5: ['Beginning', 'Development', 'Turn', 'Escalation', 'End'] };
+
+// the camera move named inside this very beat (earliest keyword wins)
+function beatMove(txt) {
+  let best = null, bi = -1;
+  for (const [k, m] of Object.entries(MOVES)) { const ix = firstIdx(txt, m.kw); if (ix >= 0 && (bi < 0 || ix < bi)) { bi = ix; best = k; } }
+  return best;
+}
+
+/* ---------- 2. Build the prompt ---------- */
+const GENRE_LIGHTS = new Set(['noir', 'cyber', 'horror', 'romantic', 'documentary', 'commercial']);
+
+function build(S) {
+  const L = LIM[S.ver];
+  const I = decode(S.text || '');
+  const notes = [];
+  const note = (sev, en, ru) => notes.push({ sev, msg: [en, ru] });
+  const dur = snapDur(S.ver, S.dur);
+  const arch = S.arch && S.arch !== 'auto' ? ARCH.find(a => a.id === S.arch) : (I.arch || ARCH_DEFAULT);
+  const res = L.res.includes(S.res) ? S.res : L.res[L.res.length - 1];
+  if (!I.beats.length) return { empty: true, intent: I, arch, dur, res, ratio: '', notes, prompt: '', negative: '', shots: [], light: [], n: 0 };
+
+  // aspect ratio
+  let ratio = S.ratio && S.ratio !== 'auto' ? S.ratio : (I.ratio || arch.ratio);
+  const pr = parseRatio(ratio);
+  const fallbackRatio = L.ratios.includes(arch.ratio) ? arch.ratio : '16:9';
+  if (!pr) { note('warn', `Aspect ratio "${ratio}" not understood; used ${fallbackRatio}.`, `Формат «${ratio}» не распознан; взят ${fallbackRatio}.`); ratio = fallbackRatio; }
+  else if (!L.ratios.includes(pr.s)) { note('warn', `Wan ${S.ver} supports ${L.ratios.join(', ')}; ${pr.s} is not available, using ${fallbackRatio}.`, `Wan ${S.ver} поддерживает ${L.ratios.join(', ')}; ${pr.s} недоступен, взят ${fallbackRatio}.`); ratio = fallbackRatio; }
+  else ratio = pr.s;
+
+  // shots
+  let beats = I.beats.map(b => ({ ...b, lines: b.lines.slice() }));
+  // a sentence about the camera alone belongs to the beat before it
+  for (let i = beats.length - 1; i > 0; i--) {
+    if (/^(?:the\s+)?camera\b|^камер[аыу]\b/iu.test(beats[i].text) && !beats[i].lines.length && beats[i].t0 === null && beats[i - 1].t0 === null) {
+      beats[i - 1] = { ...beats[i - 1], text: beats[i - 1].text + ' ' + beats[i].text, lines: beats[i - 1].lines };
+      beats.splice(i, 1);
+    }
+  }
+  if (beats.length > 1 && words(beats[0].text) <= 6 && !beats[0].lines.length && beats[0].t0 === null) {
+    const b0 = beats.shift();
+    beats[0] = { ...beats[0], text: b0.text + ' ' + beats[0].text };
+  }
+  const mult = L.fixedDiv ? 1 : ({ calm: 1.5, steady: 1, fast: 0.6 }[S.pace] || 1);
+  const maxN = Math.max(1, Math.min(L.maxShots, Math.floor(dur / (L.div * mult))));
+  while (beats.length > maxN) {
+    let bi = 0, bl = Infinity;
+    for (let i = 0; i < beats.length - 1; i++) { const l = beats[i].text.length + beats[i + 1].text.length; if (l < bl) { bl = l; bi = i; } }
+    beats.splice(bi, 2, { text: beats[bi].text.replace(/\.$/, '') + '; then ' + lowFirst(beats[bi + 1].text), lines: beats[bi].lines.concat(beats[bi + 1].lines), t0: null, t1: null });
+    if (beats.length === maxN) note('warn', `${I.beats.length} events do not fit ${dur} s in ${maxN} ${maxN === 1 ? UNIT[S.ver][0][0] : UNIT[S.ver][0][1]}; neighbouring events were merged (one action per segment is safer).`, `${I.beats.length} событий не помещаются в ${dur} с (${maxN}); соседние события объединены (одно действие на отрезок надёжнее).`);
+  }
+  const n = beats.length;
+  let durs;
+  if (I.userTimes && n === I.beats.length && beats[n - 1].t1 === dur) durs = beats.map(b => b.t1 - b.t0);
+  else {
+    if (I.userTimes && n === I.beats.length) note('info', 'Your own timings were scaled to the chosen duration.', 'Твои тайминги пропорционально подогнаны под выбранную длительность.');
+    const w = beats.map(b => I.userTimes && b.t0 !== null ? b.t1 - b.t0 : Math.max(6, words(b.text)));
+    durs = allocate(w, dur, L.minShot) || allocate(w, dur, 1);
+  }
+  const shots = [];
+  let t = 0;
+  const forced = S.move && S.move !== 'auto' ? S.move : null;
+  beats.forEach((b, i) => {
+    const size = pick(arch.sizes, i, n);
+    const mid = forced || beatMove(S.ver === '2.5' ? beats.map(x => x.text).join(' ') : b.text);
+    const move = mid ? MOVES[mid].p : pick(arch.moves, i, n);
+    shots.push({ n: i + 1, t0: t, t1: t + durs[i], size, move, mid: mid || null, text: b.text, lines: b.lines });
+    t += durs[i];
+  });
+
+  // references: named by upload order, one sentence each
+  const ctr = { image: 0, video: 0, audio: 0, doc: 0 };
+  const refLines = [], refTokens = [], roleIds = [];
+  let hasCharacter = false, hasProduct = false;
+  (S.refs || []).forEach(r => {
+    if (!roleOk(r.role, S.ver)) return;
+    const role = ROLES[r.role];
+    ctr[role.kind]++;
+    const tok = KIND_TOK[role.kind] + ' ' + ctr[role.kind];
+    refTokens.push(tok + ' (' + role.l[0] + ')');
+    const nn = (r.note || '').trim();
+    refLines.push(role.f(tok, nn ? ` (${nn})` : ''));
+    roleIds.push(r.role);
+    if (r.role === 'character' || r.role === 'vchar') hasCharacter = true;
+    if (r.role === 'product') hasProduct = true;
+  });
+  const cnt = ctr.image + ctr.video + ctr.audio + ctr.doc;
+  for (const k of ['image', 'video', 'audio', 'doc']) if (ctr[k] > L.kinds[k]) note('err', `Too many ${k} files: ${ctr[k]} of ${L.kinds[k]} allowed in Wan ${S.ver}.`, `Слишком много файлов (${k}): ${ctr[k]} из ${L.kinds[k]} для Wan ${S.ver}.`);
+  if (ctr.image + ctr.video > L.visual) note('err', `Images and videos together: ${ctr.image + ctr.video}, Wan ${S.ver} takes ${L.visual}.`, `Картинок и видео вместе ${ctr.image + ctr.video}, Wan ${S.ver} принимает ${L.visual}.`);
+  if (cnt > L.total) note('err', `Total files ${cnt} exceeds the ${L.total} limit of Wan ${S.ver}.`, `Всего файлов ${cnt} при лимите ${L.total} в Wan ${S.ver}.`);
+  const hasFirst = roleIds.includes('first');
+  if (S.ver === '2.7') {
+    if (roleIds.includes('vextend') && (hasFirst || roleIds.includes('drive'))) note('err', 'Wan 2.7 video continuation cannot be combined with a first frame or driving audio.', 'В Wan 2.7 продолжение клипа нельзя сочетать с первым кадром или ведущим аудио.');
+    if (dur > 10 && roleIds.some(r => R2V_ROLES.includes(r))) note('warn', 'Wan 2.7 reference-to-video is capped at 10 s; with these references use 10 s or less.', 'Референс-режим Wan 2.7 ограничен 10 с; с такими референсами ставь 10 с или меньше.');
+    if (roleIds.includes('vedit')) note('info', 'Video editing is a separate Wan 2.7 mode: it follows the source clip (2-10 s) and works best with "replace A with B, keep everything else unchanged".', 'Правка видео — отдельный режим Wan 2.7: он следует исходному клипу (2–10 с) и лучше всего работает с «замени A на B, остальное не меняй».');
+  }
+  if (hasFirst) note('info', 'With a first frame the output follows the image: the aspect ratio setting is ignored, and the text should describe only the motion.', 'С первым кадром результат следует картинке: настройка формата игнорируется, а текст должен описывать только движение.');
+  if (S.ver === '3.0' && roleIds.includes('doc')) note('info', 'The document reference is read as the source brief; name what to extract (the story, the figures, the order).', 'Документ читается как исходный бриф; назови, что взять из него (сюжет, цифры, порядок).');
+
+  // look
+  const bodyKey = S.body && S.body !== 'auto' ? S.body : arch.body;
+  const cap_ = { lean: 2, std: 4, rich: 5 }[S.detail || 'std'];
+  const colorKey = COLOR[S.color] ? S.color : arch.color;
+  const lensOn = !!LENS[S.lens];
+  const lookParts = [];
+  const keys = arch.look.slice();
+  if (COLOR[S.color] && !keys.includes('color')) keys.push('color');
+  for (const k of keys) {
+    if (lookParts.length >= cap_ && !(k === 'color' && COLOR[S.color])) continue;
+    let s = k === 'body' ? BODY[bodyKey] : k === 'color' ? COLOR[colorKey] : BLOCK[k];
+    if (k === 'body' && s && lensOn) s = s.replace(/,? ?\d+mm T[\d.]+/, '').replace(/ with anamorphic lenses.*$/, '');
+    if (s) lookParts.push(s);
+  }
+  if (lensOn) lookParts.push(LENS[S.lens]);
+  if (PACE[S.pace]) lookParts.push(PACE[S.pace].p);
+  const look = (lookParts.length ? dot(lookParts.join('; ')) + ' ' : '') + cap(arch.style);
+
+  // light
+  let lk = S.light && S.light !== 'auto' ? [S.light] : [];
+  if (!lk.length) {
+    let base = null;
+    if (I.tod) {
+      base = I.tod;
+      if (I.interior && (I.tod === 'night' || I.tod === 'eveningGolden')) base = 'intNight';
+      else if (I.interior && I.tod !== 'studio') base = 'intDay';
+    } else if (I.interior && !GENRE_LIGHTS.has(arch.light)) base = 'intDay';
+    if (base) { lk.push(base); if (GENRE_LIGHTS.has(arch.light)) lk.push(arch.light); }
+    else lk.push(arch.light);
+    if (I.weather) lk.push(I.weather);
+  }
+  const light = lk.map(k => LIGHT[k]).join('; ');
+
+  // audio (Wan generates it from the text)
+  const audioOn = S.audioOn !== false;
+  const manual = (S.dialogue || '').split('\n').map(s => s.trim()).filter(Boolean);
+  const allLines = manual.concat(...shots.map(s => s.lines));
+  let dl = S.dlang || 'auto';
+  if (dl === 'auto') dl = /[一-鿿]/.test(allLines.join(' ')) ? 'zh' : /[а-яё]/i.test(allLines.join(' ')) ? 'ru' : /[぀-ヿ]/.test(allLines.join(' ')) ? 'ja' : 'en';
+  const DL = { en: 'English', zh: 'Mandarin Chinese', ru: 'Russian', es: 'Spanish', de: 'German', fr: 'French', ja: 'Japanese' };
+  const say = q => `The character says: "${q}"`;
+  const music = (S.music || '').trim(), sfx = (S.sfx || '').trim();
+  const aud = [];
+  if (audioOn) {
+    if (allLines.length) aud.push(`Dialogue language: ${DL[dl] || dl}.`);
+    if (music && !S.nobgm) aud.push(`Music: ${music}.`);
+    if (sfx) aud.push(S.ver === '3.0' ? `Sound bed: ${sfx}.` : `Sound effects: ${sfx}.`);
+    if (manual.length) aud.push(manual.map(say).join(' '));
+    if (S.nobgm) aud.push('No background music.');
+    if (S.nobgm && music) note('warn', '"No BGM" is on, so the music description was left out.', 'Включено «без музыки», поэтому описание музыки не вошло в промпт.');
+    if (allLines.length && dl !== 'en' && dl !== 'zh') note('info', `Wan voices are strongest in Chinese and English; check ${DL[dl]} speech and expect an accent.`, `Голоса Wan сильнее всего на китайском и английском; проверь речь на языке «${DL[dl]}», возможен акцент.`);
+  } else if (allLines.length || music || sfx) note('info', 'Audio description is off: dialogue, music and sound lines were left out of the prompt.', 'Описание звука выключено: реплики, музыка и звуки не вошли в промпт.');
+  const dlg = s => audioOn && s.lines.length ? ' ' + s.lines.map(say).join(' ') : '';
+
+  // scene section: the shape depends on the model
+  const tm = s => `${s.t0}-${s.t1}s`;
+  const scene = [];
+  if (S.ver === '2.5') {
+    scene.push(shots.map((s, i) => i === 0 ? `${s.size}, ${s.move}. ${s.text}${dlg(s)}` : `Then ${lowFirst(s.text)}${dlg(s)}`).join(' '));
+  } else if (S.ver === '2.7') {
+    if (n > 1) scene.push(`Multi-shot video, ${n} shots.`);
+    shots.forEach(s => scene.push(`${n > 1 ? (S.times !== false ? `Shot ${s.n} [${tm(s)}]: ` : `Shot ${s.n}: `) : ''}${s.size}, ${s.move}. ${s.text}${dlg(s)}`));
+  } else {
+    scene.push(`One continuous take, no cuts, opening on ${an(lowFirst(shots[0].size))}.`);
+    shots.forEach((s, i) => scene.push(`${n > 1 ? PHASES[n][i] + ' (' + tm(s) + '): ' : ''}${cap(s.move)}. ${s.text}${dlg(s)}`));
+    if (S.cont !== false) scene.push('Keep the character, outfit, setting and lighting consistent for the whole take.');
+  }
+
+  // negative prompt
+  const negBase = NEG[S.cons || 2].filter(w => !((hasProduct || arch.id === 'product') && w === 'logo') && !(S.nosubs === false && (w === 'subtitles' || w === 'text overlay')));
+  const userNeg = (S.neg || '').split(/[\n,;]+/).map(s => s.trim()).filter(Boolean);
+  const negative = uniq(negBase.concat(arch.neg || [], userNeg)).join(', ');
+  if (negative.length > L.negChars) note('warn', `The negative prompt is ${negative.length} characters; Wan takes ${L.negChars}. Drop the least important terms.`, `Негативный промпт ${negative.length} симв.; Wan принимает ${L.negChars}. Убери наименее важное.`);
+
+  // assemble
+  const blocks = [];
+  if (refLines.length) blocks.push(refLines.join('\n'));
+  blocks.push(scene.join('\n'));
+  blocks.push(['Look: ' + look, 'Lighting: ' + dot(light)].join('\n'));
+  if (aud.length) blocks.push('Audio: ' + aud.join(' '));
+  const prompt = blocks.join('\n\n');
+
+  // advice
+  if (S.ver === '2.5' && I.beats.length > 1 && n === 1) note('info', 'Wan 2.5 is one continuous shot: a 5 s clip holds one action. Pick 10 s for two, or make separate clips.', 'Wan 2.5 — один непрерывный кадр: в 5 с помещается одно действие. Выбери 10 с для двух или делай отдельные клипы.');
+  if (n === 1 && words(beats[0].text) < 14 && dur > 8 && S.ver !== '2.5') note('info', `One event for ${dur} s: the clip is generated as a single continuous take. Add ${S.ver === '3.0' ? 'a turn and an ending' : '2-3 events if you want cuts'}.`, `Одно событие на ${dur} с: ролик получится одним непрерывным кадром. Добавь ${S.ver === '3.0' ? 'поворот и финал' : '2–3 события, если нужны склейки'}.`);
+  if (S.ver === '3.0' && dur > 12 && n < 3) note('tip', 'A long take needs an arc: add a turn and an ending, otherwise the clip drifts slowly.', 'Длинному кадру нужна дуга: добавь поворот и финал, иначе ролик будет вяло плыть.');
+  if (S.ver === '2.7' && durs.some(d => d > 8)) note('info', 'A shot longer than 8 s is risky; split it into two events.', 'Шот длиннее 8 с рискован; раздели его на два события.');
+  if (I.lang === 'ru') note('info', 'Scaffolding is in English, your wording stays as written. For a full English prompt use the LLM tab.', 'Каркас на английском, твои формулировки остаются как есть. Для полностью английского промпта используй вкладку LLM.');
+  if (allLines.length && audioOn && !music && !sfx) note('info', 'Dialogue found. Add ambient sound or music for a fuller track.', 'Найдена речь. Добавь фоновые звуки или музыку, чтобы дорожка звучала полнее.');
+  if (allLines.length && audioOn) note('tip', 'Name who speaks: replace "The character" with the speaker\'s name or look ("The woman in the yellow raincoat says...").', 'Назови, кто говорит: замени «The character» на имя или внешность героя («The woman in the yellow raincoat says...»).');
+  if (!cnt && /\b(?:image|video|audio)\s?\d/i.test(S.text)) note('warn', 'Your text mentions Image/Video/Audio N but no reference is attached in the References panel.', 'В тексте есть Image/Video/Audio N, но референс не добавлен в панель «Референсы».');
+  note('tip', arch.tip[0], arch.tip[1]);
+
+  const R = { prompt, negative, shots, intent: I, arch, dur, res, ratio, light: lk, notes, n, refCount: cnt, refTokens };
+  R.audit = lint(prompt, S.ver, dur);
+  return R;
+}
+
+/* ---------- 3. Audit / linter ---------- */
+const MV_RE = [['whip', /whip[- ]pan/i], ['orbit', /\borbit|arc shot|orbital/i], ['dolly', /\bdolly|push[- ]in|pull[- ]back/i], ['pan', /\bpan\b/i], ['tilt', /\btilt/i],
+  ['crane', /\bcrane/i], ['handheld', /hand-?held/i], ['tracking', /tracking|\btruck\b/i], ['zoom', /\bzoom/i], ['static', /locked tripod|static camera|no camera movement/i], ['aerial', /aerial|drone/i]];
+const SEC_RE = /^\s*(look|lighting|audio|music|sound|dialogue|negative|avoid|constraints?|style)\b/i;
+const REF_RE = /^\s*(?:image|video|audio|document)\s?\d+\b/i;
+const STAGE_RE = /^\s*(?:shot\s*\d+|(?:beginning|development|turn|escalation|end)\s*\(|(\d+(?:\.\d+)?)\s*[-–—]\s*(\d+(?:\.\d+)?)\s*(?:s|sec|с)(?![\p{L}\p{N}]))/iu;
+
+function lint(p, ver, dur) {
+  const L = LIM[ver], out = [];
+  const add = (sev, id, en, ru) => out.push({ sev, id, msg: [en, ru] });
+  if (!p || !p.trim()) return { issues: [], score: 0 };
+  const chars = p.length, wc = words(p);
+  if (chars > L.chars) add('err', 'len', `${chars} characters; Wan ${ver} takes ${L.chars}. Trim secondary detail.`, `${chars} символов; Wan ${ver} принимает ${L.chars}. Убери второстепенное.`);
+  else if (chars > L.chars * 0.85) add('warn', 'len', `${chars} of ${L.chars} characters: close to the cap.`, `${chars} из ${L.chars} символов: близко к лимиту.`);
+  if (wc < 25) add('tip', 'thin', 'Very short prompt: add the subject, the setting, the motion and a light source.', 'Очень короткий промпт: добавь героя, место, движение и источник света.');
+
+  const slop = SLOP.filter(w => new RegExp('(?<![\\p{L}\\p{N}])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + (/[а-яё]/i.test(w) ? '' : '(?![\\p{L}\\p{N}])'), 'iu').test(p));
+  if (slop.length) add('warn', 'slop', `Empty quality words: ${slop.join(', ')}. They add nothing; replace with camera, film, lens or light specifics.`, `Пустые слова качества: ${slop.join(', ')}. Они ничего не дают; замени конкретикой: камера, плёнка, оптика, свет.`);
+  if (/\b(?:480|720|1080)p\b|\b(?:16:9|9:16|4:3|3:4|1:1)\b|\b\d+\s?fps\b/i.test(p)) add('tip', 'param', 'Resolution, aspect ratio and fps are generator settings; Wan does not read them from the prompt text.', 'Разрешение, формат кадра и fps — это настройки генератора; Wan не читает их из текста промпта.');
+
+  // segments
+  const lines = p.split('\n');
+  const stages = [];
+  let cur = null;
+  for (const line of lines) {
+    const m = STAGE_RE.exec(line);
+    if (m) {
+      let t0 = null, t1 = null;
+      const r = /(?:\[|\()\s*(\d+(?:\.\d+)?)\s*[-–—]\s*(\d+(?:\.\d+)?)\s*s|^\s*(\d+(?:\.\d+)?)\s*[-–—]\s*(\d+(?:\.\d+)?)\s*(?:s|sec|с)/i.exec(line);
+      if (r) { t0 = +(r[1] ?? r[3]); t1 = +(r[2] ?? r[4]); }
+      cur = { text: line, t0, t1, shot: /^\s*shot/i.test(line) };
+      stages.push(cur);
+    } else if (SEC_RE.test(line) || REF_RE.test(line) || !line.trim()) cur = null;
+    else if (cur) cur.text += ' ' + line;
+  }
+  const segs = stages.length ? stages : [{ text: lines.filter(l => l.trim() && !SEC_RE.test(l) && !REF_RE.test(l)).join(' '), t0: null, t1: null }];
+  const timed = stages.filter(s => s.t0 !== null);
+
+  if (ver === '2.5') {
+    if (stages.length) add('warn', 'cut2', 'Wan 2.5 makes one continuous shot: "Shot N" labels and timestamps are ignored and cuts will not happen. Make separate clips instead.', 'Wan 2.5 делает один непрерывный кадр: метки «Shot N» и тайминги игнорируются, склеек не будет. Делай отдельные клипы.');
+    const allowed = Math.max(0, Math.floor((dur || 5) / 5) - 1);
+    const thens = (segs[0].text.match(/\bthen\b|\band then\b|\bafter that\b|потом|затем/gi) || []).length;
+    if (thens > allowed) add('warn', 'act', `${thens + 1} actions for ${dur || 5} s. Wan 2.5 holds one action per 5 s; chaining more makes the motion rush or drop steps.`, `${thens + 1} действий на ${dur || 5} с. Wan 2.5 держит одно действие на 5 с; больше — и движение торопится или теряет шаги.`);
+    const spoken = (p.match(/says?:?\s*["“«]([^"”»]+)["”»]/gi) || []).reduce((a, s) => a + words(s.replace(/^[^"“«]*["“«]/, '')), 0);
+    if (spoken > 10 * Math.max(1, Math.floor((dur || 5) / 5))) add('warn', 'dlen', `About ${spoken} spoken words; keep dialogue near 10 words per 5 s in Wan 2.5.`, `Около ${spoken} слов речи; в Wan 2.5 держи реплики около 10 слов на 5 с.`);
+  } else if (ver === '2.7') {
+    if (!stages.length && (dur || 0) > 6) add('tip', 'shots27', 'For clips over 6 s, structure the plot as "Multi-shot video, N shots." then "Shot 1 [0-3s]:", "Shot 2 [3-7s]:".', 'Для роликов дольше 6 с структурируй сюжет: «Multi-shot video, N shots.», затем «Shot 1 [0-3s]:», «Shot 2 [3-7s]:».');
+    if (stages.length > 1 && !/multi-?shot/i.test(p)) add('tip', 'ms27', 'Open with "Multi-shot video, N shots." so Wan 2.7 knows to cut between the shots.', 'Начни с «Multi-shot video, N shots.», чтобы Wan 2.7 понял, что между шотами нужны склейки.');
+    if (timed.length) {
+      if (timed[0].t0 !== 0) add('err', 'ts0', 'Timeline must start at 0s.', 'Таймлайн должен начинаться с 0s.');
+      for (let i = 1; i < timed.length; i++) if (timed[i].t0 !== timed[i - 1].t1) { add('err', 'tsgap', `Gap or overlap between shots ${i} and ${i + 1}: use consecutive ranges.`, `Дыра или нахлёст между шотами ${i} и ${i + 1}: диапазоны должны идти подряд.`); break; }
+      if (dur && timed[timed.length - 1].t1 !== dur) add('err', 'tsend', `Timeline ends at ${timed[timed.length - 1].t1}s but the duration is ${dur}s.`, `Таймлайн заканчивается на ${timed[timed.length - 1].t1}s, а длительность ${dur}s.`);
+      if (timed.some(s => s.t1 - s.t0 < 2)) add('warn', 'tsshort', 'A shot under 2 s is too short to show an action.', 'Шот короче 2 с слишком короткий для действия.');
+    }
+    if (stages.length > L.maxShots) add('warn', 'shotmany', `${stages.length} shots; more than ${L.maxShots} gets crowded.`, `${stages.length} шотов; больше ${L.maxShots} уже тесно.`);
+  } else {
+    if (stages.some(s => s.shot)) add('tip', 'cut30', 'Wan 3.0 is built for one continuous take: write an arc (beginning, turn, end) instead of a shot list.', 'Wan 3.0 создан для одного непрерывного кадра: пиши дугу (начало, поворот, финал), а не список шотов.');
+    if ((dur || 0) > 12 && !/\b(?:turn|then|until|finally|as|when)\b|потом|затем|пока|когда/i.test(p)) add('tip', 'arc30', 'No turn in a long take: describe how the frame changes over time, or the clip drifts slowly.', 'В длинном кадре нет поворота: опиши, как кадр меняется со временем, иначе ролик вяло плывёт.');
+  }
+
+  segs.forEach((s, i) => {
+    const tag = segs.length > 1 ? `#${i + 1}` : '';
+    const label = ver === '2.7' ? (tag ? `Shot ${tag}` : 'The shot') : tag ? `Part ${tag}` : 'The prompt';
+    let txt = s.text;
+    const cats = MV_RE.filter(([k, re]) => { const hit = re.test(txt); if (hit && k === 'whip') txt = txt.replace(/whip[- ]pan/gi, ''); return hit; }).map(x => x[0]);
+    const sd = s.t0 !== null ? s.t1 - s.t0 : null;
+    if (cats.length >= 3) add('err', 'mv3', `${label}: ${cats.length} camera movements (${cats.join(' + ')}). Three axes at once break the model; keep one, two at most.`, `${label}: ${cats.length} движения камеры (${cats.join(' + ')}). Три оси ломают модель; оставь одно, максимум два.`);
+    else if (cats.includes('static') && cats.length > 1) add('err', 'mvstat', `${label}: locked camera contradicts another movement.`, `${label}: статичная камера противоречит другому движению.`);
+    else if (cats.includes('orbit') && cats.includes('handheld')) add('warn', 'mvoh', `${label}: orbit + handheld causes jitter.`, `${label}: orbit + handheld даёт дрожание.`);
+    else if (cats.includes('orbit') && cats.includes('dolly') && (sd === null || sd > 5)) add('warn', 'mvod', `${label}: orbit + dolly drifts after about 5 s.`, `${label}: orbit + dolly уплывает после ~5 с.`);
+    else if (cats.includes('pan') && cats.includes('dolly')) add('warn', 'mvpd', `${label}: pan + dolly together can jitter; try one.`, `${label}: pan + dolly вместе могут дрожать; попробуй одно.`);
+    if (cats.includes('orbit') && /360/.test(txt) && sd !== null && sd < 6) add('warn', 'or360', `${label}: a 360° orbit in under 6 s causes artefacts.`, `${label}: орбита 360° быстрее 6 с даёт артефакты.`);
+    if (ver === '2.7' && /\b(?:then|and then|after that)\b|потом|затем/i.test(txt)) add('warn', 'act', `${label}: more than one action ("then"). One action per shot; give the next one its own shot.`, `${label}: больше одного действия («потом»). Одно действие на шот; следующему нужен свой шот.`);
+    if (words(txt) > L.words) add('warn', 'wlen', `${label} is ${words(txt)} words; above ${L.words} Wan starts dropping detail.`, `${label}: ${words(txt)} слов; после ${L.words} Wan начинает терять детали.`);
+  });
+
+  // references
+  const toks = [...new Set((p.match(/\b(?:Image|Video|Audio|Document)\s?\d+\b/g) || []).map(s => s.replace(/\s/g, '')))];
+  if (toks.length) {
+    const kind = t => /^Image/.test(t) ? 'image' : /^Video/.test(t) ? 'video' : /^Audio/.test(t) ? 'audio' : 'doc';
+    const c = { image: 0, video: 0, audio: 0, doc: 0 };
+    toks.forEach(t => c[kind(t)]++);
+    if (Object.keys(c).some(k => c[k] > L.kinds[k]) || c.image + c.video > L.visual || toks.length > L.total) add('err', 'refmax', `Reference limits for Wan ${ver}: ${L.kinds.image} images, ${L.kinds.video} videos, ${L.kinds.audio} audio, ${L.kinds.doc} documents, ${L.total} files in total.`, `Лимиты референсов для Wan ${ver}: ${L.kinds.image} изображений, ${L.kinds.video} видео, ${L.kinds.audio} аудио, ${L.kinds.doc} документов, ${L.total} файлов всего.`);
+    const roleRe = /\b(?:is|as|for|are)\b[^.\n]{0,60}\b(?:character|product|location|style|reference|first frame|last frame|motion|camera|music|voice|prop|clip|frame|soundtrack|source|brief|identity)|персонаж|продукт|локаци|стил|движени|музык|голос|кадр/i;
+    const noRole = toks.filter(t => { const i = p.replace(/\b(Image|Video|Audio|Document)\s(\d)/g, '$1$2').indexOf(t); return !roleRe.test(p.slice(Math.max(0, i), i + 130)); });
+    if (noRole.length) add('warn', 'refrole', `${noRole.join(', ')}: no explicit role. Say what each file is ("Image 1 is the character...").`, `${noRole.join(', ')}: нет явной роли. Напиши, чем является каждый файл («Image 1 is the character...»).`);
+    if (toks.some(t => kind(t) === 'video') && !/only|do not inherit|edit|continue|extend|same appearance|не наслед/i.test(p)) add('tip', 'refexcl', 'Video reference without exclusions: add "motion and camera only, do not inherit actor, clothing or background".', 'Видео-референс без исключений: добавь «motion and camera only, do not inherit actor, clothing or background».');
+    if (toks.some(t => kind(t) === 'image') && !/identity|face|outfit|consistent|texture|composition|лиц/i.test(p)) add('tip', 'refid', 'No consistency phrase for the image reference ("keep the face, hairstyle and outfit consistent").', 'Для референса-изображения нет фразы про сохранение вида («keep the face, hairstyle and outfit consistent»).');
+  }
+
+  // audio
+  if (/(?:says?|speaks?|говорит|произносит)\s*:?\s*["“«]/i.test(p)) {
+    if (!/language|accent|english|russian|chinese|mandarin|spanish|german|french|japanese|на русском|на английском|язык/i.test(p)) add('warn', 'dlang', 'Dialogue without a named language. Name it before the line.', 'Речь без указания языка. Назови язык перед репликой.');
+    if (/says?\s*:?\s*["“«]/i.test(p) && /the character says/i.test(p)) add('tip', 'spk', 'Name who speaks instead of "The character".', 'Назови, кто говорит, вместо «The character».');
+  }
+
+  const cy = (p.match(/[а-яё]/gi) || []).length, la = (p.match(/[a-z]/gi) || []).length;
+  if (cy > 40 && la > 40 && cy / (cy + la) > 0.12 && cy / (cy + la) < 0.88) add('tip', 'mix', 'Mixed languages in the description. One language is more stable (dialogue lines aside).', 'Смесь языков в описании. Один язык стабильнее (кроме реплик).');
+  if ((p.match(/\bno\b|without|don't|do not/gi) || []).length > 6) add('tip', 'neg', 'Wan follows positive wording. Move the "no ..." exclusions to the Negative prompt field.', 'Wan лучше следует утверждениям. Перенеси «no ...» в поле негативного промпта.');
+
+  const pen = { err: 18, warn: 7, tip: 2 };
+  const score = Math.max(0, 100 - out.reduce((s, i) => s + pen[i.sev], 0));
+  return { issues: out, score, chars, words: wc };
+}
+
+function stripSlop(p) {
+  let s = p;
+  for (const w of SLOP) s = s.replace(new RegExp('(?<![\\p{L}\\p{N}])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + (/[а-яё]/i.test(w) ? '' : '(?![\\p{L}\\p{N}])'), 'giu'), '');
+  return s.replace(/[ \t]{2,}/g, ' ').replace(/\s+([,.;])/g, '$1').replace(/([,;])\s*([,;.])/g, '$2').replace(/^[\s.,;]+/gm, '').trim();
+}
+
+/* ---------- 4. Meta-prompts (LLM tab) ---------- */
+function buildMeta(S, R, lang) {
+  const reply = lang === 'ru' ? 'Russian' : 'English';
+  const refs = (S.refs || []).filter(r => roleOk(r.role, S.ver));
+  const L = [META_COMMON, '', META_V[S.ver], '', 'BRIEF',
+    `Description: ${S.text.trim()}`,
+    `Duration: ${R.dur} s`, `Aspect ratio: ${R.ratio}`, `Resolution: ${R.res}`,
+    `Scene type (auto-detected): ${R.arch.n[0]}`];
+  if (refs.length) { L.push('References (in upload order):'); refs.forEach(r => L.push(`- ${ROLES[r.role].kind} / ${ROLES[r.role].l[0]}${r.note ? ': ' + r.note : ''}`)); }
+  if (S.music) L.push(`Music: ${S.music}`);
+  if (S.sfx) L.push(`Sound effects: ${S.sfx}`);
+  if (S.dialogue) L.push(`Dialogue: ${S.dialogue.replace(/\n/g, ' / ')}`);
+  if (S.neg) L.push(`Must avoid: ${S.neg.replace(/\n/g, ', ')}`);
+  L.push('', 'RULES-ENGINE DRAFT (improve it: translate, tighten, add concrete detail; do not just copy it):', R.prompt, '',
+    'DRAFT NEGATIVE PROMPT:', R.negative, '',
+    'OUTPUT FORMAT',
+    '1. The final prompt in a single code block.',
+    '2. The negative prompt in its own code block (max 500 characters).',
+    `3. "What I assumed": at most 3 bullets, in ${reply}.`,
+    `4. One tip to improve the result, in ${reply}.`);
+  return L.join('\n');
+}
+
+function buildImproveMeta(p, ver, dur, issues, lang) {
+  const reply = lang === 'ru' ? 'Russian' : 'English';
+  const L = [META_COMMON, '', META_V[ver], '', `Task: rewrite the Wan ${ver} prompt below so it follows the rules, keeping the author's intent. Duration: ${dur} s.`,
+    '', 'PROMPT', p.trim(), ''];
+  if (issues.length) { L.push('KNOWN PROBLEMS (from the automatic checker):'); issues.forEach(i => L.push(`- [${i.sev}] ${i.msg[0]}`)); L.push(''); }
+  L.push('OUTPUT FORMAT', '1. The improved prompt in a single code block.', '2. A matching negative prompt in its own code block (max 500 characters).', `3. "What I changed": at most 4 bullets, in ${reply}.`);
+  return L.join('\n');
+}
+
+if (typeof module !== 'undefined') module.exports = { LIM, ARCH, ROLES, decode, build, lint, stripSlop, buildMeta, buildImproveMeta, allocate, parseRatio, snapDur };
+
+
+/* ===== UI: i18n, state, rendering, history, export ===== */
+
+const T = {
+  kicker: ['Wan 2.5 / 2.7 / 3.0 · Prompt compiler', 'Wan 2.5 / 2.7 / 3.0 · Компилятор промптов'],
+  ver: ['Model', 'Модель'],
+  tab_compile: ['Compile', 'Сборка'], tab_improve: ['Improve', 'Улучшить'], tab_hist: ['History', 'История'], tab_models: ['Models', 'Модели'],
+  c_brief: ['Brief', 'Бриф'], f_desc: ['What happens in the video', 'Что происходит в ролике'],
+  ph_desc: ['Plot, characters, place, mood, camera wishes. One event per sentence. Dialogue in quotes goes to the audio track.',
+            'Сюжет, герои, место, настроение, пожелания по камере. Одно событие на предложение. Реплики в кавычках уйдут в аудио-дорожку.'],
+  ex: ['Examples', 'Примеры'],
+  f_dur: ['Duration, s', 'Длительность, с'], f_ratio: ['Aspect ratio', 'Формат кадра'], f_res: ['Resolution', 'Разрешение'], f_arch: ['Scene type', 'Тип сцены'],
+  auto: ['Auto', 'Авто'],
+  c_look: ['Look & camera', 'Вид и камера'], f_detail: ['Look detail', 'Детализация вида'],
+  d_lean: ['Lean', 'Минимум'], d_std: ['Standard', 'Стандарт'], d_rich: ['Rich', 'Максимум'],
+  f_cons: ['Negative strength', 'Сила негатива'], k1: ['Light', 'Лёгкий'], k2: ['Standard', 'Стандарт'], k3: ['Strict', 'Строгий'],
+  f_body: ['Camera body', 'Камера'], b_phone: ['Smartphone', 'Смартфон'], b_none: ['None', 'Нет'],
+  f_light: ['Light', 'Свет'], f_move: ['Camera move', 'Движение камеры'],
+  f_color: ['Colour grade', 'Цветокоррекция'], f_pace: ['Pace', 'Темп'], f_lens: ['Lens', 'Объектив'],
+  add_img: ['+ Image', '+ Картинка'], add_vid: ['+ Video', '+ Видео'], add_aud: ['+ Audio', '+ Аудио'], add_doc: ['+ Doc', '+ Документ'],
+  c_refs: ['References', 'Референсы'],
+  ph_refnote: ['what it is (optional)', 'что это (необязательно)'],
+  refs_h25: ['Wan 2.5 takes one first frame and one audio file. Upload them in this order: Image 1, Audio 1.', 'Wan 2.5 принимает один первый кадр и один аудиофайл. Загружай в таком порядке: Image 1, Audio 1.'],
+  refs_h27: ['Up to 5 images/videos plus one audio file. Every file gets a role and its own sentence. Upload in this order: Image 1, Image 2, Video 1, Audio 1.', 'До 5 картинок/видео и один аудиофайл. Каждому файлу своя роль и своё предложение. Загружай в таком порядке: Image 1, Image 2, Video 1, Audio 1.'],
+  refs_h30: ['Omni-reference: up to 20 files, documents included. Label every file in the prompt. Upload in this order: Image 1, Video 1, Audio 1, Document 1.', 'Omni-референс: до 20 файлов, включая документы. Каждый файл подписан в промпте. Загружай в таком порядке: Image 1, Video 1, Audio 1, Document 1.'],
+  lim_reached: ['Limit reached for this model', 'Лимит этой модели достигнут'], refs_dropped: ['Some references do not exist in this model and were removed', 'Часть референсов не поддерживается этой моделью и убрана'],
+  files: ['files', 'файлов'],
+  c_audio: ['Audio', 'Аудио'], f_music: ['Music', 'Музыка'], f_sfx: ['Sound effects', 'Звуковые эффекты'],
+  ph_music: ['e.g. soft piano, slow build', 'напр. мягкое пианино, медленное нарастание'],
+  ph_sfx: ['e.g. rain on glass, distant traffic', 'напр. дождь по стеклу, далёкий транспорт'],
+  f_dlg: ['Extra dialogue (one line per row)', 'Доп. реплики (по одной в строке)'],
+  ph_dlg: ['Lines in quotes inside the description are picked up automatically.', 'Реплики в кавычках из описания подхватываются автоматически.'],
+  f_dlang: ['Dialogue language', 'Язык речи'], dl_auto: ['Auto', 'Авто'],
+  o_audio: ['Describe audio in the prompt', 'Описывать звук в промпте'],
+  o_nosubs: ['Keep subtitles out (negative prompt)', 'Без субтитров (в негативном промпте)'],
+  o_nobgm: ['No background music', 'Без фоновой музыки'],
+  c_opts: ['Options', 'Опции'],
+  o_times: ['Show times in shots (2.7)', 'Показывать время в шотах (2.7)'],
+  o_cont: ['Add a consistency line for the take (3.0)', 'Добавить строку согласованности кадра (3.0)'],
+  f_neg: ['Extra negative terms (comma-separated)', 'Доп. негативные термины (через запятую)'],
+  ph_neg: ['e.g. extra people, text on screen', 'напр. extra people, text on screen'],
+  c_und: ['What I understood', 'Что я понял'],
+  u_arch: ['Scene', 'Сцена'], u_dur: ['Text says', 'В тексте'], u_apply: ['apply', 'применить'], u_set: ['Settings', 'Настройки'],
+  u_light: ['Light', 'Свет'], u_moves: ['Camera', 'Камера'], u_plan: ['Plan', 'План'], u_dlg: ['Dialogue', 'Речь'],
+  u_cam_auto: ['auto', 'авто'], u_lang: ['Brief language', 'Язык брифа'],
+  o_prompt: ['Prompt', 'Промпт'], o_neg: ['Negative', 'Негатив'], o_tl: ['Timeline', 'Таймлайн'], o_llm: ['LLM', 'LLM'],
+  neg_hint: ['Paste this into the separate "negative prompt" field of the generator (max 500 characters). It is not part of the main prompt.',
+             'Вставь это в отдельное поле «negative prompt» генератора (до 500 символов). В основной промпт оно не входит.'],
+  llm_hint: ['Paste this into Claude or ChatGPT. It returns the final English prompt and a negative prompt with the Wan rules applied.',
+             'Вставь это в Claude или ChatGPT. Получишь финальный промпт на английском и негативный промпт с правилами Wan.'],
+  acts_hint: ['Copy: the text on this tab. Link: all your settings in one address. Save: adds it to History. Reset: clears the form.',
+              'Копия: текст с этой вкладки. Ссылка: все настройки в одном адресе. Сохр.: добавляет в Историю. Сброс: очищает форму.'],
+  btn_copy: ['Copy', 'Копия'], btn_txt: ['.txt', '.txt'], btn_json: ['.json', '.json'], btn_link: ['Link', 'Ссылка'], btn_save: ['Save', 'Сохр.'], btn_reset: ['Reset', 'Сброс'],
+  copied: ['Copied', 'Скопировано'], saved: ['Saved to history', 'Сохранено в историю'], linkcopied: ['Link copied', 'Ссылка скопирована'],
+  c_audit: ['Self-check', 'Самопроверка'], no_issues: ['No issues found.', 'Замечаний нет.'], c_notes: ['Notes', 'Заметки'],
+  empty_out: ['Write a description to see the prompt.', 'Напиши описание, чтобы увидеть промпт.'],
+  reset_confirm: ['Clear the whole form?', 'Очистить всю форму?'],
+  imp_h: ['Paste a prompt to check', 'Вставь промпт для проверки'],
+  ph_imp: ['Paste any Wan prompt here. The checker runs the rules for the selected model.', 'Вставь сюда любой промпт Wan. Проверка идёт по правилам выбранной модели.'],
+  imp_dur: ['Intended duration, s (optional)', 'Планируемая длительность, с (необязательно)'],
+  imp_strip: ['Strip empty words', 'Убрать пустые слова'], imp_paste: ['Paste', 'Вставить'], imp_clear: ['Clear', 'Очистить'], imp_llm: ['Ask an LLM to fix it', 'Попросить LLM исправить'],
+  h_empty: ['Nothing saved yet. Press Save or copy a prompt.', 'Пока пусто. Нажми «Сохр.» или скопируй промпт.'],
+  h_only_fav: ['Favourites only', 'Только избранное'], h_load: ['Open', 'Открыть'], h_del: ['Delete', 'Удалить'], h_clear: ['Clear all', 'Очистить всё'],
+  h_confirm: ['Delete the whole history?', 'Удалить всю историю?'],
+  m_h: ['Models at a glance', 'Модели вкратце'],
+  m_note: ['* Not officially listed, or reported inconsistently: check before relying on it. Figures come from the Alibaba Cloud Model Studio API reference and provider guides, October 2026.',
+           '* Официально не указано или данные расходятся: проверь, прежде чем полагаться. Цифры из документации Alibaba Cloud Model Studio и гайдов провайдеров, октябрь 2026.'],
+  back: ['Github', 'Github'],
+  write: ['Contact', 'Написать'],
+  foot: ['Rules come from the Alibaba Cloud Model Studio API reference, provider guides and a physical-lighting vocabulary. The engine suggests; the model still decides. Nothing leaves your browser',
+         'Правила собраны из документации Alibaba Cloud Model Studio, гайдов провайдеров и словаря физического света. Движок предлагает, решает всё равно модель. Ничего не покидает твой браузер']
+};
+
+const MODEL_ROWS = [
+  [['Duration', 'Длительность'], ['5 or 10 s', '5 или 10 с'], ['2–15 s', '2–15 с'], ['2–30 s', '2–30 с']],
+  [['Resolution', 'Разрешение'], '480p · 720p · 1080p', '720p · 1080p', '480p · 720p · 1080p'],
+  [['Ratios', 'Форматы'], '16:9 · 9:16 · 1:1 · 4:3 · 3:4', '16:9 · 9:16 · 1:1 · 4:3 · 3:4', ['Same five*', 'Те же пять*']],
+  [['Shots', 'Шоты'], ['One continuous shot', 'Один непрерывный кадр'], ['Multi-shot in the prompt', 'Мульти-шот в промпте'], ['One long take', 'Один длинный кадр']],
+  [['Images in', 'Картинки'], ['First frame', 'Первый кадр'], ['5 refs, first/last frame', '5 референсов, первый/последний кадр'], ['Omni-reference, 20 files', 'Omni-референс, 20 файлов']],
+  [['Video in', 'Видео'], '—', ['3 refs, edit, continue', '3 референса, правка, продолжение'], ['Reference, edit, extend', 'Референс, правка, продолжение']],
+  [['Audio', 'Звук'], ['Generated; file 3–30 s', 'Генерируется; файл 3–30 с'], ['Generated; file 2–30 s, voice ref', 'Генерируется; файл 2–30 с, голос-референс'], ['Reported as generated*', 'По данным генерируется*']],
+  [['Documents', 'Документы'], '—', '—', 'doc · xls · ppt · pdf · md'],
+  [['Prompt cap', 'Лимит промпта'], ['1,500 chars', '1 500 симв.'], ['5,000 chars', '5 000 симв.'], ['Not published*', 'Не опубликован*']],
+  [['Negative', 'Негатив'], ['500 chars', '500 симв.'], ['500 chars', '500 симв.'], ['500 chars*', '500 симв.*']],
+  [['Formula', 'Формула'], ['Scene + action + camera + audio', 'Сцена + действие + камера + звук'], ['Shots with [0-3s] times', 'Шоты со временем [0-3s]'], ['Arc: beginning, turn, end', 'Дуга: начало, поворот, финал']]
+];
+
+const EXAMPLES = [
+  { n: ['Rainy café', 'Дождливое кафе'], ver: '2.5', dur: 10, refs: [], music: 'soft jazz piano', sfx: 'rain on glass, spoon against ceramic',
+    text: ['Rainy street café at night: a woman in a yellow raincoat sits by the window and stirs her coffee while the camera slowly pushes in on her face. Then she looks up and says: "He is late again."',
+           'Дождливое уличное кафе ночью: женщина в жёлтом плаще сидит у окна и помешивает кофе, а камера медленно приближается к её лицу. Потом она поднимает взгляд и говорит: «Он опять опаздывает.»'] },
+  { n: ['UGC review', 'UGC-обзор'], ver: '2.5', dur: 10, refs: [], music: '', sfx: 'steam hiss, button click',
+    text: ['A young woman in a bright kitchen holds a coffee machine and says: "Best purchase this year." Then she presses the button and steam rises.',
+           'Девушка на светлой кухне держит кофемашину и говорит: «Лучшая покупка за год». Потом нажимает кнопку, и поднимается пар.'] },
+  { n: ['Rooftop chase', 'Погоня по крышам'], ver: '2.7', dur: 10, refs: [{ role: 'character', note: 'the hero' }], music: '', sfx: 'footsteps on gravel, distant sirens',
+    text: ['Rooftop chase at sunset. The hero sprints along the edge and jumps to the next building. Then he slides under a pipe and rolls to his feet. Finally he faces the villain: "You are too late."',
+           'Погоня по крышам на закате. Герой бежит по краю и прыгает на соседнее здание. Затем он проскальзывает под трубой и вскакивает на ноги. В финале он смотрит на злодея: «Ты опоздал.»'] },
+  { n: ['Perfume ad', 'Реклама духов'], ver: '2.7', dur: 10, refs: [{ role: 'product', note: '' }], music: 'soft piano, slow build', sfx: '',
+    text: ['Perfume ad: a black glass bottle on wet black marble, water drops run down the glass. The camera pushes in to the engraved logo. Finale: golden smoke wraps around the bottle.',
+           'Реклама духов: чёрный стеклянный флакон на мокром чёрном мраморе, капли воды стекают по стеклу. Камера приближается к гравировке логотипа. В финале флакон окутывает золотой дым.'] },
+  { n: ['Neon street take', 'Неоновая улица'], ver: '3.0', dur: 30, refs: [{ role: 'character', note: 'the courier' }], music: '', sfx: 'rain, distant traffic, crowd murmur',
+    text: ['A rainy neon street in a future city at night. A courier in a silver jacket walks through the crowd and the camera follows him from behind. He stops at a noodle stall and takes off his helmet. The camera moves around to his face as he looks up at a flying billboard and the rain stops.',
+           'Дождливая неоновая улица города будущего ночью. Курьер в серебристой куртке идёт сквозь толпу, камера следует за ним сзади. Он останавливается у лапшичной и снимает шлем. Камера огибает его до лица, он смотрит на летящий билборд, и дождь стихает.'] },
+  { n: ['Report to video', 'Отчёт в видео'], ver: '3.0', dur: 20, refs: [{ role: 'doc', note: 'quarterly report' }], music: 'calm ambient pulse', sfx: '',
+    text: ['An analyst walks along a wall of glass charts in a quiet office while the camera tracks her. She stops at the rising line and says: "Revenue is up twelve percent." The camera slowly pulls back to reveal the whole wall.',
+           'Аналитик идёт вдоль стены из стеклянных графиков в тихом офисе, камера следует за ней. Она останавливается у растущей линии и говорит: «Выручка выросла на двенадцать процентов.» Камера медленно отъезжает и показывает всю стену.'] }
+];
+const COLOR_NAMES = { teal: ['Teal & orange', 'Тил и оранж'], neutral: ['Neutral', 'Нейтральная'], warm: ['Warm amber', 'Тёплый янтарь'], noir: ['Noir', 'Нуар'],
+  neon: ['Neon', 'Неон'], natural: ['Natural', 'Натуральная'], clean: ['Clean premium', 'Чистый премиум'], anime: ['Anime pastel', 'Аниме'] };
+const PACE_NAMES = { calm: ['Calm', 'Спокойный'], steady: ['Steady', 'Ровный'], fast: ['Fast', 'Быстрый'] };
+const LENS_NAMES = { wide: ['24 mm wide', '24 мм широкий'], std: ['35 mm', '35 мм'], tele: ['85 mm', '85 мм'], macro: ['Macro 100', 'Макро 100'], ana: ['Anamorphic', 'Анаморф'] };
+const BODY_NAMES = { arri: 'Alexa 35', red: 'V-Raptor', sony: 'Venice 2', ana: 'Anamorphic' };
+const DEF_DUR = { '2.5': 10, '2.7': 10, '3.0': 20 };
+
+const $ = id => document.getElementById(id);
+const $$ = (sel, r = document) => [...r.querySelectorAll(sel)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+let LANG = 'en', VER = '2.7', MODE = 'compile', OUT = 'prompt', REFS = [], S = null, R = null, timer = 0;
+const t = k => (T[k] || [k, k])[LANG === 'ru' ? 1 : 0];
+const L_ = arr => arr[LANG === 'ru' ? 1 : 0];
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } }
+};
+// keys are prefixed "wave." because MiSE lives on the same github.io origin and uses "sdc."
+const K_STATE = 'wave.state', K_HIST = 'wave.hist';
+let toastTimer = 0;
+function toast(msg) { const el = $('toast'); el.textContent = msg; el.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('on'), 1500); }
+
+/* ---------- state <-> form ---------- */
+function readUI() {
+  return { ver: VER, text: $('desc').value, dur: +$('durNum').value || LIM[VER].min, ratio: $('ratio').value, res: $('res').value, arch: $('arch').value, detail: $('detail').value, cons: +$('cons').value,
+    body: $('body').value, light: $('light').value, move: $('move').value, color: $('color').value, pace: $('pace').value, lens: $('lens').value, refs: REFS.map(r => ({ ...r })), music: $('music').value, sfx: $('sfx').value,
+    dialogue: $('dialogue').value, dlang: $('dlang').value, audioOn: $('audioOn').checked, nosubs: $('nosubs').checked, nobgm: $('nobgm').checked, times: $('times').checked,
+    cont: $('cont').checked, neg: $('neg').value };
+}
+function writeUI(s) {
+  setVer(s.ver || VER, true);
+  $('desc').value = s.text || '';
+  setDur(s.dur || DEF_DUR[VER]);
+  if ([...$('ratio').options].some(o => o.value === s.ratio)) $('ratio').value = s.ratio; else $('ratio').value = 'auto';
+  if ([...$('res').options].some(o => o.value === s.res)) $('res').value = s.res; else $('res').value = LIM[VER].res[LIM[VER].res.length - 1];
+  for (const id of ['arch', 'detail', 'body', 'light', 'move', 'color', 'pace', 'lens', 'dlang']) {
+    const el = $(id), v = s[id] !== undefined ? String(s[id]) : (id === 'detail' ? 'std' : 'auto');
+    if ([...el.options].some(o => o.value === v)) el.value = v;
+  }
+  $('cons').value = String(s.cons || 2);
+  REFS = (s.refs || []).filter(r => roleOk(r.role, VER)).map(r => ({ role: r.role, note: r.note || '' }));
+  for (const id of ['music', 'sfx', 'dialogue', 'neg']) $(id).value = s[id] || '';
+  for (const id of ['audioOn', 'nosubs', 'nobgm', 'times', 'cont']) $(id).checked = s[id] !== undefined ? !!s[id] : (id !== 'nobgm');
+  renderRefs();
+}
+function setDur(v) { v = snapDur(VER, v); $('dur').value = v; $('durNum').value = v; }
+
+/* ---------- version / language ---------- */
+function setVer(v, silent) {
+  VER = v;
+  $$('#verSeg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === v));
+  const lim = LIM[v];
+  for (const id of ['dur', 'durNum']) { $(id).min = lim.min; $(id).max = lim.max; $(id).step = lim.step; }
+  setDur(+$('durNum').value);
+  const prevRatio = $('ratio').value, prevRes = $('res').value;
+  $('ratio').innerHTML = `<option value="auto">${esc(t('auto'))}</option>` + lim.ratios.map(r => `<option>${r}</option>`).join('');
+  $('ratio').value = [...$('ratio').options].some(o => o.value === prevRatio) ? prevRatio : 'auto';
+  $('res').innerHTML = lim.res.map(r => `<option>${r}</option>`).join('');
+  $('res').value = lim.res.includes(prevRes) ? prevRes : lim.res[lim.res.length - 1];
+  $('timesWrap').hidden = v !== '2.7';
+  $('contWrap').hidden = v !== '3.0';
+  const before = REFS.length;
+  REFS = REFS.map(r => {
+    if (roleOk(r.role, v)) return r;
+    const kind = (ROLES[r.role] || {}).kind, nr = kind ? defRole(kind, v) : null;
+    return nr && roleOk(nr, v) ? { ...r, role: nr } : null;
+  }).filter(Boolean);
+  if (!silent && REFS.length < before) toast(t('refs_dropped'));
+  if (!silent) { renderRefs(); render(); }
+}
+function rebuildSelects() {
+  const fill = (id, html) => { const el = $(id), prev = el.value; el.innerHTML = html; if ([...el.options].some(o => o.value === prev)) el.value = prev; };
+  const o = (v, n) => `<option value="${v}">${esc(n)}</option>`;
+  fill('arch', o('auto', t('auto')) + ARCH.map(a => o(a.id, L_(a.n))).join(''));
+  fill('light', o('auto', t('auto')) + Object.keys(LIGHT_NAMES).map(k => o(k, L_(LIGHT_NAMES[k]))).join(''));
+  fill('body', o('auto', t('auto')) + Object.keys(BODY_NAMES).map(k => o(k, BODY_NAMES[k])).join('') + o('phone', t('b_phone')) + o('none', t('b_none')));
+  fill('color', o('auto', t('auto')) + Object.keys(COLOR_NAMES).map(k => o(k, L_(COLOR_NAMES[k]))).join(''));
+  fill('pace', o('auto', t('auto')) + Object.keys(PACE_NAMES).map(k => o(k, L_(PACE_NAMES[k]))).join(''));
+  fill('lens', o('auto', t('auto')) + Object.keys(LENS_NAMES).map(k => o(k, L_(LENS_NAMES[k]))).join(''));
+  fill('move', o('auto', t('auto')) + Object.keys(MOVES).map(k => o(k, L_(MOVES[k].n))).join(''));
+  if ($('ratio').options[0]) $('ratio').options[0].textContent = t('auto');
+}
+function applyLang() {
+  document.documentElement.lang = LANG;
+  $$('[data-t]').forEach(el => { el.textContent = t(el.dataset.t); });
+  $$('[data-tp]').forEach(el => { el.placeholder = t(el.dataset.tp); });
+  $$('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === LANG));
+  rebuildSelects(); renderExamples(); renderRefs(); render(); renderHist(); renderImprove(); renderModels();
+}
+
+/* ---------- references ---------- */
+function renderRefs() {
+  const lim = LIM[VER];
+  const ctr = { image: 0, video: 0, audio: 0, doc: 0 };
+  const roles = Object.entries(ROLES).filter(([id]) => roleOk(id, VER));
+  $('refs').innerHTML = REFS.map((r, i) => {
+    const ro = ROLES[r.role] || ROLES[defRole('image', VER)];
+    ctr[ro.kind]++;
+    const opts = roles.filter(([, x]) => x.kind === ro.kind).map(([id, x]) => `<option value="${id}"${id === r.role ? ' selected' : ''}>${esc(L_(x.l))}</option>`).join('');
+    return `<div class="ref" data-i="${i}"><div class="rh"><span class="tok">${KIND_TOK[ro.kind]} ${ctr[ro.kind]}</span><button type="button" class="x" aria-label="remove">×</button></div><select aria-label="role">${opts}</select><input type="text" value="${esc(r.note)}" placeholder="${esc(t('ph_refnote'))}"></div>`;
+  }).join('');
+  $('refCount').textContent = REFS.length ? `${REFS.length} / ${lim.total} ${t('files')}` : '';
+  $('refsHint').textContent = t(VER === '2.5' ? 'refs_h25' : VER === '2.7' ? 'refs_h27' : 'refs_h30');
+  $$('#addRow button').forEach(b => { b.disabled = lim.kinds[b.dataset.add] === 0; });
+}
+
+/* ---------- compile & render ---------- */
+function schedule() { clearTimeout(timer); timer = setTimeout(render, 140); }
+function render() {
+  S = readUI();
+  R = build(S);
+  store.set(K_STATE, { ...S, lang: LANG });
+  renderUnderstood(); renderOutputs(); renderAudit(); renderNotes();
+}
+function sec() { return LANG === 'ru' ? 'с' : 's'; }
+function pl(n, en, ru) { if (LANG !== 'ru') return n === 1 ? en[0] : en[1]; const a = n % 100, b = n % 10; return a >= 11 && a <= 14 ? ru[2] : b === 1 ? ru[0] : b >= 2 && b <= 4 ? ru[1] : ru[2]; }
+function chip(label, val, cls) { return `<span class="tile ${cls || ''}"><i>${esc(label)}</i><b>${esc(val)}</b></span>`; }
+// Always eight tiles (2 columns x 4 rows), so the grid stays symmetric
+function renderUnderstood() {
+  const I = R.intent, lim = LIM[VER], out = [];
+  const none = '—';
+  out.push(chip(t('u_arch'), `${L_(R.arch.n)}${I.arch ? ' · ' + I.conf + '%' : ''}`, I.arch ? '' : 'dim'));
+  if (I.dur) {
+    const ok = I.dur >= lim.min && I.dur <= lim.max && (lim.step === 1 || I.dur % lim.step === 0);
+    out.push(ok && I.dur !== R.dur ? `<button type="button" class="tile act" data-apply="${I.dur}"><i>${esc(t('u_dur'))}</i><b>${I.dur} ${sec()} → ${esc(t('u_apply'))}</b></button>` : chip(t('u_dur'), I.dur + ' ' + sec(), 'dim'));
+  } else out.push(chip(t('u_dur'), none, 'dim'));
+  out.push(R.empty ? chip(t('u_set'), none, 'dim') : chip(t('u_set'), `${R.ratio} · ${R.res} · ${R.dur} ${sec()}`));
+  out.push(R.empty ? chip(t('u_light'), none, 'dim') : chip(t('u_light'), R.light.map(k => L_(LIGHT_NAMES[k] || WEATHER_NAMES[k] || [k, k])).join(' + ')));
+  out.push(R.empty ? chip(t('u_moves'), none, 'dim') : chip(t('u_moves'), I.moves.length ? I.moves.map(m => L_(MOVES[m].n)).join(' → ') : t('u_cam_auto'), I.moves.length ? '' : 'dim'));
+  out.push(R.empty ? chip(t('u_plan'), none, 'dim') : chip(t('u_plan'), `${R.n} ${pl(R.n, UNIT[VER][0], UNIT[VER][1])}`));
+  const lines = R.empty ? 0 : R.shots.reduce((n, s) => n + s.lines.length, 0) + (S.dialogue.trim() ? S.dialogue.trim().split('\n').length : 0);
+  out.push(chip(t('u_dlg'), lines ? `${lines} ${pl(lines, ['line', 'lines'], ['реплика', 'реплики', 'реплик'])}` : none, lines ? '' : 'dim'));
+  out.push(chip(t('u_lang'), I.lang.toUpperCase(), 'dim'));
+  $('understood').innerHTML = out.join('');
+}
+function jsonOut() {
+  return JSON.stringify({ tool: 'WaVe', model: 'Wan ' + S.ver, duration_s: R.dur, aspect_ratio: R.ratio, resolution: R.res, scene_type: R.arch.id,
+    shots: R.shots.map(s => ({ n: s.n, start_s: s.t0, end_s: s.t1, shot_size: s.size, camera: s.move, action: s.text, dialogue: s.lines })),
+    references: S.refs.filter(r => roleOk(r.role, S.ver)).map(r => ({ kind: ROLES[r.role].kind, role: r.role, note: r.note })),
+    prompt: R.prompt, negative_prompt: R.negative, audit: { score: R.audit.score, issues: R.audit.issues.map(i => ({ severity: i.sev, id: i.id, message: i.msg[0] })) } }, null, 2);
+}
+function meter(id, len, cap) { $(id).className = 'meter' + (len > cap ? ' over' : ''); $(id).firstElementChild.style.width = Math.min(100, len / cap * 100) + '%'; }
+function renderOutputs() {
+  const empty = !!R.empty, lim = LIM[VER];
+  $('outPrompt').textContent = empty ? t('empty_out') : R.prompt;
+  $('outPrompt').style.color = empty ? 'var(--mute)' : '';
+  $('stats').textContent = empty ? '' : (LANG === 'ru' ? `${R.prompt.length} симв. · ${R.prompt.split(/\s+/).filter(Boolean).length} слов` : `${R.prompt.length} chars · ${R.prompt.split(/\s+/).filter(Boolean).length} words`);
+  $('limit').textContent = empty ? '' : `${LANG === 'ru' ? 'лимит' : 'limit'} ${lim.chars}`;
+  meter('meter', empty ? 0 : R.prompt.length, lim.chars);
+  $('outNeg').textContent = empty ? t('empty_out') : R.negative;
+  $('outNeg').style.color = empty ? 'var(--mute)' : '';
+  $('negStats').textContent = empty ? '' : (LANG === 'ru' ? `${R.negative.length} симв.` : `${R.negative.length} chars`);
+  $('negLimit').textContent = empty ? '' : `${LANG === 'ru' ? 'лимит' : 'limit'} ${lim.negChars}`;
+  meter('negMeter', empty ? 0 : R.negative.length, lim.negChars);
+  $('tlBar').innerHTML = empty ? '' : R.shots.map(s => `<div style="flex:${s.t1 - s.t0}" title="${esc(s.size)}"><b>${s.t0}–${s.t1}s</b><span>${esc(s.size)}</span></div>`).join('');
+  $('tlList').innerHTML = empty ? `<p class="empty">${esc(t('empty_out'))}</p>` : R.shots.map(s => `<div class="shot"><span class="t">${s.t0}–${s.t1}s</span>${esc(s.size)} · ${esc(s.move)}<br>${esc(s.text)}${s.lines.length ? '<br><i>' + esc(s.lines.map(q => '“' + q + '”').join(' ')) + '</i>' : ''}</div>`).join('');
+  $('outLlm').textContent = empty ? t('empty_out') : buildMeta(S, R, LANG);
+}
+function issueList(el, scoreEl, audit) {
+  const sc = audit.score;
+  scoreEl.textContent = audit.issues.length || sc ? sc + ' / 100' : '';
+  scoreEl.className = 'score ' + (sc >= 85 ? 'hi' : sc >= 60 ? 'mid' : 'lo');
+  el.innerHTML = audit.issues.length ? audit.issues.map(i => `<li><span class="dot ${i.sev}"></span><span>${esc(L_(i.msg))}</span></li>`).join('') : `<li><span class="dot" style="background:var(--ok)"></span><span>${esc(t('no_issues'))}</span></li>`;
+}
+function renderAudit() { if (R.empty) { $('score').textContent = ''; $('score').className = 'score'; $('issues').innerHTML = ''; } else issueList($('issues'), $('score'), R.audit); }
+function renderNotes() {
+  const n = R.notes.filter(x => !(R.empty && x.sev === 'tip'));
+  $('notesCard').hidden = !n.length;
+  $('notes').innerHTML = n.map(x => `<li><span class="dot ${x.sev}"></span><span>${esc(L_(x.msg))}</span></li>`).join('');
+}
+
+/* ---------- models tab ---------- */
+function renderModels() {
+  const cell = c => esc(Array.isArray(c) ? L_(c) : c);
+  const vers = ['2.5', '2.7', '3.0'];
+  $('modelTbl').innerHTML = `<thead><tr><th></th>${vers.map(v => `<th class="${v === VER ? 'cur' : ''}">Wan ${v}</th>`).join('')}</tr></thead><tbody>` +
+    MODEL_ROWS.map(r => `<tr><th scope="row">${esc(L_(r[0]))}</th>${[1, 2, 3].map(i => `<td class="${vers[i - 1] === VER ? 'cur' : ''}">${cell(r[i])}</td>`).join('')}</tr>`).join('') + '</tbody>';
+}
+
+/* ---------- examples, copy, export ---------- */
+function renderExamples() {
+  $('examples').innerHTML = EXAMPLES.map((e, i) => `<button type="button" class="chip" data-ex="${i}">${esc(L_(e.n))} · ${e.ver}</button>`).join('');
+}
+function baseState(ver) {
+  return { ver, text: '', dur: DEF_DUR[ver], ratio: 'auto', res: '', arch: 'auto', detail: 'std', cons: 2, body: 'auto', light: 'auto', move: 'auto', color: 'auto', pace: 'auto', lens: 'auto',
+    refs: [], music: '', sfx: '', dialogue: '', dlang: 'auto', audioOn: true, nosubs: true, nobgm: false, times: true, cont: true, neg: '' };
+}
+function loadExample(i) {
+  const e = EXAMPLES[i];
+  writeUI({ ...baseState(e.ver), text: L_(e.text), dur: e.dur, refs: e.refs, music: e.music || '', sfx: e.sfx || '' });
+  render();
+}
+async function copyText(txt) {
+  try { await navigator.clipboard.writeText(txt); }
+  catch (e) { const ta = document.createElement('textarea'); ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (_) { /* no clipboard */ } ta.remove(); }
+  toast(t('copied'));
+}
+function download(name, txt, type) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([txt], { type }));
+  a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+function currentText() { return OUT === 'llm' ? $('outLlm').textContent : OUT === 'neg' ? R.negative : OUT === 'tl' ? R.shots.map(s => `${s.t0}-${s.t1}s ${s.size}, ${s.move}. ${s.text}`).join('\n') : R.prompt; }
+function fileStem() { return `wan-${S.ver.replace('.', '')}-${R.dur}s`; }
+
+/* ---------- history ---------- */
+const hist = { get: () => store.get(K_HIST, []), set: v => store.set(K_HIST, v.slice(0, 60)) };
+function saveHist(silent) {
+  if (!R || R.empty) return;
+  const h = hist.get();
+  if (h[0] && h[0].prompt === R.prompt) { if (!silent) toast(t('saved')); return; }
+  h.unshift({ id: Date.now(), ts: new Date().toISOString(), ver: S.ver, state: S, prompt: R.prompt, fav: false });
+  hist.set(h); renderHist(); if (!silent) toast(t('saved'));
+}
+function renderHist() {
+  const only = $('favOnly').checked;
+  const h = hist.get().filter(x => !only || x.fav);
+  $('hist').innerHTML = h.length ? h.map(x => `<div class="it" data-id="${x.id}">
+    <div class="meta"><span class="badge">Wan ${esc(x.ver)}</span><span>${esc(new Date(x.ts).toLocaleString(LANG === 'ru' ? 'ru-RU' : 'en-GB'))}</span><span>${x.state.dur} ${sec()}</span></div>
+    <div>${esc(x.state.text.slice(0, 160))}${x.state.text.length > 160 ? '…' : ''}</div>
+    <div class="acts g4" style="margin:0"><button type="button" class="btn sm" data-a="open">${esc(t('h_load'))}</button><button type="button" class="btn ghost sm" data-a="copy">${esc(t('btn_copy'))}</button><button type="button" class="btn ghost sm" data-a="fav" aria-pressed="${x.fav}">${x.fav ? '★' : '☆'}</button><button type="button" class="btn ghost sm" data-a="del">${esc(t('h_del'))}</button></div></div>`).join('')
+    : `<p class="empty">${esc(t('h_empty'))}</p>`;
+}
+
+/* ---------- improve mode ---------- */
+function renderImprove() {
+  const p = $('impText').value, dur = +$('impDur').value || null;
+  if (!p.trim()) { $('impIssues').innerHTML = ''; $('impScore').textContent = ''; $('impScore').className = 'score'; $('impMeta').textContent = ''; return; }
+  const a = lint(p, VER, dur);
+  issueList($('impIssues'), $('impScore'), a);
+  $('impMeta').textContent = buildImproveMeta(p, VER, dur || '?', a.issues, LANG);
+}
+
+/* ---------- share link ---------- */
+const enc = o => btoa(unescape(encodeURIComponent(JSON.stringify(o))));
+const dec = s => JSON.parse(decodeURIComponent(escape(atob(s))));
+
+/* ---------- wiring ---------- */
+function setMode(m) {
+  MODE = m;
+  $$('#modeTabs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  for (const p of ['compile', 'improve', 'history', 'models']) $('pane-' + p).hidden = p !== m;
+  if (m === 'improve') renderImprove();
+  if (m === 'history') renderHist();
+  if (m === 'models') renderModels();
+}
+function setOut(o) {
+  OUT = o;
+  $$('#outTabs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.o === o));
+  for (const p of ['prompt', 'neg', 'tl', 'llm']) $('o-' + p).hidden = p !== o;
+}
+
+function init() {
+  const saved = store.get(K_STATE, null);
+  LANG = (saved && saved.lang) || (/^ru|^uk|^be/i.test(navigator.language || '') ? 'ru' : 'en');
+  let initial = saved;
+  const m = /#s=([^&]+)/.exec(location.hash);
+  if (m) { try { initial = dec(m[1]); } catch (e) { /* bad link */ } }
+  rebuildSelects(); setVer((initial && LIM[initial.ver] && initial.ver) || '2.7', true);
+  $$('[data-t]').forEach(el => { el.textContent = t(el.dataset.t); });
+  $$('[data-tp]').forEach(el => { el.placeholder = t(el.dataset.tp); });
+  $$('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === LANG));
+  rebuildSelects(); renderExamples();
+  if (initial && initial.text) writeUI({ ...baseState(VER), ...initial }); else loadExampleSilently();
+  applyLang();
+
+  $$('.lang button').forEach(b => b.addEventListener('click', () => { LANG = b.dataset.l; applyLang(); }));
+  $$('#verSeg button').forEach(b => b.addEventListener('click', () => { setVer(b.dataset.v); renderImprove(); renderModels(); }));
+  $$('#modeTabs button').forEach(b => b.addEventListener('click', () => setMode(b.dataset.m)));
+  $$('#outTabs button').forEach(b => b.addEventListener('click', () => setOut(b.dataset.o)));
+
+  $('dur').addEventListener('input', () => { $('durNum').value = $('dur').value; schedule(); });
+  $('durNum').addEventListener('input', () => { const v = clamp(+$('durNum').value || 0, LIM[VER].min, LIM[VER].max); if ($('durNum').value) $('dur').value = v; schedule(); });
+  $('durNum').addEventListener('change', () => { setDur(+$('durNum').value); schedule(); });
+  for (const id of ['desc', 'ratio', 'res', 'arch', 'detail', 'cons', 'body', 'light', 'move', 'color', 'pace', 'lens', 'music', 'sfx', 'dialogue', 'dlang', 'audioOn', 'nosubs', 'nobgm', 'times', 'cont', 'neg'])
+    for (const ev of ['input', 'change']) $(id).addEventListener(ev, schedule);
+
+  $('addRow').addEventListener('click', e => {
+    const b = e.target.closest('[data-add]'); if (!b || b.disabled) return;
+    const kind = b.dataset.add, lim = LIM[VER];
+    const have = REFS.filter(r => ROLES[r.role] && ROLES[r.role].kind === kind).length;
+    if (have >= lim.kinds[kind] || REFS.length >= lim.total || (kind !== 'audio' && REFS.filter(r => ['image', 'video'].includes(ROLES[r.role].kind)).length >= lim.visual && ['image', 'video'].includes(kind))) { toast(t('lim_reached')); return; }
+    REFS.push({ role: defRole(kind, VER), note: '' }); renderRefs(); render();
+  });
+  $('refs').addEventListener('change', e => { const row = e.target.closest('.ref'); if (row && e.target.tagName === 'SELECT') { REFS[+row.dataset.i].role = e.target.value; renderRefs(); render(); } });
+  $('refs').addEventListener('input', e => { const row = e.target.closest('.ref'); if (row && e.target.tagName === 'INPUT') { REFS[+row.dataset.i].note = e.target.value; schedule(); } });
+  $('refs').addEventListener('click', e => { if (e.target.classList.contains('x')) { REFS.splice(+e.target.closest('.ref').dataset.i, 1); renderRefs(); render(); } });
+
+  $('examples').addEventListener('click', e => { const b = e.target.closest('[data-ex]'); if (b) loadExample(+b.dataset.ex); });
+  $('understood').addEventListener('click', e => { const b = e.target.closest('[data-apply]'); if (b) { setDur(+b.dataset.apply); render(); } });
+
+  $('bCopy').addEventListener('click', () => { if (R.empty) return; copyText(currentText()); saveHist(true); });
+  $('bTxt').addEventListener('click', () => { if (R.empty) return; download(fileStem() + '.txt', R.prompt + '\n\nNegative prompt:\n' + R.negative + '\n', 'text/plain'); saveHist(true); });
+  $('bJson').addEventListener('click', () => { if (R.empty) return; download(fileStem() + '.json', jsonOut(), 'application/json'); saveHist(true); });
+  $('bLink').addEventListener('click', () => { copyText(location.origin === 'null' ? location.href.split('#')[0] + '#s=' + enc(S) : location.origin + location.pathname + '#s=' + enc(S)); toast(t('linkcopied')); });
+  $('bSave').addEventListener('click', () => saveHist(false));
+  $('bReset').addEventListener('click', () => { if (!$('desc').value.trim() || confirm(t('reset_confirm'))) { writeUI(baseState(VER)); render(); } });
+
+  $('hist').addEventListener('click', e => {
+    const btn = e.target.closest('[data-a]'); if (!btn) return;
+    const id = +btn.closest('.it').dataset.id, h = hist.get(), item = h.find(x => x.id === id);
+    if (!item) return;
+    if (btn.dataset.a === 'open') { writeUI({ ...baseState(item.state.ver), ...item.state }); setMode('compile'); render(); window.scrollTo(0, 0); }
+    else if (btn.dataset.a === 'copy') copyText(item.prompt);
+    else if (btn.dataset.a === 'fav') { item.fav = !item.fav; hist.set(h); renderHist(); }
+    else if (btn.dataset.a === 'del') { hist.set(h.filter(x => x.id !== id)); renderHist(); }
+  });
+  $('favOnly').addEventListener('change', renderHist);
+  $('histClear').addEventListener('click', () => { if (confirm(t('h_confirm'))) { hist.set([]); renderHist(); } });
+
+  $('impText').addEventListener('input', renderImprove);
+  $('impDur').addEventListener('input', renderImprove);
+  $('impStrip').addEventListener('click', () => { $('impText').value = stripSlop($('impText').value); renderImprove(); });
+  $('impPaste').addEventListener('click', async () => { try { $('impText').value = await navigator.clipboard.readText(); renderImprove(); } catch (e) { $('impText').focus(); } });
+  $('impClear').addEventListener('click', () => { $('impText').value = ''; renderImprove(); });
+  $('impCopy').addEventListener('click', () => copyText($('impText').value));
+  $('impMetaCopy').addEventListener('click', () => copyText($('impMeta').textContent));
+  $('impMetaTxt').addEventListener('click', () => { if ($('impMeta').textContent) download('wan-improve-' + VER.replace('.', '') + '.txt', $('impMeta').textContent, 'text/plain'); });
+}
+function loadExampleSilently() { const e = EXAMPLES[2]; writeUI({ ...baseState(e.ver), text: L_(e.text), dur: e.dur, refs: e.refs, music: e.music || '', sfx: e.sfx || '' }); }
+
+document.addEventListener('DOMContentLoaded', init);
+
+
+/* Custom select faces: the native <select> stays on top (invisible) so the OS picker opens,
+   while the visible face is our own element, so Safari cannot restyle it. */
+(function () {
+  const ARROW = '';
+  function face(sel) { return sel.parentNode && sel.parentNode.classList.contains('sel') ? sel.parentNode.firstChild : null; }
+  function sync(sel) {
+    const f = face(sel); if (!f) return;
+    const o = sel.options[sel.selectedIndex]; const txt = o ? o.textContent : '';
+    if (f.textContent !== txt) f.textContent = txt;
+  }
+  function enhance(sel) {
+    if (sel.parentNode.classList.contains('sel')) { sync(sel); return; }
+    const w = document.createElement('span'); w.className = 'sel';
+    const f = document.createElement('span'); f.className = 'face'; f.setAttribute('aria-hidden', 'true');
+    sel.parentNode.insertBefore(w, sel); w.appendChild(f); w.appendChild(sel);
+    sel.addEventListener('change', () => sync(sel));
+    sync(sel);
+  }
+  function all() { document.querySelectorAll('select').forEach(enhance); }
+  document.addEventListener('DOMContentLoaded', () => {
+    all();
+    new MutationObserver(all).observe(document.body, { childList: true, subtree: true, characterData: true });
+    setInterval(() => document.querySelectorAll('select').forEach(sync), 300);
+  });
+})();
+
+</script>
+</body>
+</html>
