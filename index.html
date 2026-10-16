@@ -188,7 +188,7 @@ table.mt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11.5px
 </head>
 <body>
 <main class="wrap">
-<div class="vtag" title="WaVe">v1.0.0</div>
+<div class="vtag" title="WaVe">v1.2.0</div>
 <div class="lang" role="group" aria-label="Language">
   <button type="button" data-l="en" aria-pressed="true">EN</button>
   <button type="button" data-l="ru" aria-pressed="false">RU</button>
@@ -445,7 +445,7 @@ const WEATHER_NAMES = { rain: ['Rain', 'Дождь'], fog: ['Fog', 'Туман']
 // Camera moves: phrase + detection keywords (RU/EN) + display name
 const MOVES = {
   orbit:    { p: 'slow orbit around the subject, eye level',   n: ['Orbit', 'Облёт'],        kw: ['облет', 'облёт', 'вокруг', 'орбит', 'orbit', 'moves around', 'круговой', 'arc shot'] },
-  dollyin:  { p: 'slow dolly in',                              n: ['Dolly in', 'Наезд'],     kw: ['наезд', 'приближ', 'dolly in', 'push in', 'push-in', 'pushes in', 'pushing in', 'dollies in', 'zoom in', 'наплыв'] },
+  dollyin:  { p: 'slow dolly in',                              n: ['Dolly in', 'Наезд'],     kw: ['наезд', 'приближ', 'dolly in', 'push in', 'push-in', 'zoom-in', 'pushes in', 'pushing in', 'dollies in', 'zoom in', 'наплыв'] },
   dollyout: { p: 'slow dolly out',                             n: ['Dolly out', 'Отъезд'],   kw: ['отъезд', 'отдал', 'dolly out', 'pull back', 'pull-back', 'pulls back', 'pulling back', 'pulls out', 'dollies out'] },
   pan:      { p: 'slow pan',                                   n: ['Pan', 'Панорама'],       kw: ['панорам', 'pan right', 'pan left', 'pan across'] },
   tilt:     { p: 'slow tilt up',                               n: ['Tilt', 'Тилт'],          kw: ['tilt', 'наклон камер'] },
@@ -607,8 +607,8 @@ const LIM = {
            kinds: { image: 1, video: 0, audio: 1, doc: 0 }, total: 2, visual: 1, words: 120 },
   '2.7': { min: 2, max: 15, step: 1, res: ['720p', '1080p'], ratios: R5, chars: 5000, negChars: 500, maxShots: 5, minShot: 2, div: 3, fixedDiv: false,
            kinds: { image: 5, video: 3, audio: 1, doc: 0 }, total: 6, visual: 5, words: 110 },
-  '3.0': { min: 2, max: 30, step: 1, res: ['480p', '720p', '1080p'], ratios: R5, chars: 5000, negChars: 500, maxShots: 5, minShot: 3, div: 6, fixedDiv: false,
-           kinds: { image: 20, video: 20, audio: 20, doc: 20 }, total: 20, visual: 20, words: 160 }
+  '3.0': { min: 2, max: 30, step: 1, res: ['480p', '720p', '1080p'], ratios: R5, chars: 5000, negChars: 500, maxShots: 10, minShot: 2, div: 3, fixedDiv: false,
+           kinds: { image: 20, video: 20, audio: 20, doc: 20 }, total: 20, visual: 20, words: 110 }
 };
 const V_ALL = ['2.5', '2.7', '3.0'], V_NEW = ['2.7', '3.0'];
 
@@ -683,10 +683,21 @@ const META_V = {
 - Multi-shot is requested in the prompt: start with "Multi-shot video, N shots." and write "Shot 1 [0-3s]: ...", "Shot 2 [3-7s]: ..." consecutively, whole seconds, 2 s or more each, five shots at most.
 - First/last frame: describe only the transition. Video continuation cannot be combined with a first frame or driving audio. References by upload order, up to 5 images/videos.`,
   '3.0': `Target: Wan 3.0.
-- Length 2-30 s, 480p/720p/1080p. Built for ONE long continuous take: no cuts, no shot lists. Write it as an arc: beginning, turn, end, and say how the frame changes over time; length without a turn produces a slow clip.
-- Omni-reference: up to 20 files (images, video, audio, documents). Label every reference in the prompt, not just upload it. A document reference is the source brief to be shown as the video.
-- Audio: name the sound bed and place the key sound beat so sound and picture line up. For text in frame use clean, simple cards (a lower-third title).`
+- Length 2-30 s, 480p/720p/1080p. Prompt shape: overall description + reference citations + shots with timestamps + dialogue + sound + style + negative prompt.
+- Multi-shot: "Shot 1 [0-3s]: ...", consecutive, no gaps, 2-5 s each. End a shot with "Hard cut." or "Dissolve." for the transition. For one shot write "Generate single shot." on the first line. Name one camera treatment per shot ("Fixed shot, camera static, position unchanged" for a locked camera), otherwise the model cuts on its own.
+- Omni-reference: up to 20 files (images, video, audio, documents), cited as Image 1, Video 1, Audio 1, Document 1; with two or more files of a kind always give the number. Voice cloning: "Voice timbre reference Audio 1".
+- Audio: dialogue as: she whispers: "..." ; add "Lip sync" for lip-synced speech, "No dialogue" to stop invented speech, "No background music." to turn BGM off. Sound effects can be standalone sentences.`
 };
+
+// Sensual / boudoir: adult subjects, implied and elegant, never explicit
+ARCH.push({ id: 'sensual', n: ['Sensual / boudoir', 'Чувственное / будуар'], ratio: '9:16', body: 'sony', color: 'warm', light: 'romantic',
+  kw: ['чувствен', 'эротич', 'эротик', 'будуар', 'соблазн', 'бельё', 'белье', 'sensual', 'boudoir', 'sultry', 'seductive', 'lingerie', 'intimate'],
+  look: ['body', 'micro', 'depth', 'color'],
+  sizes: ['Wide shot', 'Medium shot', 'Slow close-up', 'Medium close-up'],
+  moves: ['slow dolly in', 'slow orbit 90 degrees', 'locked tripod', 'slow dolly in'],
+  style: 'tasteful sensual cinema, adult subjects, elegant implied intimacy, soft focus falloff, warm skin tones, everything suggested rather than shown.',
+  neg: ['nudity', 'explicit content', 'childlike features'],
+  tip: ['Sensual works through suggestion: fabric, breath, a held glance, slow motion. Keep every subject an adult and state their age ("a woman in her thirties").', 'Чувственность строится на намёке: ткань, дыхание, долгий взгляд, медленное движение. Все герои — взрослые, укажи возраст («женщина лет тридцати»).'] });
 
 /* ===== ENGINE: decode intent -> timings -> prompt -> audit -> meta-prompt ===== */
 
@@ -749,8 +760,8 @@ function decode(text) {
   const quotes = [];
   let work = text.replace(/[«“"„]([^«»“”"„\n]{2,240})[»”"“]/g, (m, q) => { quotes.push(q.trim()); return ` ⟦${quotes.length - 1}⟧. `; });
   work = work.replace(/^\s*(\d+)[.)]\s+/gm, '');
-  const tsRe = /^(\d+(?:\.\d+)?)\s*[-–—]\s*(\d+(?:\.\d+)?)\s*(?:s|sec|с)?\s*[:.)\-–]\s*/iu;
-  const shotRe = /^(?:shot|шот|кадр|сцена|scene)\s*\d+\s*[:.)\-–]\s*/iu;
+  const tsRe = /^(\d+(?:\.\d+)?)\s*[-–—]\s*(\d+(?:\.\d+)?)\s*(?:s|sec|с)?\s*[:.)\-–—]\s*/iu;
+  const shotRe = /^(?:shot|шот|кадр|сцена|scene)\s*\d+\s*[:.)\-–—]\s*/iu;
   let pending = [];
   for (let part of work.split(SEQ_SPLIT)) {
     if (!part) continue;
@@ -782,9 +793,11 @@ function snapDur(ver, v) {
 }
 const an = s => /^[aeiou]/i.test(s) ? 'an ' + s : 'a ' + s;
 const uniq = arr => { const seen = new Set(); return arr.filter(x => { const k = x.toLowerCase(); if (seen.has(k)) return false; seen.add(k); return true; }); };
-const UNIT = { '2.5': [['beat', 'beats'], ['действие', 'действия', 'действий']], '2.7': [['shot', 'shots'], ['шот', 'шота', 'шотов']], '3.0': [['phase', 'phases'], ['фаза', 'фазы', 'фаз']] };
+const UNIT = { '2.5': [['beat', 'beats'], ['действие', 'действия', 'действий']], '2.7': [['shot', 'shots'], ['шот', 'шота', 'шотов']], '3.0': [['shot', 'shots'], ['шот', 'шота', 'шотов']] };
 const PHASES = { 2: ['Beginning', 'End'], 3: ['Beginning', 'Turn', 'End'], 4: ['Beginning', 'Development', 'Turn', 'End'], 5: ['Beginning', 'Development', 'Turn', 'Escalation', 'End'] };
 
+const SIZE_RE = /\b(?:close-up|closeup|wide shot|medium shot|full shot|long shot|establishing shot|two-shot|крупный план|общий план|средний план)\b/i;
+const lead = s => s.size ? `${s.size}, ${s.move}.` : `${cap(s.move)}.`;
 // the camera move named inside this very beat (earliest keyword wins)
 function beatMove(txt) {
   let best = null, bi = -1;
@@ -815,6 +828,23 @@ function build(S) {
 
   // shots
   let beats = I.beats.map(b => ({ ...b, lines: b.lines.slice() }));
+  // untimed preamble (look, setting) joins the first beat that carries a timestamp
+  const fi = beats.findIndex(b => b.t0 !== null);
+  if (fi > 0) {
+    const pre = beats.splice(0, fi);
+    beats[0] = { ...beats[0], text: pre.map(b => b.text).join(' ') + ' ' + beats[0].text, lines: pre.flatMap(b => b.lines).concat(beats[0].lines) };
+  }
+  // pieces after a timestamped beat (split at ";" or ":") stay inside that time range
+  if (beats.some(b => b.t0 !== null)) {
+    for (let i = beats.length - 1; i > 0; i--) {
+      if (beats[i].t0 === null && beats[i - 1].t0 !== null) {
+        beats[i - 1] = { ...beats[i - 1], text: beats[i - 1].text + ' ' + beats[i].text, lines: beats[i - 1].lines.concat(beats[i].lines) };
+        beats.splice(i, 1);
+      }
+    }
+  }
+  const userTimes = beats.length >= 2 && beats.every(b => b.t0 !== null) && beats.every((b, i) => i === 0 ? b.t0 === 0 : b.t0 === beats[i - 1].t1);
+  const nTimed = beats.length;
   // a sentence about the camera alone belongs to the beat before it
   for (let i = beats.length - 1; i > 0; i--) {
     if (/^(?:the\s+)?camera\b|^камер[аыу]\b/iu.test(beats[i].text) && !beats[i].lines.length && beats[i].t0 === null && beats[i - 1].t0 === null) {
@@ -836,17 +866,17 @@ function build(S) {
   }
   const n = beats.length;
   let durs;
-  if (I.userTimes && n === I.beats.length && beats[n - 1].t1 === dur) durs = beats.map(b => b.t1 - b.t0);
+  if (userTimes && n === nTimed && beats[n - 1].t1 === dur) durs = beats.map(b => b.t1 - b.t0);
   else {
-    if (I.userTimes && n === I.beats.length) note('info', 'Your own timings were scaled to the chosen duration.', 'Твои тайминги пропорционально подогнаны под выбранную длительность.');
-    const w = beats.map(b => I.userTimes && b.t0 !== null ? b.t1 - b.t0 : Math.max(6, words(b.text)));
+    if (userTimes && n === nTimed) note('info', 'Your own timings were scaled to the chosen duration.', 'Твои тайминги пропорционально подогнаны под выбранную длительность.');
+    const w = beats.map(b => userTimes && b.t0 !== null ? b.t1 - b.t0 : Math.max(6, words(b.text)));
     durs = allocate(w, dur, L.minShot) || allocate(w, dur, 1);
   }
   const shots = [];
   let t = 0;
   const forced = S.move && S.move !== 'auto' ? S.move : null;
   beats.forEach((b, i) => {
-    const size = pick(arch.sizes, i, n);
+    const size = SIZE_RE.test(b.text) ? '' : pick(arch.sizes, i, n);
     const mid = forced || beatMove(S.ver === '2.5' ? beats.map(x => x.text).join(' ') : b.text);
     const move = mid ? MOVES[mid].p : pick(arch.moves, i, n);
     shots.push({ n: i + 1, t0: t, t1: t + durs[i], size, move, mid: mid || null, text: b.text, lines: b.lines });
@@ -928,8 +958,9 @@ function build(S) {
   if (audioOn) {
     if (allLines.length) aud.push(`Dialogue language: ${DL[dl] || dl}.`);
     if (music && !S.nobgm) aud.push(`Music: ${music}.`);
-    if (sfx) aud.push(S.ver === '3.0' ? `Sound bed: ${sfx}.` : `Sound effects: ${sfx}.`);
+    if (sfx) aud.push(`Sound effects: ${sfx}.`);
     if (manual.length) aud.push(manual.map(say).join(' '));
+    if (S.ver === '3.0') aud.push(allLines.length ? 'Lip sync.' : 'No dialogue.');
     if (S.nobgm) aud.push('No background music.');
     if (S.nobgm && music) note('warn', '"No BGM" is on, so the music description was left out.', 'Включено «без музыки», поэтому описание музыки не вошло в промпт.');
     if (allLines.length && dl !== 'en' && dl !== 'zh') note('info', `Wan voices are strongest in Chinese and English; check ${DL[dl]} speech and expect an accent.`, `Голоса Wan сильнее всего на китайском и английском; проверь речь на языке «${DL[dl]}», возможен акцент.`);
@@ -940,15 +971,12 @@ function build(S) {
   const tm = s => `${s.t0}-${s.t1}s`;
   const scene = [];
   if (S.ver === '2.5') {
-    scene.push(shots.map((s, i) => i === 0 ? `${s.size}, ${s.move}. ${s.text}${dlg(s)}` : `Then ${lowFirst(s.text)}${dlg(s)}`).join(' '));
-  } else if (S.ver === '2.7') {
-    if (n > 1) scene.push(`Multi-shot video, ${n} shots.`);
-    shots.forEach(s => scene.push(`${n > 1 ? (S.times !== false ? `Shot ${s.n} [${tm(s)}]: ` : `Shot ${s.n}: `) : ''}${s.size}, ${s.move}. ${s.text}${dlg(s)}`));
+    scene.push(shots.map((s, i) => i === 0 ? `${lead(s)} ${s.text}${dlg(s)}` : `Then ${lowFirst(s.text)}${dlg(s)}`).join(' '));
   } else {
-    scene.push(`One continuous take, no cuts, opening on ${an(lowFirst(shots[0].size))}.`);
-    shots.forEach((s, i) => scene.push(`${n > 1 ? PHASES[n][i] + ' (' + tm(s) + '): ' : ''}${cap(s.move)}. ${s.text}${dlg(s)}`));
-    if (S.cont !== false) scene.push('Keep the character, outfit, setting and lighting consistent for the whole take.');
+    scene.push(n > 1 ? `Multi-shot video, ${n} shots.` : (S.ver === '3.0' ? 'Generate single shot.' : ''));
+    shots.forEach((s, i) => scene.push(`${n > 1 ? (S.times !== false ? `Shot ${s.n} [${tm(s)}]: ` : `Shot ${s.n}: `) : ''}${lead(s)} ${s.text}${dlg(s)}${S.ver === '3.0' && n > 1 && i < n - 1 && S.cont !== false ? ' Hard cut.' : ''}`));
   }
+  if (!scene[0]) scene.shift();
 
   // negative prompt
   const negBase = NEG[S.cons || 2].filter(w => !((hasProduct || arch.id === 'product') && w === 'logo') && !(S.nosubs === false && (w === 'subtitles' || w === 'text overlay')));
@@ -966,9 +994,8 @@ function build(S) {
 
   // advice
   if (S.ver === '2.5' && I.beats.length > 1 && n === 1) note('info', 'Wan 2.5 is one continuous shot: a 5 s clip holds one action. Pick 10 s for two, or make separate clips.', 'Wan 2.5 — один непрерывный кадр: в 5 с помещается одно действие. Выбери 10 с для двух или делай отдельные клипы.');
-  if (n === 1 && words(beats[0].text) < 14 && dur > 8 && S.ver !== '2.5') note('info', `One event for ${dur} s: the clip is generated as a single continuous take. Add ${S.ver === '3.0' ? 'a turn and an ending' : '2-3 events if you want cuts'}.`, `Одно событие на ${dur} с: ролик получится одним непрерывным кадром. Добавь ${S.ver === '3.0' ? 'поворот и финал' : '2–3 события, если нужны склейки'}.`);
-  if (S.ver === '3.0' && dur > 12 && n < 3) note('tip', 'A long take needs an arc: add a turn and an ending, otherwise the clip drifts slowly.', 'Длинному кадру нужна дуга: добавь поворот и финал, иначе ролик будет вяло плыть.');
-  if (S.ver === '2.7' && durs.some(d => d > 8)) note('info', 'A shot longer than 8 s is risky; split it into two events.', 'Шот длиннее 8 с рискован; раздели его на два события.');
+  if (n === 1 && words(beats[0].text) < 14 && dur > 8 && S.ver !== '2.5') note('info', `One event for ${dur} s: the clip is generated as a single continuous take. Add 2-3 events if you want cuts.`, `Одно событие на ${dur} с: ролик получится одним непрерывным кадром. Добавь 2–3 события, если нужны склейки.`);
+  if (S.ver !== '2.5' && durs.some(d => d > 6)) note('info', 'A shot longer than 5-6 s is risky (2-5 s per shot is recommended); split it into two events.', 'Шот длиннее 5–6 с рискован (рекомендуется 2–5 с на шот); раздели его на два события.');
   if (I.lang === 'ru') note('info', 'Scaffolding is in English, your wording stays as written. For a full English prompt use the LLM tab.', 'Каркас на английском, твои формулировки остаются как есть. Для полностью английского промпта используй вкладку LLM.');
   if (allLines.length && audioOn && !music && !sfx) note('info', 'Dialogue found. Add ambient sound or music for a fuller track.', 'Найдена речь. Добавь фоновые звуки или музыку, чтобы дорожка звучала полнее.');
   if (allLines.length && audioOn) note('tip', 'Name who speaks: replace "The character" with the speaker\'s name or look ("The woman in the yellow raincoat says...").', 'Назови, кто говорит: замени «The character» на имя или внешность героя («The woman in the yellow raincoat says...»).');
@@ -1025,24 +1052,22 @@ function lint(p, ver, dur) {
     if (thens > allowed) add('warn', 'act', `${thens + 1} actions for ${dur || 5} s. Wan 2.5 holds one action per 5 s; chaining more makes the motion rush or drop steps.`, `${thens + 1} действий на ${dur || 5} с. Wan 2.5 держит одно действие на 5 с; больше — и движение торопится или теряет шаги.`);
     const spoken = (p.match(/says?:?\s*["“«]([^"”»]+)["”»]/gi) || []).reduce((a, s) => a + words(s.replace(/^[^"“«]*["“«]/, '')), 0);
     if (spoken > 10 * Math.max(1, Math.floor((dur || 5) / 5))) add('warn', 'dlen', `About ${spoken} spoken words; keep dialogue near 10 words per 5 s in Wan 2.5.`, `Около ${spoken} слов речи; в Wan 2.5 держи реплики около 10 слов на 5 с.`);
-  } else if (ver === '2.7') {
+  } else {
     if (!stages.length && (dur || 0) > 6) add('tip', 'shots27', 'For clips over 6 s, structure the plot as "Multi-shot video, N shots." then "Shot 1 [0-3s]:", "Shot 2 [3-7s]:".', 'Для роликов дольше 6 с структурируй сюжет: «Multi-shot video, N shots.», затем «Shot 1 [0-3s]:», «Shot 2 [3-7s]:».');
-    if (stages.length > 1 && !/multi-?shot/i.test(p)) add('tip', 'ms27', 'Open with "Multi-shot video, N shots." so Wan 2.7 knows to cut between the shots.', 'Начни с «Multi-shot video, N shots.», чтобы Wan 2.7 понял, что между шотами нужны склейки.');
+    if (stages.length > 1 && !/multi-?shot/i.test(p)) add('tip', 'ms27', 'Open with "Multi-shot video, N shots." so Wan knows to cut between the shots.', 'Начни с «Multi-shot video, N shots.», чтобы Wan 2.7 понял, что между шотами нужны склейки.');
     if (timed.length) {
       if (timed[0].t0 !== 0) add('err', 'ts0', 'Timeline must start at 0s.', 'Таймлайн должен начинаться с 0s.');
       for (let i = 1; i < timed.length; i++) if (timed[i].t0 !== timed[i - 1].t1) { add('err', 'tsgap', `Gap or overlap between shots ${i} and ${i + 1}: use consecutive ranges.`, `Дыра или нахлёст между шотами ${i} и ${i + 1}: диапазоны должны идти подряд.`); break; }
       if (dur && timed[timed.length - 1].t1 !== dur) add('err', 'tsend', `Timeline ends at ${timed[timed.length - 1].t1}s but the duration is ${dur}s.`, `Таймлайн заканчивается на ${timed[timed.length - 1].t1}s, а длительность ${dur}s.`);
+      if (timed.some(s => s.t1 - s.t0 > 6)) add('tip', 'tslong', 'Wan works best with 2-5 s per shot; split the longer ones.', 'Wan лучше всего работает с 2–5 с на шот; раздели длинные.');
       if (timed.some(s => s.t1 - s.t0 < 2)) add('warn', 'tsshort', 'A shot under 2 s is too short to show an action.', 'Шот короче 2 с слишком короткий для действия.');
     }
     if (stages.length > L.maxShots) add('warn', 'shotmany', `${stages.length} shots; more than ${L.maxShots} gets crowded.`, `${stages.length} шотов; больше ${L.maxShots} уже тесно.`);
-  } else {
-    if (stages.some(s => s.shot)) add('tip', 'cut30', 'Wan 3.0 is built for one continuous take: write an arc (beginning, turn, end) instead of a shot list.', 'Wan 3.0 создан для одного непрерывного кадра: пиши дугу (начало, поворот, финал), а не список шотов.');
-    if ((dur || 0) > 12 && !/\b(?:turn|then|until|finally|as|when)\b|потом|затем|пока|когда/i.test(p)) add('tip', 'arc30', 'No turn in a long take: describe how the frame changes over time, or the clip drifts slowly.', 'В длинном кадре нет поворота: опиши, как кадр меняется со временем, иначе ролик вяло плывёт.');
   }
 
   segs.forEach((s, i) => {
     const tag = segs.length > 1 ? `#${i + 1}` : '';
-    const label = ver === '2.7' ? (tag ? `Shot ${tag}` : 'The shot') : tag ? `Part ${tag}` : 'The prompt';
+    const label = ver !== '2.5' ? (tag ? `Shot ${tag}` : 'The shot') : tag ? `Part ${tag}` : 'The prompt';
     let txt = s.text;
     const cats = MV_RE.filter(([k, re]) => { const hit = re.test(txt); if (hit && k === 'whip') txt = txt.replace(/whip[- ]pan/gi, ''); return hit; }).map(x => x[0]);
     const sd = s.t0 !== null ? s.t1 - s.t0 : null;
@@ -1052,7 +1077,7 @@ function lint(p, ver, dur) {
     else if (cats.includes('orbit') && cats.includes('dolly') && (sd === null || sd > 5)) add('warn', 'mvod', `${label}: orbit + dolly drifts after about 5 s.`, `${label}: orbit + dolly уплывает после ~5 с.`);
     else if (cats.includes('pan') && cats.includes('dolly')) add('warn', 'mvpd', `${label}: pan + dolly together can jitter; try one.`, `${label}: pan + dolly вместе могут дрожать; попробуй одно.`);
     if (cats.includes('orbit') && /360/.test(txt) && sd !== null && sd < 6) add('warn', 'or360', `${label}: a 360° orbit in under 6 s causes artefacts.`, `${label}: орбита 360° быстрее 6 с даёт артефакты.`);
-    if (ver === '2.7' && /\b(?:then|and then|after that)\b|потом|затем/i.test(txt)) add('warn', 'act', `${label}: more than one action ("then"). One action per shot; give the next one its own shot.`, `${label}: больше одного действия («потом»). Одно действие на шот; следующему нужен свой шот.`);
+    if (ver !== '2.5' && /\b(?:then|and then|after that)\b|потом|затем/i.test(txt)) add('warn', 'act', `${label}: more than one action ("then"). One action per shot; give the next one its own shot.`, `${label}: больше одного действия («потом»). Одно действие на шот; следующему нужен свой шот.`);
     if (words(txt) > L.words) add('warn', 'wlen', `${label} is ${words(txt)} words; above ${L.words} Wan starts dropping detail.`, `${label}: ${words(txt)} слов; после ${L.words} Wan начинает терять детали.`);
   });
 
@@ -1149,7 +1174,7 @@ const T = {
   ph_refnote: ['what it is (optional)', 'что это (необязательно)'],
   refs_h25: ['Wan 2.5 takes one first frame and one audio file. Upload them in this order: Image 1, Audio 1.', 'Wan 2.5 принимает один первый кадр и один аудиофайл. Загружай в таком порядке: Image 1, Audio 1.'],
   refs_h27: ['Up to 5 images/videos plus one audio file. Every file gets a role and its own sentence. Upload in this order: Image 1, Image 2, Video 1, Audio 1.', 'До 5 картинок/видео и один аудиофайл. Каждому файлу своя роль и своё предложение. Загружай в таком порядке: Image 1, Image 2, Video 1, Audio 1.'],
-  refs_h30: ['Omni-reference: up to 20 files, documents included. Label every file in the prompt. Upload in this order: Image 1, Video 1, Audio 1, Document 1.', 'Omni-референс: до 20 файлов, включая документы. Каждый файл подписан в промпте. Загружай в таком порядке: Image 1, Video 1, Audio 1, Document 1.'],
+  refs_h30: ['Omni-reference: up to 20 files, documents included. Cite every file by number in the prompt. Upload in this order: Image 1, Video 1, Audio 1, Document 1.', 'Omni-референс: до 20 файлов, включая документы. Каждый файл подписан в промпте. Загружай в таком порядке: Image 1, Video 1, Audio 1, Document 1.'],
   lim_reached: ['Limit reached for this model', 'Лимит этой модели достигнут'], refs_dropped: ['Some references do not exist in this model and were removed', 'Часть референсов не поддерживается этой моделью и убрана'],
   files: ['files', 'файлов'],
   c_audio: ['Audio', 'Аудио'], f_music: ['Music', 'Музыка'], f_sfx: ['Sound effects', 'Звуковые эффекты'],
@@ -1162,8 +1187,8 @@ const T = {
   o_nosubs: ['Keep subtitles out (negative prompt)', 'Без субтитров (в негативном промпте)'],
   o_nobgm: ['No background music', 'Без фоновой музыки'],
   c_opts: ['Options', 'Опции'],
-  o_times: ['Show times in shots (2.7)', 'Показывать время в шотах (2.7)'],
-  o_cont: ['Add a consistency line for the take (3.0)', 'Добавить строку согласованности кадра (3.0)'],
+  o_times: ['Show times in shots (2.7 / 3.0)', 'Показывать время в шотах (2.7 / 3.0)'],
+  o_cont: ['Mark transitions with "Hard cut" (3.0)', 'Помечать переходы «Hard cut» (3.0)'],
   f_neg: ['Extra negative terms (comma-separated)', 'Доп. негативные термины (через запятую)'],
   ph_neg: ['e.g. extra people, text on screen', 'напр. extra people, text on screen'],
   c_und: ['What I understood', 'Что я понял'],
@@ -1202,14 +1227,14 @@ const MODEL_ROWS = [
   [['Duration', 'Длительность'], ['5 or 10 s', '5 или 10 с'], ['2–15 s', '2–15 с'], ['2–30 s', '2–30 с']],
   [['Resolution', 'Разрешение'], '480p · 720p · 1080p', '720p · 1080p', '480p · 720p · 1080p'],
   [['Ratios', 'Форматы'], '16:9 · 9:16 · 1:1 · 4:3 · 3:4', '16:9 · 9:16 · 1:1 · 4:3 · 3:4', ['Same five*', 'Те же пять*']],
-  [['Shots', 'Шоты'], ['One continuous shot', 'Один непрерывный кадр'], ['Multi-shot in the prompt', 'Мульти-шот в промпте'], ['One long take', 'Один длинный кадр']],
+  [['Shots', 'Шоты'], ['One continuous shot', 'Один непрерывный кадр'], ['Multi-shot in the prompt', 'Мульти-шот в промпте'], ['Multi-shot in the prompt', 'Мульти-шот в промпте']],
   [['Images in', 'Картинки'], ['First frame', 'Первый кадр'], ['5 refs, first/last frame', '5 референсов, первый/последний кадр'], ['Omni-reference, 20 files', 'Omni-референс, 20 файлов']],
   [['Video in', 'Видео'], '—', ['3 refs, edit, continue', '3 референса, правка, продолжение'], ['Reference, edit, extend', 'Референс, правка, продолжение']],
-  [['Audio', 'Звук'], ['Generated; file 3–30 s', 'Генерируется; файл 3–30 с'], ['Generated; file 2–30 s, voice ref', 'Генерируется; файл 2–30 с, голос-референс'], ['Reported as generated*', 'По данным генерируется*']],
+  [['Audio', 'Звук'], ['Generated; file 3–30 s', 'Генерируется; файл 3–30 с'], ['Generated; file 2–30 s, voice ref', 'Генерируется; файл 2–30 с, голос-референс'], ['Generated; BGM and speech by text', 'Генерируется; музыка и речь текстом']],
   [['Documents', 'Документы'], '—', '—', 'doc · xls · ppt · pdf · md'],
   [['Prompt cap', 'Лимит промпта'], ['1,500 chars', '1 500 симв.'], ['5,000 chars', '5 000 симв.'], ['Not published*', 'Не опубликован*']],
   [['Negative', 'Негатив'], ['500 chars', '500 симв.'], ['500 chars', '500 симв.'], ['500 chars*', '500 симв.*']],
-  [['Formula', 'Формула'], ['Scene + action + camera + audio', 'Сцена + действие + камера + звук'], ['Shots with [0-3s] times', 'Шоты со временем [0-3s]'], ['Arc: beginning, turn, end', 'Дуга: начало, поворот, финал']]
+  [['Formula', 'Формула'], ['Scene + action + camera + audio', 'Сцена + действие + камера + звук'], ['Shots with [0-3s] times', 'Шоты со временем [0-3s]'], ['Overall + shots + sound + negative', 'Общее + шоты + звук + негатив']]
 ];
 
 const EXAMPLES = [
@@ -1225,9 +1250,15 @@ const EXAMPLES = [
   { n: ['Perfume ad', 'Реклама духов'], ver: '2.7', dur: 10, refs: [{ role: 'product', note: '' }], music: 'soft piano, slow build', sfx: '',
     text: ['Perfume ad: a black glass bottle on wet black marble, water drops run down the glass. The camera pushes in to the engraved logo. Finale: golden smoke wraps around the bottle.',
            'Реклама духов: чёрный стеклянный флакон на мокром чёрном мраморе, капли воды стекают по стеклу. Камера приближается к гравировке логотипа. В финале флакон окутывает золотой дым.'] },
+  { n: ['Boudoir morning', 'Будуарное утро'], ver: '2.7', dur: 10, refs: [], music: 'slow sultry jazz', sfx: 'rain on glass, soft fabric rustle',
+    text: ['Sensual boudoir scene at dawn: a woman in her thirties in a silk robe stands by a rain-streaked window in a dim bedroom. She slowly turns toward the camera and smiles. Then she sits on the edge of the bed and runs her fingers through her hair.',
+           'Чувственная будуарная сцена на рассвете: женщина лет тридцати в шёлковом халате стоит у окна в дождевых потёках в полутёмной спальне. Она медленно поворачивается к камере и улыбается. Потом садится на край кровати и проводит пальцами по волосам.'] },
   { n: ['Neon street take', 'Неоновая улица'], ver: '3.0', dur: 30, refs: [{ role: 'character', note: 'the courier' }], music: '', sfx: 'rain, distant traffic, crowd murmur',
     text: ['A rainy neon street in a future city at night. A courier in a silver jacket walks through the crowd and the camera follows him from behind. He stops at a noodle stall and takes off his helmet. The camera moves around to his face as he looks up at a flying billboard and the rain stops.',
            'Дождливая неоновая улица города будущего ночью. Курьер в серебристой куртке идёт сквозь толпу, камера следует за ним сзади. Он останавливается у лапшичной и снимает шлем. Камера огибает его до лица, он смотрит на летящий билборд, и дождь стихает.'] },
+  { n: ['Velvet lounge', 'Бархатный лаунж'], ver: '3.0', dur: 20, refs: [], music: 'low smoky saxophone', sfx: 'candle flicker, glass clink',
+    text: ['Sultry velvet lounge: a woman in a red satin dress and a man in a dark suit, both adults, sit across a candlelit table. He leans closer and she holds his gaze. The camera slowly circles the table as she lifts her glass and smiles.',
+           'Чувственный бархатный лаунж: женщина в красном атласном платье и мужчина в тёмном костюме, оба взрослые, сидят напротив друг друга за столом при свечах. Он наклоняется ближе, она не отводит взгляд. Камера медленно кружит вокруг стола, пока она поднимает бокал и улыбается.'] },
   { n: ['Report to video', 'Отчёт в видео'], ver: '3.0', dur: 20, refs: [{ role: 'doc', note: 'quarterly report' }], music: 'calm ambient pulse', sfx: '',
     text: ['An analyst walks along a wall of glass charts in a quiet office while the camera tracks her. She stops at the rising line and says: "Revenue is up twelve percent." The camera slowly pulls back to reveal the whole wall.',
            'Аналитик идёт вдоль стены из стеклянных графиков в тихом офисе, камера следует за ней. Она останавливается у растущей линии и говорит: «Выручка выросла на двенадцать процентов.» Камера медленно отъезжает и показывает всю стену.'] }
@@ -1291,7 +1322,7 @@ function setVer(v, silent) {
   $('ratio').value = [...$('ratio').options].some(o => o.value === prevRatio) ? prevRatio : 'auto';
   $('res').innerHTML = lim.res.map(r => `<option>${r}</option>`).join('');
   $('res').value = lim.res.includes(prevRes) ? prevRes : lim.res[lim.res.length - 1];
-  $('timesWrap').hidden = v !== '2.7';
+  $('timesWrap').hidden = v === '2.5';
   $('contWrap').hidden = v !== '3.0';
   const before = REFS.length;
   REFS = REFS.map(r => {

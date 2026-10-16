@@ -34,7 +34,7 @@ your browser: no server, no API key.
 |---|---|---|---|
 | Length | 5 or 10 s | 2-15 s | 2-30 s |
 | Resolution | 480-1080p | 720-1080p | 480-1080p |
-| Shots | one | multi-shot | one long take |
+| Shots | one | multi-shot | multi-shot |
 | References | first frame | 5 + frames | 20, docs |
 
 Wan 3.0 details that are not officially
