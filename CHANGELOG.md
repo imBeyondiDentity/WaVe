@@ -2,6 +2,27 @@
 
 [Русская версия](CHANGELOG_ru.md)
 
+## 1.3.4
+
+- Fixed: a brief that was already a
+  finished multi-shot prompt ("Multi-shot
+  video, 3 shots. Shot 1 [0-5s]: ...
+  Hard cut.") was wrapped a second time,
+  so the output held nested "Shot" lines
+  and cut words mixed into the text. The
+  app now unwraps such a brief first:
+  shot headers, timings and transition
+  words are read, not repeated, and your
+  own timings are kept.
+- Fixed: camera directions written at
+  the start of a shot ("Wide shot,
+  locked tripod.") were printed twice,
+  once from you and once from the app.
+  They are now used once, in the shot
+  header.
+- Fixed: "Medium close-up" was mistaken
+  for the verb "close".
+
 ## 1.3.3
 
 - Fixed: every sentence of the brief

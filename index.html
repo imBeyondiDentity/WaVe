@@ -188,7 +188,7 @@ table.mt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11.5px
 </head>
 <body>
 <main class="wrap">
-<div class="vtag" title="WaVe">v1.3.3</div>
+<div class="vtag" title="WaVe">v1.3.4</div>
 <div class="lang" role="group" aria-label="Language">
   <button type="button" data-l="en" aria-pressed="true">EN</button>
   <button type="button" data-l="ru" aria-pressed="false">RU</button>
@@ -852,7 +852,7 @@ function planSizes(arch, beats) {
   const extra = arch.id === 'product' ? ['Wide beauty shot', 'Low-angle product shot', 'Medium product shot']
     : ['Medium wide shot', 'Over-the-shoulder shot', 'Low-angle medium shot', 'Wide shot', 'Medium shot'];
   const pool = uniq(loose.concat(extra));
-  const named = beats.map(b => SIZE_RE.test(b.text) ? (TIGHT_RE.test(b.text.match(SIZE_RE)[0]) ? 'T' : 'L') : '');
+  const named = beats.map(b => b.named ? (TIGHT_RE.test(b.named) ? 'T' : 'L') : SIZE_RE.test(b.text) ? (TIGHT_RE.test(b.text.match(SIZE_RE)[0]) ? 'T' : 'L') : '');
   const seen = new Set();
   const cands = uniq(base.concat(pool));
   for (let i = 0; i < n; i++) {
@@ -872,7 +872,7 @@ function planSizes(arch, beats) {
 const pl_ = (n, f) => { const a = n % 100, b = n % 10; return a >= 11 && a <= 14 ? f[2] : b === 1 ? f[0] : b >= 2 && b <= 4 ? f[1] : f[2]; };
 // A sentence that only describes (looks, clothes, place, light) is not an event and must not get its own shot.
 const STATE_RE = /(?<![\p{L}])(?:is|are|was|were|has|have|had|wears?|wearing|dressed|features?|covered|filled|lit|surrounded|made of|looks? like|appears?|stands? on|hangs?|sits? on a)(?![\p{L}])|(?<![\p{L}])(?:одет[аы]?|одеты|выглядит|на ней|на нём|у неё|у него|вокруг|освещен|освещён|залит|наполнен|покрыт|стоит на|стоят|висит|находится|виден|видна|видны)/iu;
-const MOTION_RE = /(?<![\p{L}])(?:walks?|runs?|sprints?|turns?|looks? (?:at|up|down|around|back)|opens?|closes?|grabs?|takes?|jumps?|steps?|enters?|leaves?|rises?|stands? up|reaches?|lifts?|picks?|throws?|smiles?|laughs?|says?|moves?|approaches|dances?|spins?|climbs?|falls?|slides?|sits down|kneels?|whispers?|shouts?|pushes?|pulls?|stops?|begins?|starts?)(?![\p{L}])|(?<![\p{L}])(?:идёт|идет|бежит|поворачива|смотрит|открывает|закрывает|берёт|берет|прыга|входит|выходит|встаёт|встает|тянет|поднима|бросает|улыба|смеётся|смеется|подходит|танцу|кружит|ползёт|падает|скользит|садится|останавливается|начинает|говорит|шепчет|кричит|толкает|тянется)/iu;
+const MOTION_RE = /(?<![\p{L}])(?:walks?|runs?|sprints?|turns?|looks? (?:at|up|down|around|back)|opens?|closes?|grabs?|takes?|jumps?|steps?|enters?|leaves?|rises?|stands? up|reaches?|lifts?|picks?|throws?|smiles?|laughs?|says?|moves?|approaches|dances?|spins?|climbs?|falls?|slides?|sits down|kneels?|whispers?|shouts?|pushes?|pulls?|stops?|begins?|starts?)(?![\p{L}-])|(?<![\p{L}])(?:идёт|идет|бежит|поворачива|смотрит|открывает|закрывает|берёт|берет|прыга|входит|выходит|встаёт|встает|тянет|поднима|бросает|улыба|смеётся|смеется|подходит|танцу|кружит|ползёт|падает|скользит|садится|останавливается|начинает|говорит|шепчет|кричит|толкает|тянется)/iu;
 function foldDescriptions(beats) {
   const out = [];
   let carry = '', folded = 0;
@@ -885,6 +885,32 @@ function foldDescriptions(beats) {
   }
   if (carry && !out.length) return { beats, folded: 0 };
   return { beats: out, folded };
+}
+// A brief that is already a finished multi-shot prompt ("Multi-shot video, 3 shots. Shot 1 [0-5s]: ... Hard cut.")
+// is unwrapped first, so the app does not wrap its own markup a second time.
+function unwrapBrief(t) {
+  return (t || '')
+    .replace(/\bmulti-?shot video,?\s*\d+\s*shots?\.?/gi, ' ')
+    .replace(/\bgenerate single shot\.?/gi, ' ')
+    .replace(/\bshot\s*\d+\s*\[\s*(\d+(?:\.\d+)?)\s*[-–—]\s*(\d+(?:\.\d+)?)\s*(?:s|sec|с)?\s*\]\s*[:.\-–—]?\s*/gi, (m, a, b) => `\n${a}-${b}s: `)
+    .replace(/(?:^|(?<=[.!?\s]))(?:hard cut|dissolve|match cut|smash cut)\s*[.;]?/gi, ' ')
+    .replace(/(?:^|\n)\s*(?:look|lighting|audio|negative(?: prompt)?)\s*:[^\n]*/gi, '')
+    .replace(/[ \t]{2,}/g, ' ');
+}
+// Leading sentences that only give camera directions ("Wide establishing shot, locked tripod.") are lifted out of the beat
+// text, so the generated shot line does not repeat them. The size and the move are kept for the shot header.
+function camClean(text) {
+  const parts = text.split(/(?<=[.!?])\s+/);
+  let size = '', k = 0;
+  while (k < parts.length - 1) {
+    const q = parts[k];
+    const camOnly = words(q) <= 9 && (firstIdx(q, Object.values(MOVES).flatMap(m => m.kw)) >= 0 || SIZE_RE.test(q) || /\b(?:tripod|static camera|locked)\b/i.test(q)) && !MOTION_RE.test(q);
+    if (!camOnly) break;
+    const m = q.match(SIZE_RE);
+    if (m && !size) size = cap(m[0]);
+    k++;
+  }
+  return k ? { text: parts.slice(k).join(' '), size } : null;
 }
 const an = s => /^[aeiou]/i.test(s) ? 'an ' + s : 'a ' + s;
 const uniq = arr => { const seen = new Set(); return arr.filter(x => { const k = x.toLowerCase(); if (seen.has(k)) return false; seen.add(k); return true; }); };
@@ -905,7 +931,7 @@ const GENRE_LIGHTS = new Set(['noir', 'cyber', 'horror', 'romantic', 'documentar
 
 function build(S) {
   const L = LIM[S.ver];
-  const I = decode(S.text || '');
+  const I = decode(unwrapBrief(S.text || ''));
   const notes = [];
   const note = (sev, en, ru) => notes.push({ sev, msg: [en, ru] });
   const dur = snapDur(S.ver, S.dur);
@@ -977,10 +1003,11 @@ function build(S) {
   const shots = [];
   let t = 0;
   const forced = S.move && S.move !== 'auto' ? S.move : null;
+  beats = beats.map(b => { const c = camClean(b.text); return c ? { ...b, text: c.text, named: c.size, mv: beatMove(b.text) } : b; });
   const sizePlan = planSizes(arch, beats);
   beats.forEach((b, i) => {
-    const size = sizePlan[i];
-    const mid = forced || beatMove(S.ver === '2.5' ? beats.map(x => x.text).join(' ') : b.text);
+    const size = b.named || sizePlan[i];
+    const mid = forced || b.mv || beatMove(S.ver === '2.5' ? beats.map(x => x.text).join(' ') : b.text);
     const move = mid ? MOVES[mid].p : pick(arch.moves, i, n);
     shots.push({ n: i + 1, t0: t, t1: t + durs[i], size, move, mid: mid || null, text: b.text, lines: b.lines, merged: !!b.merged });
     t += durs[i];
