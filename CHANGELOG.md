@@ -2,6 +2,31 @@
 
 [Русская версия](CHANGELOG_ru.md)
 
+## 1.3.3
+
+- Fixed: every sentence of the brief
+  became its own shot, including pure
+  description ("She wears a green
+  dress", "The courtyard is lit by
+  lanterns"). Descriptive sentences are
+  now kept as detail inside the
+  neighbouring shot, and only actions
+  make shots. A note says how many
+  sentences were treated this way.
+
+## 1.3.2
+
+- Fixed: the self-check blamed the app's
+  own work. When many events were
+  squeezed into fewer shots, every
+  merged shot was flagged "more than
+  one action". Merged shots are no
+  longer flagged one by one. A single
+  note now says how many events went
+  into how many shots and what to do:
+  cut the text, set Pace to Fast, or
+  raise the duration.
+
 ## 1.3.1
 
 - Fixed: shot sizes repeated and two

@@ -188,7 +188,7 @@ table.mt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11.5px
 </head>
 <body>
 <main class="wrap">
-<div class="vtag" title="WaVe">v1.3.1</div>
+<div class="vtag" title="WaVe">v1.3.3</div>
 <div class="lang" role="group" aria-label="Language">
   <button type="button" data-l="en" aria-pressed="true">EN</button>
   <button type="button" data-l="ru" aria-pressed="false">RU</button>
@@ -869,6 +869,23 @@ function planSizes(arch, beats) {
   }
   return out;
 }
+const pl_ = (n, f) => { const a = n % 100, b = n % 10; return a >= 11 && a <= 14 ? f[2] : b === 1 ? f[0] : b >= 2 && b <= 4 ? f[1] : f[2]; };
+// A sentence that only describes (looks, clothes, place, light) is not an event and must not get its own shot.
+const STATE_RE = /(?<![\p{L}])(?:is|are|was|were|has|have|had|wears?|wearing|dressed|features?|covered|filled|lit|surrounded|made of|looks? like|appears?|stands? on|hangs?|sits? on a)(?![\p{L}])|(?<![\p{L}])(?:одет[аы]?|одеты|выглядит|на ней|на нём|у неё|у него|вокруг|освещен|освещён|залит|наполнен|покрыт|стоит на|стоят|висит|находится|виден|видна|видны)/iu;
+const MOTION_RE = /(?<![\p{L}])(?:walks?|runs?|sprints?|turns?|looks? (?:at|up|down|around|back)|opens?|closes?|grabs?|takes?|jumps?|steps?|enters?|leaves?|rises?|stands? up|reaches?|lifts?|picks?|throws?|smiles?|laughs?|says?|moves?|approaches|dances?|spins?|climbs?|falls?|slides?|sits down|kneels?|whispers?|shouts?|pushes?|pulls?|stops?|begins?|starts?)(?![\p{L}])|(?<![\p{L}])(?:идёт|идет|бежит|поворачива|смотрит|открывает|закрывает|берёт|берет|прыга|входит|выходит|встаёт|встает|тянет|поднима|бросает|улыба|смеётся|смеется|подходит|танцу|кружит|ползёт|падает|скользит|садится|останавливается|начинает|говорит|шепчет|кричит|толкает|тянется)/iu;
+function foldDescriptions(beats) {
+  const out = [];
+  let carry = '', folded = 0;
+  for (const b of beats) {
+    const desc = b.t0 === null && !b.lines.length && STATE_RE.test(b.text) && !MOTION_RE.test(b.text);
+    if (!desc) { out.push({ ...b, text: carry ? carry + b.text : b.text }); carry = ''; continue; }
+    folded++;
+    if (out.length) out[out.length - 1] = { ...out[out.length - 1], text: out[out.length - 1].text + ' ' + b.text };
+    else carry += b.text + ' ';
+  }
+  if (carry && !out.length) return { beats, folded: 0 };
+  return { beats: out, folded };
+}
 const an = s => /^[aeiou]/i.test(s) ? 'an ' + s : 'a ' + s;
 const uniq = arr => { const seen = new Set(); return arr.filter(x => { const k = x.toLowerCase(); if (seen.has(k)) return false; seen.add(k); return true; }); };
 const UNIT = { '2.5': [['beat', 'beats'], ['действие', 'действия', 'действий']], '2.7': [['shot', 'shots'], ['шот', 'шота', 'шотов']], '3.0': [['shot', 'shots'], ['шот', 'шота', 'шотов']] };
@@ -905,7 +922,10 @@ function build(S) {
   else ratio = pr.s;
 
   // shots
-  let beats = I.beats.map(b => ({ ...b, lines: b.lines.slice() }));
+  const fd = foldDescriptions(I.beats.map(b => ({ ...b, lines: b.lines.slice() })));
+  let beats = fd.beats;
+  const nEvents = beats.length;
+  if (fd.folded) note('info', `${fd.folded} descriptive ${fd.folded === 1 ? 'sentence was' : 'sentences were'} kept as detail inside the neighbouring shot, not made into shots of their own.`, `${fd.folded} описательных ${pl_(fd.folded, ['предложение', 'предложения', 'предложений'])} оставлено как деталь внутри соседнего шота, отдельными шотами они не стали.`);
   // untimed preamble (look, setting) joins the first beat that carries a timestamp
   const fi = beats.findIndex(b => b.t0 !== null);
   if (fi > 0) {
@@ -939,10 +959,14 @@ function build(S) {
   while (beats.length > maxN) {
     let bi = 0, bl = Infinity;
     for (let i = 0; i < beats.length - 1; i++) { const l = beats[i].text.length + beats[i + 1].text.length; if (l < bl) { bl = l; bi = i; } }
-    beats.splice(bi, 2, { text: beats[bi].text.replace(/\.$/, '') + '; then ' + lowFirst(beats[bi + 1].text), lines: beats[bi].lines.concat(beats[bi + 1].lines), t0: null, t1: null });
-    if (beats.length === maxN) note('warn', `${I.beats.length} events do not fit ${dur} s in ${maxN} ${maxN === 1 ? UNIT[S.ver][0][0] : UNIT[S.ver][0][1]}; neighbouring events were merged (one action per segment is safer).`, `${I.beats.length} событий не помещаются в ${dur} с (${maxN}); соседние события объединены (одно действие на отрезок надёжнее).`);
+    beats.splice(bi, 2, { text: beats[bi].text.replace(/\.$/, '') + '; then ' + lowFirst(beats[bi + 1].text), lines: beats[bi].lines.concat(beats[bi + 1].lines), t0: null, t1: null, merged: true });
   }
   const n = beats.length;
+  if (nEvents > n) {
+    const per = Math.ceil(nEvents / n), more = L.maxShots > n;
+    note('warn', `${nEvents} events in ${n} ${n === 1 ? UNIT[S.ver][0][0] : UNIT[S.ver][0][1]} (about ${per} per shot), so neighbouring events were merged. For one action per shot, cut the text to ${n}-${n + 1} key events${more ? ', set Pace to Fast or raise the duration' : ''}.`,
+      `${nEvents} событий на ${n} ${pl_(n, UNIT[S.ver][1])} (около ${per} на шот), поэтому соседние события объединены. Чтобы было одно действие на шот, сократи текст до ${n}–${n + 1} главных событий${more ? ', поставь темп «Быстрый» или увеличь длительность' : ''}.`);
+  }
   let durs;
   if (userTimes && n === nTimed && beats[n - 1].t1 === dur) durs = beats.map(b => b.t1 - b.t0);
   else {
@@ -958,7 +982,7 @@ function build(S) {
     const size = sizePlan[i];
     const mid = forced || beatMove(S.ver === '2.5' ? beats.map(x => x.text).join(' ') : b.text);
     const move = mid ? MOVES[mid].p : pick(arch.moves, i, n);
-    shots.push({ n: i + 1, t0: t, t1: t + durs[i], size, move, mid: mid || null, text: b.text, lines: b.lines });
+    shots.push({ n: i + 1, t0: t, t1: t + durs[i], size, move, mid: mid || null, text: b.text, lines: b.lines, merged: !!b.merged });
     t += durs[i];
   });
 
@@ -1076,7 +1100,7 @@ function build(S) {
   const prompt = blocks.join('\n\n');
 
   // advice
-  if (S.ver === '2.5' && I.beats.length > 1 && n === 1) note('info', 'Wan 2.5 is one continuous shot: a 5 s clip holds one action. Pick 10 s for two, or make separate clips.', 'Wan 2.5 — один непрерывный кадр: в 5 с помещается одно действие. Выбери 10 с для двух или делай отдельные клипы.');
+  if (S.ver === '2.5' && nEvents > 1 && n === 1) note('info', 'Wan 2.5 is one continuous shot: a 5 s clip holds one action. Pick 10 s for two, or make separate clips.', 'Wan 2.5 — один непрерывный кадр: в 5 с помещается одно действие. Выбери 10 с для двух или делай отдельные клипы.');
   if (n === 1 && words(beats[0].text) < 14 && dur > 8 && S.ver !== '2.5') note('info', `One event for ${dur} s: the clip is generated as a single continuous take. Add 2-3 events if you want cuts.`, `Одно событие на ${dur} с: ролик получится одним непрерывным кадром. Добавь 2–3 события, если нужны склейки.`);
   if (S.ver !== '2.5' && durs.some(d => d > 6)) note('info', 'A shot longer than 5-6 s is risky (2-5 s per shot is recommended); split it into two events.', 'Шот длиннее 5–6 с рискован (рекомендуется 2–5 с на шот); раздели его на два события.');
   if (I.lang === 'ru') note('info', 'Scaffolding is in English, your wording stays as written. For a full English prompt use the LLM tab.', 'Каркас на английском, твои формулировки остаются как есть. Для полностью английского промпта используй вкладку LLM.');
@@ -1086,7 +1110,7 @@ function build(S) {
   note('tip', arch.tip[0], arch.tip[1]);
 
   const R = { prompt, negative, sfx, sfxAuto, shots, intent: I, arch, dur, res, ratio, light: lk, notes, n, refCount: cnt, refTokens };
-  R.audit = lint(prompt, S.ver, dur);
+  R.audit = lint(prompt, S.ver, dur, new Set(shots.filter(x => x.merged).map(x => x.n - 1)));
   return R;
 }
 
@@ -1097,7 +1121,7 @@ const SEC_RE = /^\s*(look|lighting|audio|music|sound|dialogue|negative|avoid|con
 const REF_RE = /^\s*(?:image|video|audio|document)\s?\d+\b/i;
 const STAGE_RE = /^\s*(?:shot\s*\d+|(?:beginning|development|turn|escalation|end)\s*\(|(\d+(?:\.\d+)?)\s*[-–—]\s*(\d+(?:\.\d+)?)\s*(?:s|sec|с)(?![\p{L}\p{N}]))/iu;
 
-function lint(p, ver, dur) {
+function lint(p, ver, dur, skipAct) {
   const L = LIM[ver], out = [];
   const add = (sev, id, en, ru) => out.push({ sev, id, msg: [en, ru] });
   if (!p || !p.trim()) return { issues: [], score: 0 };
@@ -1160,7 +1184,7 @@ function lint(p, ver, dur) {
     else if (cats.includes('orbit') && cats.includes('dolly') && (sd === null || sd > 5)) add('warn', 'mvod', `${label}: orbit + dolly drifts after about 5 s.`, `${label}: orbit + dolly уплывает после ~5 с.`);
     else if (cats.includes('pan') && cats.includes('dolly')) add('warn', 'mvpd', `${label}: pan + dolly together can jitter; try one.`, `${label}: pan + dolly вместе могут дрожать; попробуй одно.`);
     if (cats.includes('orbit') && /360/.test(txt) && sd !== null && sd < 6) add('warn', 'or360', `${label}: a 360° orbit in under 6 s causes artefacts.`, `${label}: орбита 360° быстрее 6 с даёт артефакты.`);
-    if (ver !== '2.5' && /\b(?:then|and then|after that)\b|потом|затем/i.test(txt)) add('warn', 'act', `${label}: more than one action ("then"). One action per shot; give the next one its own shot.`, `${label}: больше одного действия («потом»). Одно действие на шот; следующему нужен свой шот.`);
+    if (ver !== '2.5' && !(skipAct && skipAct.has(i)) && /\b(?:then|and then|after that)\b|потом|затем/i.test(txt)) add('warn', 'act', `${label}: more than one action ("then"). One action per shot; give the next one its own shot.`, `${label}: больше одного действия («потом»). Одно действие на шот; следующему нужен свой шот.`);
     if (words(txt) > L.words) add('warn', 'wlen', `${label} is ${words(txt)} words; above ${L.words} Wan starts dropping detail.`, `${label}: ${words(txt)} слов; после ${L.words} Wan начинает терять детали.`);
   });
 
