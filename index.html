@@ -188,7 +188,7 @@ table.mt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11.5px
 </head>
 <body>
 <main class="wrap">
-<div class="vtag" title="WaVe">v1.2.0</div>
+<div class="vtag" title="WaVe">v1.3.1</div>
 <div class="lang" role="group" aria-label="Language">
   <button type="button" data-l="en" aria-pressed="true">EN</button>
   <button type="button" data-l="ru" aria-pressed="false">RU</button>
@@ -265,6 +265,7 @@ table.mt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11.5px
         <textarea id="dialogue" style="min-height:64px" data-tp="ph_dlg"></textarea>
         <label for="dlang" data-t="f_dlang"></label>
         <select id="dlang"><option value="auto" data-t="dl_auto"></option><option value="en">English</option><option value="zh">Mandarin Chinese</option><option value="ru">Russian</option><option value="es">Spanish</option><option value="de">German</option><option value="fr">French</option><option value="ja">Japanese</option></select>
+        <label class="chk"><input type="checkbox" id="sfxAuto" checked><span data-t="o_sfxauto"></span></label>
         <label class="chk"><input type="checkbox" id="audioOn" checked><span data-t="o_audio"></span></label>
         <label class="chk"><input type="checkbox" id="nosubs" checked><span data-t="o_nosubs"></span></label>
         <label class="chk"><input type="checkbox" id="nobgm"><span data-t="o_nobgm"></span></label>
@@ -699,6 +700,46 @@ ARCH.push({ id: 'sensual', n: ['Sensual / boudoir', 'Чувственное / б
   neg: ['nudity', 'explicit content', 'childlike features'],
   tip: ['Sensual works through suggestion: fabric, breath, a held glance, slow motion. Keep every subject an adult and state their age ("a woman in her thirties").', 'Чувственность строится на намёке: ткань, дыхание, долгий взгляд, медленное движение. Все герои — взрослые, укажи возраст («женщина лет тридцати»).'] });
 
+// Auto sound effects: keyword in the action text -> sound phrase (English and Russian stems).
+// Order = priority; the engine keeps the first few distinct matches.
+const SFX_AUTO = [
+  [/(?<![\p{L}])(?:thunder|storm|lightning)|(?<![\p{L}])(?:гроз|молни|гром)/iu, 'distant thunder'],
+  [/(?<![\p{L}])(?:rain|drizzle|downpour|raincoat)|(?<![\p{L}])(?:дожд|ливн|морос)/iu, 'rain falling'],
+  [/(?<![\p{L}])(?:explo|blast|detonat)|(?<![\p{L}])взрыв/iu, 'deep explosion rumble'],
+  [/(?<![\p{L}])(?:gunshot|shoots?|shooting|fires? a gun)|(?<![\p{L}])(?:выстрел|стреля)/iu, 'sharp gunshot echo'],
+  [/(?<![\p{L}])(?:punch|kick|fight|slap|strikes?|hits?)(?![\p{L}])|(?<![\p{L}])(?:удар|драк|бьёт|бьет|пинок)/iu, 'dull impact thuds'],
+  [/(?<![\p{L}])(?:sword|blade|clash)|(?<![\p{L}])(?:меч|клинок|сабл)/iu, 'metal clash'],
+  [/(?<![\p{L}])(?:sprint|runs?|running|chase|chasing|jogs?)(?![\p{L}])|(?<![\p{L}])(?:бег|бежи|бежа|погон|спринт)/iu, 'rapid footsteps'],
+  [/(?<![\p{L}])(?:walks?|walking|steps?|strolls?|pace[sd]?|footsteps)(?![\p{L}])|(?<![\p{L}])(?:идёт|идет|шагает|шаги|прогулива)/iu, 'footsteps'],
+  [/(?<![\p{L}])(?:jumps?|leaps?|lands?|vault)|(?<![\p{L}])(?:прыга|прыжок|приземл)/iu, 'a soft landing thud'],
+  [/(?<![\p{L}])(?:door|doorway)|(?<![\p{L}])(?:дверь|двери|дверь)/iu, 'a door opening and closing'],
+  [/(?<![\p{L}])(?:coffee|stirs?|spoon|cup|mug|teacup)|(?<![\p{L}])(?:кофе|ложк|чашк|помешива)/iu, 'spoon against ceramic'],
+  [/(?<![\p{L}])(?:steam|kettle|espresso)|(?<![\p{L}])(?:пар(?![\p{L}])|кофемашин|чайник)/iu, 'steam hiss'],
+  [/(?<![\p{L}])(?:glass(?:es)?|toast|clinks?|wine)(?![\p{L}])|(?<![\p{L}])(?:бокал|стакан|вино|тост)/iu, 'glass clink'],
+  [/(?<![\p{L}])(?:pours?|pouring|splash|drips?|droplets?|water drops?)|(?<![\p{L}])(?:налива|плеск|капл|брызг)/iu, 'water drops and splashes'],
+  [/(?<![\p{L}])(?:waves?|ocean|sea(?![\p{L}])|shore|beach)|(?<![\p{L}])(?:волн|океан|море|морск|берег|пляж)/iu, 'waves lapping'],
+  [/(?<![\p{L}])(?:fire(?![\p{L}])|flames?|bonfire|campfire|burning|fireplace)|(?<![\p{L}])(?:огонь|огня|пламя|костёр|костер|камин|горит)/iu, 'crackling fire'],
+  [/(?<![\p{L}])(?:candles?)|(?<![\p{L}])свеч/iu, 'soft candle flicker'],
+  [/(?<![\p{L}])(?:wind|breeze|gust)|(?<![\p{L}])(?:ветер|ветр|ветерок)/iu, 'wind rushing past'],
+  [/(?<![\p{L}])(?:forest|woods|leaves|trees|grass)|(?<![\p{L}])(?:лес(?![\p{L}])|леса|листь|листв|деревь|трав)/iu, 'rustling leaves'],
+  [/(?<![\p{L}])(?:birds?|birdsong|sparrows?)|(?<![\p{L}])(?:птиц|птичк)/iu, 'birdsong'],
+  [/(?<![\p{L}])(?:snow|snowfall|frost)|(?<![\p{L}])(?:снег|снеж|мороз)/iu, 'soft crunch of snow'],
+  [/(?<![\p{L}])(?:motorcycle|motorbike|engine|drives?|driving|car(?![\p{L}])|cars(?![\p{L}])|truck)|(?<![\p{L}])(?:мотоцикл|двигател|машин|автомоб|едет|за рулём)/iu, 'engine hum'],
+  [/(?<![\p{L}])(?:train|subway|metro|tram)|(?<![\p{L}])(?:поезд|метро|трамва)/iu, 'train rumble on the rails'],
+  [/(?<![\p{L}])(?:helicopter|drone)|(?<![\p{L}])(?:вертол[её]т|дрон)/iu, 'rotor beat overhead'],
+  [/(?<![\p{L}])(?:siren|police)|(?<![\p{L}])(?:сирен|полици)/iu, 'distant sirens'],
+  [/(?<![\p{L}])(?:crowd|market|audience|festival|bar(?![\p{L}])|party)|(?<![\p{L}])(?:толп|рынок|базар|зрител|фестивал|вечеринк)/iu, 'crowd murmur'],
+  [/(?<![\p{L}])(?:applau|clap)|(?<![\p{L}])аплодис/iu, 'applause'],
+  [/(?<![\p{L}])(?:street|city|traffic|downtown|avenue|neon)|(?<![\p{L}])(?:улиц|город|трафик|проспект|неон)/iu, 'distant city traffic'],
+  [/(?<![\p{L}])(?:typing|keyboard|laptop|computer|office)|(?<![\p{L}])(?:печата|клавиатур|ноутбук|компьютер|офис)/iu, 'soft keyboard clicks'],
+  [/(?<![\p{L}])(?:cook|fry|frying|sizzl|kitchen|pan(?![\p{L}]))|(?<![\p{L}])(?:жарит|жарк|кухн|сковород|готов(?:ит|ка))/iu, 'sizzling pan'],
+  [/(?<![\p{L}])(?:silk|robe|dress|fabric|sheets?|blanket|satin|curtains?)|(?<![\p{L}])(?:шёлк|шелк|халат|плать|ткан|простын|одеял|атлас|штор)/iu, 'soft fabric rustle'],
+  [/(?<![\p{L}])(?:button|presses|click|switch)|(?<![\p{L}])(?:кнопк|нажима|щелчок|переключа)/iu, 'button click'],
+  [/(?<![\p{L}])(?:page|book|paper|newspaper)|(?<![\p{L}])(?:страниц|книг|бумаг|газет)/iu, 'paper rustle'],
+  [/(?<![\p{L}])(?:cat|dog|horse)(?![\p{L}])|(?<![\p{L}])(?:кошк|собак|лошад)/iu, 'soft animal sounds']
+];
+const SFX_AUTO_MAX = 5;
+
 /* ===== ENGINE: decode intent -> timings -> prompt -> audit -> meta-prompt ===== */
 
 const _reCache = {};
@@ -791,6 +832,43 @@ function snapDur(ver, v) {
   if (L.step > 1) return v <= (L.min + L.max) / 2 ? L.min : L.max;
   return clamp(v, L.min, L.max);
 }
+// sound phrases suggested by the action text, skipping anything the user already wrote
+function autoSfx(text, manual) {
+  const have = (manual || '').toLowerCase(), out = [];
+  for (const [re, snd] of SFX_AUTO) {
+    if (out.length >= SFX_AUTO_MAX) break;
+    if (!re.test(text)) continue;
+    const key = snd.split(' ').pop().replace(/s$/, '');
+    if (have.includes(snd.toLowerCase()) || (key.length > 3 && have.includes(key))) continue;
+    out.push(snd);
+  }
+  return out;
+}
+// Shot sizes for the whole clip: varied, and never two tight shots (close-up family) in a row.
+const TIGHT_RE = /close-up|closeup|macro|detail|insert|selfie|крупный/i;
+function planSizes(arch, beats) {
+  const base = arch.sizes, n = beats.length, out = [];
+  const loose = base.filter(x => !TIGHT_RE.test(x));
+  const extra = arch.id === 'product' ? ['Wide beauty shot', 'Low-angle product shot', 'Medium product shot']
+    : ['Medium wide shot', 'Over-the-shoulder shot', 'Low-angle medium shot', 'Wide shot', 'Medium shot'];
+  const pool = uniq(loose.concat(extra));
+  const named = beats.map(b => SIZE_RE.test(b.text) ? (TIGHT_RE.test(b.text.match(SIZE_RE)[0]) ? 'T' : 'L') : '');
+  const seen = new Set();
+  const cands = uniq(base.concat(pool));
+  for (let i = 0; i < n; i++) {
+    if (named[i]) { out.push(''); continue; }
+    const prevTight = i > 0 && (out[i - 1] ? TIGHT_RE.test(out[i - 1]) : named[i - 1] === 'T');
+    let size = pick(base, i, n);
+    const bad = x => seen.has(x.toLowerCase()) || (prevTight && TIGHT_RE.test(x)) || (i > 0 && /establishing/i.test(x));
+    if (bad(size)) {
+      // prefer an unused size; if every size was used, only avoid the tight-after-tight and repeat-in-a-row cases
+      size = cands.find(x => !bad(x)) || cands.find(x => x !== out[i - 1] && !(prevTight && TIGHT_RE.test(x)) && !/establishing/i.test(x)) || size;
+    }
+    seen.add(size.toLowerCase());
+    out.push(size);
+  }
+  return out;
+}
 const an = s => /^[aeiou]/i.test(s) ? 'an ' + s : 'a ' + s;
 const uniq = arr => { const seen = new Set(); return arr.filter(x => { const k = x.toLowerCase(); if (seen.has(k)) return false; seen.add(k); return true; }); };
 const UNIT = { '2.5': [['beat', 'beats'], ['действие', 'действия', 'действий']], '2.7': [['shot', 'shots'], ['шот', 'шота', 'шотов']], '3.0': [['shot', 'shots'], ['шот', 'шота', 'шотов']] };
@@ -875,8 +953,9 @@ function build(S) {
   const shots = [];
   let t = 0;
   const forced = S.move && S.move !== 'auto' ? S.move : null;
+  const sizePlan = planSizes(arch, beats);
   beats.forEach((b, i) => {
-    const size = SIZE_RE.test(b.text) ? '' : pick(arch.sizes, i, n);
+    const size = sizePlan[i];
     const mid = forced || beatMove(S.ver === '2.5' ? beats.map(x => x.text).join(' ') : b.text);
     const move = mid ? MOVES[mid].p : pick(arch.moves, i, n);
     shots.push({ n: i + 1, t0: t, t1: t + durs[i], size, move, mid: mid || null, text: b.text, lines: b.lines });
@@ -953,12 +1032,16 @@ function build(S) {
   if (dl === 'auto') dl = /[一-鿿]/.test(allLines.join(' ')) ? 'zh' : /[а-яё]/i.test(allLines.join(' ')) ? 'ru' : /[぀-ヿ]/.test(allLines.join(' ')) ? 'ja' : 'en';
   const DL = { en: 'English', zh: 'Mandarin Chinese', ru: 'Russian', es: 'Spanish', de: 'German', fr: 'French', ja: 'Japanese' };
   const say = q => `The character says: "${q}"`;
-  const music = (S.music || '').trim(), sfx = (S.sfx || '').trim();
+  const music = (S.music || '').trim(), sfxManual = (S.sfx || '').trim();
+  // auto sound effects from the action text; the user's own list always goes first
+  const sfxAuto = audioOn && S.sfxAuto !== false ? autoSfx(shots.map(s => s.text).join(' '), sfxManual) : [];
+  const sfx = [sfxManual].concat(sfxAuto).filter(Boolean).join(', ');
   const aud = [];
   if (audioOn) {
     if (allLines.length) aud.push(`Dialogue language: ${DL[dl] || dl}.`);
     if (music && !S.nobgm) aud.push(`Music: ${music}.`);
     if (sfx) aud.push(`Sound effects: ${sfx}.`);
+    if (sfxAuto.length) note('info', `Sound effects added from the action: ${sfxAuto.join(', ')}. Switch off "Auto sound effects" in Audio to write your own.`, `Звуки добавлены по действию: ${sfxAuto.join(', ')}. Отключи «Авто звуковые эффекты» в разделе «Аудио», чтобы писать свои.`);
     if (manual.length) aud.push(manual.map(say).join(' '));
     if (S.ver === '3.0') aud.push(allLines.length ? 'Lip sync.' : 'No dialogue.');
     if (S.nobgm) aud.push('No background music.');
@@ -1002,7 +1085,7 @@ function build(S) {
   if (!cnt && /\b(?:image|video|audio)\s?\d/i.test(S.text)) note('warn', 'Your text mentions Image/Video/Audio N but no reference is attached in the References panel.', 'В тексте есть Image/Video/Audio N, но референс не добавлен в панель «Референсы».');
   note('tip', arch.tip[0], arch.tip[1]);
 
-  const R = { prompt, negative, shots, intent: I, arch, dur, res, ratio, light: lk, notes, n, refCount: cnt, refTokens };
+  const R = { prompt, negative, sfx, sfxAuto, shots, intent: I, arch, dur, res, ratio, light: lk, notes, n, refCount: cnt, refTokens };
   R.audit = lint(prompt, S.ver, dur);
   return R;
 }
@@ -1126,7 +1209,7 @@ function buildMeta(S, R, lang) {
     `Scene type (auto-detected): ${R.arch.n[0]}`];
   if (refs.length) { L.push('References (in upload order):'); refs.forEach(r => L.push(`- ${ROLES[r.role].kind} / ${ROLES[r.role].l[0]}${r.note ? ': ' + r.note : ''}`)); }
   if (S.music) L.push(`Music: ${S.music}`);
-  if (S.sfx) L.push(`Sound effects: ${S.sfx}`);
+  if (R.sfx) L.push(`Sound effects: ${R.sfx}`);
   if (S.dialogue) L.push(`Dialogue: ${S.dialogue.replace(/\n/g, ' / ')}`);
   if (S.neg) L.push(`Must avoid: ${S.neg.replace(/\n/g, ', ')}`);
   L.push('', 'RULES-ENGINE DRAFT (improve it: translate, tighten, add concrete detail; do not just copy it):', R.prompt, '',
@@ -1183,6 +1266,7 @@ const T = {
   f_dlg: ['Extra dialogue (one line per row)', 'Доп. реплики (по одной в строке)'],
   ph_dlg: ['Lines in quotes inside the description are picked up automatically.', 'Реплики в кавычках из описания подхватываются автоматически.'],
   f_dlang: ['Dialogue language', 'Язык речи'], dl_auto: ['Auto', 'Авто'],
+  o_sfxauto: ['Auto sound effects from the action', 'Авто звуковые эффекты по действию'],
   o_audio: ['Describe audio in the prompt', 'Описывать звук в промпте'],
   o_nosubs: ['Keep subtitles out (negative prompt)', 'Без субтитров (в негативном промпте)'],
   o_nobgm: ['No background music', 'Без фоновой музыки'],
@@ -1289,7 +1373,7 @@ function toast(msg) { const el = $('toast'); el.textContent = msg; el.classList.
 function readUI() {
   return { ver: VER, text: $('desc').value, dur: +$('durNum').value || LIM[VER].min, ratio: $('ratio').value, res: $('res').value, arch: $('arch').value, detail: $('detail').value, cons: +$('cons').value,
     body: $('body').value, light: $('light').value, move: $('move').value, color: $('color').value, pace: $('pace').value, lens: $('lens').value, refs: REFS.map(r => ({ ...r })), music: $('music').value, sfx: $('sfx').value,
-    dialogue: $('dialogue').value, dlang: $('dlang').value, audioOn: $('audioOn').checked, nosubs: $('nosubs').checked, nobgm: $('nobgm').checked, times: $('times').checked,
+    dialogue: $('dialogue').value, dlang: $('dlang').value, audioOn: $('audioOn').checked, nosubs: $('nosubs').checked, nobgm: $('nobgm').checked, sfxAuto: $('sfxAuto').checked, times: $('times').checked,
     cont: $('cont').checked, neg: $('neg').value };
 }
 function writeUI(s) {
@@ -1305,7 +1389,7 @@ function writeUI(s) {
   $('cons').value = String(s.cons || 2);
   REFS = (s.refs || []).filter(r => roleOk(r.role, VER)).map(r => ({ role: r.role, note: r.note || '' }));
   for (const id of ['music', 'sfx', 'dialogue', 'neg']) $(id).value = s[id] || '';
-  for (const id of ['audioOn', 'nosubs', 'nobgm', 'times', 'cont']) $(id).checked = s[id] !== undefined ? !!s[id] : (id !== 'nobgm');
+  for (const id of ['audioOn', 'nosubs', 'nobgm', 'sfxAuto', 'times', 'cont']) $(id).checked = s[id] !== undefined ? !!s[id] : (id !== 'nobgm');
   renderRefs();
 }
 function setDur(v) { v = snapDur(VER, v); $('dur').value = v; $('durNum').value = v; }
@@ -1448,7 +1532,7 @@ function renderExamples() {
 }
 function baseState(ver) {
   return { ver, text: '', dur: DEF_DUR[ver], ratio: 'auto', res: '', arch: 'auto', detail: 'std', cons: 2, body: 'auto', light: 'auto', move: 'auto', color: 'auto', pace: 'auto', lens: 'auto',
-    refs: [], music: '', sfx: '', dialogue: '', dlang: 'auto', audioOn: true, nosubs: true, nobgm: false, times: true, cont: true, neg: '' };
+    refs: [], music: '', sfx: '', dialogue: '', dlang: 'auto', audioOn: true, nosubs: true, nobgm: false, sfxAuto: true, times: true, cont: true, neg: '' };
 }
 function loadExample(i) {
   const e = EXAMPLES[i];
@@ -1527,7 +1611,7 @@ function init() {
   $$('[data-tp]').forEach(el => { el.placeholder = t(el.dataset.tp); });
   $$('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === LANG));
   rebuildSelects(); renderExamples();
-  if (initial && initial.text) writeUI({ ...baseState(VER), ...initial }); else loadExampleSilently();
+  if (initial) writeUI({ ...baseState(VER), ...initial }); else loadExampleSilently();
   applyLang();
 
   $$('.lang button').forEach(b => b.addEventListener('click', () => { LANG = b.dataset.l; applyLang(); }));
@@ -1538,7 +1622,7 @@ function init() {
   $('dur').addEventListener('input', () => { $('durNum').value = $('dur').value; schedule(); });
   $('durNum').addEventListener('input', () => { const v = clamp(+$('durNum').value || 0, LIM[VER].min, LIM[VER].max); if ($('durNum').value) $('dur').value = v; schedule(); });
   $('durNum').addEventListener('change', () => { setDur(+$('durNum').value); schedule(); });
-  for (const id of ['desc', 'ratio', 'res', 'arch', 'detail', 'cons', 'body', 'light', 'move', 'color', 'pace', 'lens', 'music', 'sfx', 'dialogue', 'dlang', 'audioOn', 'nosubs', 'nobgm', 'times', 'cont', 'neg'])
+  for (const id of ['desc', 'ratio', 'res', 'arch', 'detail', 'cons', 'body', 'light', 'move', 'color', 'pace', 'lens', 'music', 'sfx', 'dialogue', 'dlang', 'audioOn', 'nosubs', 'sfxAuto', 'nobgm', 'times', 'cont', 'neg'])
     for (const ev of ['input', 'change']) $(id).addEventListener(ev, schedule);
 
   $('addRow').addEventListener('click', e => {
