@@ -1,6 +1,6 @@
 # WaVe
 
-![Licence: MIT](https://img.shields.io/badge/Licence-MIT-yellow?style=flat&labelColor=555) [![Open WaVe](https://img.shields.io/badge/Open-WaVe-orange?style=flat&labelColor=555)](https://imbeyondidentity.github.io/Wave/)
+![Licence: MIT](https://img.shields.io/badge/Licence-MIT-yellow?style=flat&labelColor=555) [![Open WaVe](https://img.shields.io/badge/Open-WaVe-orange?style=flat&labelColor=555)](https://imbeyondidentity.github.io/WaVe/)
 
 [English version](README.md)
 
